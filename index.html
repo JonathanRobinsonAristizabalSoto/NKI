@@ -80,6 +80,17 @@
         .floating-button:hover {
             animation: none;
         }
+
+        /* Estilos para el botón de WhatsApp */
+        .whatsapp-button {
+            bottom: 90px; /* Ajusta la posición para que esté encima del botón de pagos */
+            background-color: #25D366; /* Color de WhatsApp */
+            border: none; /* Sin borde */
+        }
+
+        .whatsapp-button:hover {
+            background-color: #128C7E; /* Color de WhatsApp al pasar el ratón */
+        }
     </style>
 </head>
 <body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
@@ -170,6 +181,11 @@
         <p class="text-sm">&copy; 2025. Todos los derechos reservados.</p>
     </footer>
 
+    <!-- Botón de WhatsApp -->
+    <div class="floating-button whatsapp-button" id="whatsapp-button">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
     <!-- Botón circular animado -->
     <div class="floating-button" id="pay-now-button">
         <i class="fas fa-credit-card"></i>
@@ -192,6 +208,10 @@
 
         document.getElementById('pay-now-button').addEventListener('click', function() {
             window.location.href = 'src/pages/payment.html';
+        });
+
+        document.getElementById('whatsapp-button').addEventListener('click', function() {
+            window.location.href = 'https://wa.me/1234567890'; // Reemplaza con el número de WhatsApp del club
         });
 
         function togglePayButton() {
