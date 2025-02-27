@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" class="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,8 @@
             right: 20px;
             width: 60px;
             height: 60px;
-            background-color: #2d3748; /* Usando el color secundario de la paleta */
+            background-color: #2d3748;
+            /* Usando el color secundario de la paleta */
             color: white;
             border-radius: 50%;
             display: flex;
@@ -26,12 +28,13 @@
             transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
             overflow: hidden;
             text-align: center;
-            border: 2px solid #090d23; /* Usando el color secundario de la paleta */
+            border: 2px solid #090d23;
+            /* Usando el color secundario de la paleta */
         }
 
         .floating-button:hover {
             transform: scale(1.1);
-            background-color: #e50234; 
+            background-color: #e50234;
         }
 
         .floating-button i,
@@ -43,7 +46,8 @@
         .floating-button span {
             display: none;
             font-size: 16px;
-            font-weight: bold; /* Texto en negrita */
+            font-weight: bold;
+            /* Texto en negrita */
             position: absolute;
             left: 50%;
             top: 50%;
@@ -58,6 +62,7 @@
             from {
                 transform: rotateY(0deg);
             }
+
             to {
                 transform: rotateY(360deg);
             }
@@ -69,9 +74,12 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.1);
             }
@@ -83,16 +91,21 @@
 
         /* Estilos para el botón de WhatsApp */
         .whatsapp-button {
-            bottom: 90px; /* Ajusta la posición para que esté encima del botón de pagos */
-            background-color: #25D366; /* Color de WhatsApp */
-            border: none; /* Sin borde */
+            bottom: 90px;
+            /* Ajusta la posición para que esté encima del botón de pagos */
+            background-color: #25D366;
+            /* Color de WhatsApp */
+            border: none;
+            /* Sin borde */
         }
 
         .whatsapp-button:hover {
-            background-color: #128C7E; /* Color de WhatsApp al pasar el ratón */
+            background-color: #128C7E;
+            /* Color de WhatsApp al pasar el ratón */
         }
     </style>
 </head>
+
 <body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
 
     <!-- 🌟 Header con menú hamburguesa -->
@@ -100,34 +113,43 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <!-- Botón de menú hamburguesa (solo en móvil) -->
             <button id="menu-btn" class="md:hidden focus:outline-none">
-                <svg class="w-8 h-8 text-gray-700 dark:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 text-gray-700 dark:text-white" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
             </button>
 
             <!-- Menú principal centrado -->
             <nav class="hidden md:flex space-x-6 mx-auto">
-                <a href="index.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
-                <a href="src/pages/history.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Historia</a>
-                <a href="src/pages/inscriptions.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
-                <a href="src/pages/Contactanos.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Contactanos</a>
+                <a href="index.html"
+                    class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
+                <a href="src/pages/history.html"
+                    class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Historia</a>
+                <a href="src/pages/inscriptions.html"
+                    class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
+                <a href="src/pages/Contactanos.html"
+                    class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Contactanos</a>
             </nav>
 
             <!-- Botón de flecha con tema -->
             <div class="relative">
-                <button id="dropdown-btn" class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-2">
+                <button id="dropdown-btn"
+                    class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-2">
                     <i id="theme-icon" class="fas fa-moon"></i>
                     <i id="dropdown-icon" class="fas fa-chevron-down"></i>
                 </button>
                 <!-- Menú desplegable -->
-                <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
-                    <a href="./src/pages/dashboard.html" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Dashboard</a>
+                <div id="dropdown-menu"
+                    class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
+                    <a href="./src/pages/dashboard.html"
+                        class="block px-4 py-2 text-sm text-primary dark:text-secondary">Dashboard</a>
                     <a href="#acerca-de" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Acerca de</a>
                     <a href="#politicas" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Políticas</a>
                     <a href="#contacto" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Contacto</a>
-                    
+
                     <!-- Botón de cambio de tema -->
-                    <button id="theme-toggle" class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
+                    <button id="theme-toggle"
+                        class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
                         <i id="menu-theme-icon" class="fas fa-moon"></i> Tema Dark
                     </button>
                 </div>
@@ -139,17 +161,22 @@
     <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
 
     <!-- Menú lateral -->
-    <div id="menu" class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform dark:bg-primary dark:text-white z-50">
+    <div id="menu"
+        class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform dark:bg-primary dark:text-white z-50">
         <div class="p-4">
             <button id="close-menu" class="text-gray-700 dark:text-white">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <nav class="flex flex-col space-y-4 p-4">
-            <a href="index.html" class="text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">Inicio</a>
-            <a href="src/pages/history.html" class="text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">Historia</a>
-            <a href="src/pages/inscriptions.html" class="text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">Inscripciones</a>
-            <a href="src/pages/team.html" class="text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">Contactanos</a>
+            <a href="index.html"
+                class="text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">Inicio</a>
+            <a href="src/pages/history.html"
+                class="text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">Historia</a>
+            <a href="src/pages/inscriptions.html"
+                class="text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">Inscripciones</a>
+            <a href="src/pages/team.html"
+                class="text-gray-700 hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">Contactanos</a>
         </nav>
     </div>
 
@@ -157,15 +184,19 @@
     <main class="flex flex-col items-center justify-center flex-grow text-center px-6">
         <!-- Logo -->
         <img id="logo" src="src/assets/img/logo2.svg" alt="FutbolGo Logo" class="w-44 h-44 md:w-52 md:h-52 dark:hidden">
-        <img id="logo-dark" src="src/assets/img/logo1.svg" alt="FutbolGo Logo" class="w-44 h-44 md:w-52 md:h-52 hidden dark:block">
+        <img id="logo-dark" src="src/assets/img/logo1.svg" alt="FutbolGo Logo"
+            class="w-44 h-44 md:w-52 md:h-52 hidden dark:block">
 
         <!-- Slogan -->
         <h1 class="text-4xl text-secondary mt-4 dark:text-white font-heading">"Formando el futuro"</h1>
 
         <!-- Botones -->
         <div class="mt-6 flex flex-col md:flex-row gap-4">
-            <a href="src/pages/auth/login.html" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">Iniciar Sesión</a>
-            <a href="src/pages/auth/register.html" class="bg-secondary text-white px-6 py-3 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">Registrarse</a>
+            <a href="src/pages/auth/login.html"
+                class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">Iniciar
+                Sesión</a>
+            <a href="src/pages/auth/register.html"
+                class="bg-secondary text-white px-6 py-3 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">Registrarse</a>
         </div>
     </main>
 
@@ -173,18 +204,22 @@
     <footer class="bg-white text-center py-4 dark:bg-primary dark:text-white">
         <!-- Íconos de redes sociales -->
         <div class="flex justify-center space-x-4 mb-4">
-          <a href="#" class="text-gray-700 dark:text-white hover:text-secondary dark:hover:text-secondary"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="text-gray-700 dark:text-white hover:text-secondary dark:hover:text-secondary"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-gray-700 dark:text-white hover:text-secondary dark:hover:text-secondary"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="text-gray-700 dark:text-white hover:text-secondary dark:hover:text-secondary"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="text-gray-700 dark:text-white hover:text-secondary dark:hover:text-secondary"><i
+                    class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-gray-700 dark:text-white hover:text-secondary dark:hover:text-secondary"><i
+                    class="fab fa-twitter"></i></a>
+            <a href="#" class="text-gray-700 dark:text-white hover:text-secondary dark:hover:text-secondary"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="#" class="text-gray-700 dark:text-white hover:text-secondary dark:hover:text-secondary"><i
+                    class="fab fa-youtube"></i></a>
         </div>
         <p class="text-sm">&copy; 2025. Todos los derechos reservados.</p>
     </footer>
 
     <!-- Botón de WhatsApp -->
-<div class="floating-button whatsapp-button" id="whatsapp-button">
-    <i class="fab fa-whatsapp" style="font-size: 32px;"></i> <!-- Ajusta el tamaño aquí -->
-</div>
+    <div class="floating-button whatsapp-button" id="whatsapp-button">
+        <i class="fab fa-whatsapp"></i>
+    </div>
 
     <!-- Botón circular animado -->
     <div class="floating-button" id="pay-now-button">
@@ -198,7 +233,7 @@
     <script src="./src/assets/js/theme-toggle.js" defer></script>
 
     <script>
-        document.getElementById('dropdown-btn').addEventListener('click', function() {
+        document.getElementById('dropdown-btn').addEventListener('click', function () {
             const dropdownMenu = document.getElementById('dropdown-menu');
             const dropdownIcon = document.getElementById('dropdown-icon');
             dropdownMenu.classList.toggle('hidden');
@@ -206,12 +241,12 @@
             dropdownIcon.classList.toggle('fa-chevron-up');
         });
 
-        document.getElementById('pay-now-button').addEventListener('click', function() {
+        document.getElementById('pay-now-button').addEventListener('click', function () {
             window.location.href = 'src/pages/payment.html';
         });
 
-        document.getElementById('whatsapp-button').addEventListener('click', function() {
-            window.location.href = 'https://wa.me/+573207763644'; // Reemplaza con el número de WhatsApp del club
+        document.getElementById('whatsapp-button').addEventListener('click', function () {
+            window.location.href = 'https://wa.me/+573207763644?text=Hola%20,%20Deseo%20obtener%20información%20acerca%20del%20club,%20inscripciones,%20horarios%20y%20precios'; // Reemplaza con el número de WhatsApp del club
         });
 
         function togglePayButton() {
@@ -238,4 +273,5 @@
     </script>
 
 </body>
+
 </html>
