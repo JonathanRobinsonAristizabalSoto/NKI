@@ -675,6 +675,27 @@ CREATE INDEX idx_pagos_fecha_estado ON pagos(fecha_pago, estado);
 CREATE INDEX idx_pagos_jugador_estado ON pagos(jugador_id, estado);
 
 -- ========================
+-- 📝 Inscripciones
+-- ========================
+CREATE TABLE inscripciones (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    jugador_id INT UNSIGNED NOT NULL,
+    tipo ENUM('Inscripcion', 'Mensualidad', 'Torneo') NOT NULL,
+    descripcion VARCHAR(255) DEFAULT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    fecha_inscripcion DATE NOT NULL,
+    pago_id INT UNSIGNED,
+    estado ENUM('Pendiente', 'Pagada', 'Cancelada') DEFAULT 'Pendiente',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE,
+    FOREIGN KEY (pago_id) REFERENCES pagos(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Inscripciones de jugadores: inscripción, mensualidad o torneo';
+
+CREATE INDEX idx_inscripciones_jugador_tipo ON inscripciones(jugador_id, tipo);
+CREATE INDEX idx_inscripciones_estado ON inscripciones(estado);
+
+-- ========================
 -- 🕓 Historial de pagos
 -- ========================
 CREATE TABLE historial_pagos (

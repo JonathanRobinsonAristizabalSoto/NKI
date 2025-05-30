@@ -31,6 +31,8 @@ Sistema de gestión para la Escuela y Club de Fútbol NKI. Permite administrar j
 
 ## 📁 Estructura del Proyecto (Alfabética y Modular)
 
+## 📁 Estructura del Proyecto (Alfabética y Modular)
+
 ```
 NKI/
 ├── client/
@@ -83,6 +85,7 @@ NKI/
 │   │   │   │   │   ├── eventos.js
 │   │   │   │   │   ├── historialpagos.js
 │   │   │   │   │   ├── indumentaria.js
+│   │   │   │   │   ├── inscripciones.js
 │   │   │   │   │   ├── inventario.js
 │   │   │   │   │   ├── jugadores.js
 │   │   │   │   │   ├── noticias.js
@@ -103,6 +106,7 @@ NKI/
 │   │   │   │   ├── tests/
 │   │   │   │   │   ├── usuarios.test.js
 │   │   │   │   │   ├── pagos.test.js
+│   │   │   │   │   ├── inscripciones.test.js
 │   │   │   │   ├── utils/
 │   │   │   │   │   ├── dateformat.js
 │   │   │   │   │   ├── helpers.js
@@ -140,6 +144,8 @@ NKI/
 │   │   │   ├── info/
 │   │   │   │   ├── about.html
 │   │   │   │   ├── contact.html
+│   │   │   ├── inscripciones/
+│   │   │   │   ├── inscripciones.html
 │   │   │   ├── inventario/
 │   │   │   │   ├── inventario.html
 │   │   │   ├── jugadores/
@@ -215,6 +221,7 @@ NKI/
 │   │   │   ├── HistorialPagosController.php
 │   │   │   ├── IndumentariaController.php
 │   │   │   ├── InventarioController.php
+│   │   │   ├── InscripcionesController.php
 │   │   │   ├── JugadoresController.php
 │   │   │   ├── NoticiasController.php
 │   │   │   ├── NotificacionesController.php
@@ -253,6 +260,7 @@ NKI/
 │   │   │   ├── HistorialPago.php
 │   │   │   ├── Indumentaria.php
 │   │   │   ├── Inventario.php
+│   │   │   ├── Inscripcion.php
 │   │   │   ├── Jugador.php
 │   │   │   ├── Noticia.php
 │   │   │   ├── Notificacion.php
@@ -275,9 +283,11 @@ NKI/
 │   │   │   ├── controllers/
 │   │   │   │   ├── UsuariosControllerTest.php
 │   │   │   │   ├── PagosControllerTest.php
+│   │   │   │   ├── InscripcionesControllerTest.php
 │   │   │   ├── models/
 │   │   │   │   ├── UsuariosModelTest.php
 │   │   │   │   ├── PagosModelTest.php
+│   │   │   │   ├── InscripcionesModelTest.php
 │   │   ├── utils/
 │   │   │   ├── DateHelper.php
 │   │   │   ├── Helpers.php
@@ -299,6 +309,7 @@ NKI/
 │   │   │   ├── HistorialPagosValidation.php
 │   │   │   ├── IndumentariaValidation.php
 │   │   │   ├── InventarioValidation.php
+│   │   │   ├── InscripcionesValidation.php
 │   │   │   ├── JugadoresValidation.php
 │   │   │   ├── NoticiasValidation.php
 │   │   │   ├── NotificacionesValidation.php
