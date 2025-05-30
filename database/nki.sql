@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2025 a las 21:13:05
+-- Tiempo de generación: 31-05-2025 a las 01:32:41
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -113,14 +113,39 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `edad_minima`, `edad_maxima`, `estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Baby', 'Iniciación (2019–2021)', 4, 6, 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(2, 'Mini', 'Microfútbol o Escuela (2017–2018)', 7, 8, 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(3, 'Preinfantil', 'Pony Fútbol (edades iniciales) (2015–2016)', 9, 10, 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(4, 'Infantil', 'Categoría Pony Fútbol oficial (2013–2014)', 11, 12, 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(5, 'Prejuvenil', 'Torneo Nacional Sub-13/Sub-14 (2011–2012)', 13, 14, 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(6, 'Juvenil', 'Sub-15/Sub-16 (2009–2010)', 15, 16, 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(7, 'Junior', 'Sub-17/Sub-18 (2007–2008)', 17, 18, 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(8, 'Sub-20', 'Torneo Nacional Sub-20 (Difútbol) (2005–2006)', 19, 20, 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL);
+(1, 'Baby', 'Iniciación (2019–2021)', 4, 6, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(2, 'Mini', 'Microfútbol o Escuela (2017–2018)', 7, 8, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(3, 'Preinfantil', 'Pony Fútbol (edades iniciales) (2015–2016)', 9, 10, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(4, 'Infantil', 'Categoría Pony Fútbol oficial (2013–2014)', 11, 12, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(5, 'Prejuvenil', 'Torneo Nacional Sub-13/Sub-14 (2011–2012)', 13, 14, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(6, 'Juvenil', 'Sub-15/Sub-16 (2009–2010)', 15, 16, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(7, 'Junior', 'Sub-17/Sub-18 (2007–2008)', 17, 18, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(8, 'Sub-20', 'Torneo Nacional Sub-20 (Difútbol) (2005–2006)', 19, 20, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `conceptos_cobro`
+--
+
+CREATE TABLE `conceptos_cobro` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  `estado` enum('Activo','Inactivo') DEFAULT 'Activo',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Valores y detalles de cobros del club (inscripción, mensualidad, torneo, etc)';
+
+--
+-- Volcado de datos para la tabla `conceptos_cobro`
+--
+
+INSERT INTO `conceptos_cobro` (`id`, `nombre`, `descripcion`, `valor`, `estado`, `created_at`, `updated_at`) VALUES
+(1, 'Inscripcion', 'Valor de inscripción al club', 35000.00, 'Activo', '2025-05-30 23:31:59', '2025-05-30 23:31:59'),
+(2, 'Mensualidad', 'Pago mensual por pertenecer al club', 53000.00, 'Activo', '2025-05-30 23:31:59', '2025-05-30 23:31:59'),
+(3, 'Torneo', 'Valor de participación en torneo', 35000.00, 'Activo', '2025-05-30 23:31:59', '2025-05-30 23:31:59');
 
 -- --------------------------------------------------------
 
@@ -376,9 +401,9 @@ CREATE TABLE `pagos` (
   `id` int(10) UNSIGNED NOT NULL,
   `tutor_id` int(10) UNSIGNED NOT NULL,
   `jugador_id` int(10) UNSIGNED NOT NULL,
+  `concepto_id` int(10) UNSIGNED NOT NULL,
   `monto` decimal(10,2) NOT NULL CHECK (`monto` > 0),
-  `metodo_pago` enum('Efectivo','Transferencia','Tarjeta','PayPal') NOT NULL,
-  `concepto` varchar(100) DEFAULT 'Mensualidad',
+  `metodo_pago` enum('Efectivo','Transferencia','Tarjeta','Paypal','PSE') NOT NULL,
   `referencia` varchar(50) DEFAULT NULL,
   `fecha_pago` datetime DEFAULT current_timestamp(),
   `estado` enum('Pendiente','Pagado','Vencido','Rechazado') NOT NULL DEFAULT 'Pendiente',
@@ -486,26 +511,26 @@ CREATE TABLE `permisos` (
 --
 
 INSERT INTO `permisos` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Ver Usuarios', 'Permiso para ver usuarios', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(2, 'Crear Usuarios', 'Permiso para crear usuarios', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(3, 'Editar Usuarios', 'Permiso para editar usuarios', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(4, 'Eliminar Usuarios', 'Permiso para eliminar usuarios', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(5, 'Ver Entrenamientos', 'Permiso para ver entrenamientos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(6, 'Crear Entrenamientos', 'Permiso para crear entrenamientos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(7, 'Editar Entrenamientos', 'Permiso para editar entrenamientos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(8, 'Eliminar Entrenamientos', 'Permiso para eliminar entrenamientos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(9, 'Ver Partidos', 'Permiso para ver partidos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(10, 'Crear Partidos', 'Permiso para crear partidos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(11, 'Editar Partidos', 'Permiso para editar partidos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(12, 'Eliminar Partidos', 'Permiso para eliminar partidos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(13, 'Ver Estadisticas', 'Permiso para ver estadísticas', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(14, 'Crear Estadisticas', 'Permiso para crear estadísticas', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(15, 'Editar Estadisticas', 'Permiso para editar estadísticas', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(16, 'Eliminar Estadisticas', 'Permiso para eliminar estadísticas', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(17, 'Ver Pagos', 'Permiso para ver pagos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(18, 'Crear Pagos', 'Permiso para crear pagos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(19, 'Editar Pagos', 'Permiso para editar pagos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(20, 'Eliminar Pagos', 'Permiso para eliminar pagos', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL);
+(1, 'Ver Usuarios', 'Permiso para ver usuarios', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(2, 'Crear Usuarios', 'Permiso para crear usuarios', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(3, 'Editar Usuarios', 'Permiso para editar usuarios', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(4, 'Eliminar Usuarios', 'Permiso para eliminar usuarios', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(5, 'Ver Entrenamientos', 'Permiso para ver entrenamientos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(6, 'Crear Entrenamientos', 'Permiso para crear entrenamientos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(7, 'Editar Entrenamientos', 'Permiso para editar entrenamientos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(8, 'Eliminar Entrenamientos', 'Permiso para eliminar entrenamientos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(9, 'Ver Partidos', 'Permiso para ver partidos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(10, 'Crear Partidos', 'Permiso para crear partidos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(11, 'Editar Partidos', 'Permiso para editar partidos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(12, 'Eliminar Partidos', 'Permiso para eliminar partidos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(13, 'Ver Estadisticas', 'Permiso para ver estadísticas', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(14, 'Crear Estadisticas', 'Permiso para crear estadísticas', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(15, 'Editar Estadisticas', 'Permiso para editar estadísticas', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(16, 'Eliminar Estadisticas', 'Permiso para eliminar estadísticas', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(17, 'Ver Pagos', 'Permiso para ver pagos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(18, 'Crear Pagos', 'Permiso para crear pagos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(19, 'Editar Pagos', 'Permiso para editar pagos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(20, 'Eliminar Pagos', 'Permiso para eliminar pagos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -528,18 +553,18 @@ CREATE TABLE `posiciones` (
 --
 
 INSERT INTO `posiciones` (`id`, `nombre`, `descripcion`, `estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'POR', 'Portero: Único que puede usar las manos en su área.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(2, 'DC', 'Defensa Central: Intercepta ataques por el centro.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(3, 'LD', 'Lateral Derecho: Defensa por la banda derecha.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(4, 'LI', 'Lateral Izquierdo: Defensa por la banda izquierda.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(5, 'LIB', 'Líbero: Defensa centralizado, último hombre.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(6, 'MCD', 'Mediocentro Defensivo: Recupera balones, protege a la defensa.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(7, 'MCO', 'Mediocentro Ofensivo: Crea juego ofensivo.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(8, 'MC', 'Mediocampista Central: Distribuye el juego desde el centro.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(9, 'ED', 'Extremo Derecho: Ataca por la banda derecha.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(10, 'EI', 'Extremo Izquierdo: Ataca por la banda izquierda.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(11, 'DCEN', 'Delantero Centro: Principal atacante, encargado de anotar goles.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(12, 'SD', 'Segundo Delantero: Apoya al delantero centro, se mueve libremente en el frente.', 'Activo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL);
+(1, 'POR', 'Portero: Único que puede usar las manos en su área.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(2, 'DC', 'Defensa Central: Intercepta ataques por el centro.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(3, 'LD', 'Lateral Derecho: Defensa por la banda derecha.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(4, 'LI', 'Lateral Izquierdo: Defensa por la banda izquierda.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(5, 'LIB', 'Líbero: Defensa centralizado, último hombre.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(6, 'MCD', 'Mediocentro Defensivo: Recupera balones, protege a la defensa.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(7, 'MCO', 'Mediocentro Ofensivo: Crea juego ofensivo.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(8, 'MC', 'Mediocampista Central: Distribuye el juego desde el centro.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(9, 'ED', 'Extremo Derecho: Ataca por la banda derecha.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(10, 'EI', 'Extremo Izquierdo: Ataca por la banda izquierda.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(11, 'DCEN', 'Delantero Centro: Principal atacante, encargado de anotar goles.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
+(12, 'SD', 'Segundo Delantero: Apoya al delantero centro, se mueve libremente en el frente.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -580,11 +605,11 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Administrador', 'Rol con acceso completo al sistema', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(2, 'Jugador', 'Rol para los jugadores del equipo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(3, 'Entrenador', 'Rol para los entrenadores del equipo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(4, 'Asistente', 'Rol para los asistentes del equipo', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL),
-(5, 'Tutor', 'Rol para los tutores de los jugadores', '2025-05-30 19:12:48', '2025-05-30 19:12:48', '2025-05-30 19:12:48', NULL);
+(1, 'Administrador', 'Rol con acceso completo al sistema', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(2, 'Jugador', 'Rol para los jugadores del equipo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(3, 'Entrenador', 'Rol para los entrenadores del equipo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(4, 'Asistente', 'Rol para los asistentes del equipo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
+(5, 'Tutor', 'Rol para los tutores de los jugadores', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -605,49 +630,49 @@ CREATE TABLE `roles_permisos` (
 --
 
 INSERT INTO `roles_permisos` (`id`, `rol_id`, `permiso_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(2, 1, 2, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(3, 1, 3, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(4, 1, 4, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(5, 1, 5, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(6, 1, 6, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(7, 1, 7, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(8, 1, 8, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(9, 1, 9, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(10, 1, 10, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(11, 1, 11, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(12, 1, 12, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(13, 1, 13, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(14, 1, 14, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(15, 1, 15, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(16, 1, 16, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(17, 1, 17, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(18, 1, 18, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(19, 1, 19, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(20, 1, 20, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(32, 2, 5, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(33, 2, 9, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(34, 2, 13, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(35, 3, 1, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(36, 3, 5, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(37, 3, 6, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(38, 3, 7, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(39, 3, 8, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(40, 3, 9, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(41, 3, 10, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(42, 3, 11, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(43, 3, 12, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(44, 3, 13, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(45, 3, 14, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(46, 3, 15, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(47, 3, 16, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(50, 4, 5, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(51, 4, 7, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(52, 4, 9, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(53, 4, 11, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(57, 5, 1, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(58, 5, 13, '2025-05-30 19:12:48', '2025-05-30 19:12:48'),
-(59, 5, 17, '2025-05-30 19:12:48', '2025-05-30 19:12:48');
+(1, 1, 1, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(2, 1, 2, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(3, 1, 3, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(4, 1, 4, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(5, 1, 5, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(6, 1, 6, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(7, 1, 7, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(8, 1, 8, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(9, 1, 9, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(10, 1, 10, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(11, 1, 11, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(12, 1, 12, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(13, 1, 13, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(14, 1, 14, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(15, 1, 15, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(16, 1, 16, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(17, 1, 17, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(18, 1, 18, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(19, 1, 19, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(20, 1, 20, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(32, 2, 5, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(33, 2, 9, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(34, 2, 13, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(35, 3, 1, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(36, 3, 5, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(37, 3, 6, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(38, 3, 7, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(39, 3, 8, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(40, 3, 9, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(41, 3, 10, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(42, 3, 11, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(43, 3, 12, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(44, 3, 13, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(45, 3, 14, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(46, 3, 15, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(47, 3, 16, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(50, 4, 5, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(51, 4, 7, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(52, 4, 9, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(53, 4, 11, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(57, 5, 1, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(58, 5, 13, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
+(59, 5, 17, '2025-05-30 23:31:56', '2025-05-30 23:31:56');
 
 -- --------------------------------------------------------
 
@@ -702,7 +727,7 @@ CREATE TABLE `transacciones` (
   `id` int(10) UNSIGNED NOT NULL,
   `pedido_id` int(10) UNSIGNED DEFAULT NULL,
   `monto` decimal(10,2) DEFAULT NULL CHECK (`monto` >= 0),
-  `metodo_pago` enum('Transferencia','Efectivo','Tarjeta','PSE','Otro') DEFAULT 'Otro',
+  `metodo_pago` enum('Efectivo','Transferencia','Tarjeta','Paypal','PSE') DEFAULT 'Paypal',
   `estado_transaccion` enum('Pendiente','Completada','Fallida','Reembolsada') DEFAULT 'Pendiente',
   `transaccion_id` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -817,9 +842,9 @@ CREATE TABLE `vista_pagos_pendientes` (
 `id` int(10) unsigned
 ,`tutor_id` int(10) unsigned
 ,`jugador_id` int(10) unsigned
+,`concepto_id` int(10) unsigned
 ,`monto` decimal(10,2)
-,`metodo_pago` enum('Efectivo','Transferencia','Tarjeta','PayPal')
-,`concepto` varchar(100)
+,`metodo_pago` enum('Efectivo','Transferencia','Tarjeta','Paypal','PSE')
 ,`referencia` varchar(50)
 ,`fecha_pago` datetime
 ,`estado` enum('Pendiente','Pagado','Vencido','Rechazado')
@@ -878,7 +903,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vista_pagos_pendientes`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_pagos_pendientes`  AS SELECT `pagos`.`id` AS `id`, `pagos`.`tutor_id` AS `tutor_id`, `pagos`.`jugador_id` AS `jugador_id`, `pagos`.`monto` AS `monto`, `pagos`.`metodo_pago` AS `metodo_pago`, `pagos`.`concepto` AS `concepto`, `pagos`.`referencia` AS `referencia`, `pagos`.`fecha_pago` AS `fecha_pago`, `pagos`.`estado` AS `estado`, `pagos`.`created_at` AS `created_at`, `pagos`.`updated_at` AS `updated_at`, `pagos`.`deleted_at` AS `deleted_at` FROM `pagos` WHERE `pagos`.`estado` = 'Pendiente' AND `pagos`.`deleted_at` is null ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_pagos_pendientes`  AS SELECT `pagos`.`id` AS `id`, `pagos`.`tutor_id` AS `tutor_id`, `pagos`.`jugador_id` AS `jugador_id`, `pagos`.`concepto_id` AS `concepto_id`, `pagos`.`monto` AS `monto`, `pagos`.`metodo_pago` AS `metodo_pago`, `pagos`.`referencia` AS `referencia`, `pagos`.`fecha_pago` AS `fecha_pago`, `pagos`.`estado` AS `estado`, `pagos`.`created_at` AS `created_at`, `pagos`.`updated_at` AS `updated_at`, `pagos`.`deleted_at` AS `deleted_at` FROM `pagos` WHERE `pagos`.`estado` = 'Pendiente' AND `pagos`.`deleted_at` is null ;
 
 -- --------------------------------------------------------
 
@@ -933,6 +958,12 @@ ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `idx_categorias_nombre` (`nombre`),
   ADD KEY `idx_categorias_estado` (`estado`);
+
+--
+-- Indices de la tabla `conceptos_cobro`
+--
+ALTER TABLE `conceptos_cobro`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `configuracion_pagos`
@@ -1040,7 +1071,8 @@ ALTER TABLE `pagos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_pagos_tutor_jugador_estado` (`tutor_id`,`jugador_id`,`estado`),
   ADD KEY `idx_pagos_fecha_estado` (`fecha_pago`,`estado`),
-  ADD KEY `idx_pagos_jugador_estado` (`jugador_id`,`estado`);
+  ADD KEY `idx_pagos_jugador_estado` (`jugador_id`,`estado`),
+  ADD KEY `idx_pagos_concepto` (`concepto_id`);
 
 --
 -- Indices de la tabla `partidos`
@@ -1182,6 +1214,12 @@ ALTER TABLE `auditoria`
 --
 ALTER TABLE `categorias`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `conceptos_cobro`
+--
+ALTER TABLE `conceptos_cobro`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracion_pagos`
@@ -1431,7 +1469,8 @@ ALTER TABLE `notificaciones`
 --
 ALTER TABLE `pagos`
   ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`tutor_id`) REFERENCES `tutores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`jugador_id`) REFERENCES `jugadores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`jugador_id`) REFERENCES `jugadores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pagos_ibfk_3` FOREIGN KEY (`concepto_id`) REFERENCES `conceptos_cobro` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `password_resets`

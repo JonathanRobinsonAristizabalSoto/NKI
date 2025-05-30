@@ -598,7 +598,7 @@ CREATE TABLE transacciones (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     pedido_id INT UNSIGNED,
     monto DECIMAL(10,2) CHECK (monto >= 0),
-    metodo_pago ENUM('Transferencia', 'Efectivo', 'Tarjeta', 'PSE', 'Otro') DEFAULT 'Otro',
+    metodo_pago ENUM('Efectivo', 'Transferencia', 'Tarjeta', 'Paypal', 'PSE') DEFAULT 'Paypal',
     estado_transaccion ENUM('Pendiente', 'Completada', 'Fallida', 'Reembolsada') DEFAULT 'Pendiente',
     transaccion_id VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -651,15 +651,33 @@ CREATE INDEX idx_eventos_fecha_estado ON eventos(fecha, estado);
 CREATE INDEX idx_eventos_tipo_estado ON eventos(tipo, estado);
 
 -- ========================
--- 💰 Pagos
+-- 💲 Conceptos de Cobro (Inscripción, Mensualidad, Torneo, etc.)
+-- ========================
+CREATE TABLE conceptos_cobro (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(255) DEFAULT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    estado ENUM('Activo', 'Inactivo') DEFAULT 'Activo',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Valores y detalles de cobros del club (inscripción, mensualidad, torneo, etc)';
+
+INSERT INTO conceptos_cobro (nombre, descripcion, valor) VALUES
+('Inscripcion', 'Valor de inscripción al club', 35000),
+('Mensualidad', 'Pago mensual por pertenecer al club', 53000),
+('Torneo', 'Valor de participación en torneo', 35000);
+
+-- ========================
+-- 💳 Pagos
 -- ========================
 CREATE TABLE pagos (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     tutor_id INT UNSIGNED NOT NULL, 
     jugador_id INT UNSIGNED NOT NULL, 
+    concepto_id INT UNSIGNED NOT NULL,
     monto DECIMAL(10,2) NOT NULL CHECK (monto > 0), 
-    metodo_pago ENUM('Efectivo', 'Transferencia', 'Tarjeta', 'PayPal') NOT NULL, 
-    concepto VARCHAR(100) DEFAULT 'Mensualidad',
+    metodo_pago ENUM('Efectivo', 'Transferencia', 'Tarjeta', 'Paypal', 'PSE') NOT NULL, 
     referencia VARCHAR(50) NULL, 
     fecha_pago DATETIME DEFAULT CURRENT_TIMESTAMP, 
     estado ENUM('Pendiente', 'Pagado', 'Vencido', 'Rechazado') NOT NULL DEFAULT 'Pendiente', 
@@ -667,33 +685,14 @@ CREATE TABLE pagos (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
     deleted_at TIMESTAMP NULL,
     FOREIGN KEY (tutor_id) REFERENCES tutores(id) ON DELETE CASCADE ON UPDATE CASCADE, 
-    FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE ON UPDATE CASCADE 
+    FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (concepto_id) REFERENCES conceptos_cobro(id) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Pagos realizados por tutores para jugadores';
 
 CREATE INDEX idx_pagos_tutor_jugador_estado ON pagos(tutor_id, jugador_id, estado);
 CREATE INDEX idx_pagos_fecha_estado ON pagos(fecha_pago, estado);
 CREATE INDEX idx_pagos_jugador_estado ON pagos(jugador_id, estado);
-
--- ========================
--- 📝 Inscripciones
--- ========================
-CREATE TABLE inscripciones (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    jugador_id INT UNSIGNED NOT NULL,
-    tipo ENUM('Inscripcion', 'Mensualidad', 'Torneo') NOT NULL,
-    descripcion VARCHAR(255) DEFAULT NULL,
-    valor DECIMAL(10,2) NOT NULL,
-    fecha_inscripcion DATE NOT NULL,
-    pago_id INT UNSIGNED,
-    estado ENUM('Pendiente', 'Pagada', 'Cancelada') DEFAULT 'Pendiente',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE,
-    FOREIGN KEY (pago_id) REFERENCES pagos(id) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Inscripciones de jugadores: inscripción, mensualidad o torneo';
-
-CREATE INDEX idx_inscripciones_jugador_tipo ON inscripciones(jugador_id, tipo);
-CREATE INDEX idx_inscripciones_estado ON inscripciones(estado);
+CREATE INDEX idx_pagos_concepto ON pagos(concepto_id);
 
 -- ========================
 -- 🕓 Historial de pagos
@@ -784,10 +783,6 @@ BEGIN
     INSERT INTO auditoria (usuario_id, accion, descripcion, tabla_afectada, created_at)
     VALUES (OLD.id, 'DELETE', CONCAT('Usuario eliminado: ', OLD.nombre, ' ', OLD.apellido), 'usuarios', NOW());
 END $$
-
--- ========================
--- 🛡️ TRIGGERS ADICIONALES DE AUDITORÍA PARA JUGADORES Y PAGOS
--- ========================
 
 CREATE TRIGGER tr_jugadores_update_auditoria
 AFTER UPDATE ON jugadores
