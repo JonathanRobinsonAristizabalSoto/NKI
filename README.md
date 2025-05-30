@@ -91,7 +91,6 @@ NKI/
 │   │   │   │   │   ├── notificaciones.js
 │   │   │   │   │   ├── pagos.js
 │   │   │   │   │   ├── partidos.js
-│   │   │   │   │   ├── passwordresets.js
 │   │   │   │   │   ├── pedidos.js
 │   │   │   │   │   ├── permisos.js
 │   │   │   │   │   ├── posiciones.js
@@ -104,9 +103,8 @@ NKI/
 │   │   │   │   │   ├── tutores.js
 │   │   │   │   │   ├── usuarios.js
 │   │   │   │   ├── tests/
-│   │   │   │   │   ├── pages/
-│   │   │   │   │   │   ├── usuarios.test.js
-│   │   │   │   │   │   ├── pagos.test.js
+│   │   │   │   │   ├── usuarios.test.js
+│   │   │   │   │   ├── pagos.test.js
 │   │   │   │   ├── utils/
 │   │   │   │   │   ├── dateformat.js
 │   │   │   │   │   ├── helpers.js
@@ -141,6 +139,9 @@ NKI/
 │   │   │   │   ├── historialpagos.html
 │   │   │   ├── indumentaria/
 │   │   │   │   ├── indumentaria.html
+│   │   │   ├── info/
+│   │   │   │   ├── about.html
+│   │   │   │   ├── contact.html
 │   │   │   ├── inventario/
 │   │   │   │   ├── inventario.html
 │   │   │   ├── jugadores/
@@ -153,8 +154,6 @@ NKI/
 │   │   │   │   ├── pagos.html
 │   │   │   ├── partidos/
 │   │   │   │   ├── partidos.html
-│   │   │   ├── passwordresets/
-│   │   │   │   ├── passwordresets.html
 │   │   │   ├── pedidos/
 │   │   │   │   ├── pedidos.html
 │   │   │   ├── permisos/
