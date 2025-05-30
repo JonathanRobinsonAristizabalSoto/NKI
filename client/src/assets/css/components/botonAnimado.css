@@ -1,0 +1,94 @@
+/* Estilos para el botón circular animado */
+.floating-button {
+    position: fixed;
+    bottom: 60px; /* Subido desde 20px a 80px */
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #2d3748;
+    /* Usando el color secundario de la paleta */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    overflow: hidden;
+    text-align: center;
+    border: 2px solid #090d23;
+    /* Usando el color secundario de la paleta */
+}
+
+.floating-button:hover {
+    transform: scale(1.1);
+    background-color: #e50234;
+}
+
+.floating-button i,
+.floating-button span {
+    font-size: 24px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.floating-button span {
+    display: none;
+    font-size: 16px;
+    font-weight: bold;
+    /* Texto en negrita */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.floating-button.expanded {
+    animation: spin 1s linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+/* Mejora de animaciones y estilos */
+.floating-button {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.floating-button:hover {
+    animation: none;
+}
+
+/* Estilos para el botón de WhatsApp */
+.whatsapp-button {
+    bottom: 130px; /* Subido desde 90px a 140px */
+    /* Ajusta la posición para que esté encima del botón de pagos */
+    background-color: #25D366;
+    /* Color de WhatsApp */
+    border: none;
+    /* Sin borde */
+}
+
+.whatsapp-button:hover {
+    background-color: #128C7E;
+    /* Color de WhatsApp al pasar el ratón */
+}

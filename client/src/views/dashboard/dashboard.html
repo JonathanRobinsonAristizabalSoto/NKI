@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NKI - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/components/menu_hambur_dash.css">
+    <script src="../assets/js/jquery/jquery-3.7.1.min.js"></script>
+</head>
+
+<body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
+
+    <!-- Header -->
+    <header
+        class="flex justify-between items-center h-16 bg-white dark:bg-primary text-primary dark:text-secondary text-xl font-bold px-4 relative">
+        <!-- Botón de menú hamburguesa -->
+        <div class="flex items-center">
+            <button id="menu-btn" class="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="absolute left-1/2 text-secondary dark:text-white transform -translate-x-1/2">NKI FUTBOL CLUB</div>
+        <div class="flex items-center space-x-5">
+            <!-- Icono de flecha -->
+            <div class="relative">
+                <button id="dropdown-btn"
+                    class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-5">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                    <i id="dropdown-icon" class="fas fa-chevron-down"></i>
+                </button>
+                <!-- Menú desplegable -->
+                <div id="dropdown-menu"
+                    class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
+                    <a href="#perfil" class="block px-4 py-2 text-sm text-primary dark:text-white">Perfil</a>
+                    <a href="#configuracion"
+                        class="block px-4 py-2 text-sm text-primary dark:text-white">Configuración</a>
+                    <a href="../../index.html" class="block px-4 py-2 text-sm text-primary dark:text-white"
+                        onclick="logout()">Salir</a>
+                    <!-- Botón de cambio de tema -->
+                    <button id="theme-toggle"
+                        class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
+                        <i id="menu-theme-icon" class="fas fa-moon"></i> Tema Dark
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm z-30 hidden">
+    </div>
+
+    <!-- 🌟 Barra lateral -->
+    <aside id="menu"
+        class="w-76 bg-white shadow-lg dark:bg-primary dark:text-white fixed top-0 left-0 h-full z-40 transform -translate-x-full transition-transform duration-300">
+        <nav class="flex flex-col space-y-4 p-4 mt-2">
+            <h2 class="text-center text-xl text-secondary dark:text-white font-bold">MENU</h2>
+            <div class="border-t pt-4 border-primary dark:border-white">
+                <button
+                    class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
+                    onclick="toggleSubmenu('usuarios-roles-submenu', this)">
+                    <span class="flex items-center space-x-5"><i
+                            class="fas fa-users text-secondary dark:text-white"></i> <span>Usuarios y
+                            Roles</span></span>
+                    <i class="fas fa-chevron-down dark:text-white"></i>
+                </button>
+                <div id="usuarios-roles-submenu" class="hidden">
+                    <a href="#usuarios" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Usuarios</a>
+                    <a href="#roles" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Roles</a>
+                </div>
+            </div>
+            <div class="border-t pt-4 border-primary dark:border-white">
+                <button
+                    class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
+                    onclick="toggleSubmenu('estructura-equipo-submenu', this)">
+                    <span class="flex items-center space-x-5"><i
+                            class="fas fa-sitemap text-secondary dark:text-white"></i> <span>Estructura del
+                            Equipo</span></span>
+                    <i class="fas fa-chevron-down dark:text-white"></i>
+                </button>
+                <div id="estructura-equipo-submenu" class="hidden">
+                    <a href="#equipos" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Mi Equipo</a>
+                    <a href="#jugadores" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Jugadores</a>
+                    <a href="#posiciones"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Posiciones</a>
+                    <a href="#tutores" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Tutores</a>
+                    <a href="#entrenadores"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Entrenadores</a>
+                    <a href="#asistentes"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Asistentes</a>
+                    <a href="#medicos" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Médicos</a>
+                    <a href="#aficionados"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Aficionados</a>
+                </div>
+            </div>
+            <div class="border-t pt-4 border-primary dark:border-white">
+                <button
+                    class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
+                    onclick="toggleSubmenu('entrenamientos-partidos-submenu', this)">
+                    <span class="flex items-center space-x-5"><i
+                            class="fas fa-futbol text-secondary dark:text-white"></i> <span>Entrenamientos y
+                            Partidos</span></span>
+                    <i class="fas fa-chevron-down dark:text-white"></i>
+                </button>
+                <div id="entrenamientos-partidos-submenu" class="hidden">
+                    <a href="#entrenamientos"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Entrenamientos</a>
+                    <a href="#asistencia"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Asistencia</a>
+                    <a href="#partidos" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Partidos</a>
+                    <a href="#alineaciones"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Alineaciones</a>
+                    <a href="#estadisticas"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Estadísticas</a>
+                </div>
+            </div>
+            <div class="border-t pt-4 border-primary dark:border-white">
+                <button
+                    class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
+                    onclick="toggleSubmenu('gestion-medica-submenu', this)">
+                    <span class="flex items-center space-x-5"><i
+                            class="fas fa-heartbeat text-secondary dark:text-white"></i> <span>Gestión
+                            Médica</span></span>
+                    <i class="fas fa-chevron-down dark:text-white"></i>
+                </button>
+                <div id="gestion-medica-submenu" class="hidden">
+                    <a href="#lesiones" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Lesiones</a>
+                    <a href="#tratamientos"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Tratamientos</a>
+                    <a href="#recuperaciones"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Recuperaciones</a>
+                </div>
+            </div>
+            <div class="border-t pt-4 border-primary dark:border-white">
+                <button
+                    class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
+                    onclick="toggleSubmenu('indumentaria-equipamiento-submenu', this)">
+                    <span class="flex items-center space-x-5"><i
+                            class="fas fa-tshirt text-secondary dark:text-white"></i> <span>Equipamiento</span></span>
+                    <i class="fas fa-chevron-down dark:text-white"></i>
+                </button>
+                <div id="indumentaria-equipamiento-submenu" class="hidden">
+                    <a href="#indumentaria"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Indumentaria</a>
+                    <a href="#inventario"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Inventario</a>
+                </div>
+            </div>
+            <div class="border-t pt-4 border-primary dark:border-white">
+                <button
+                    class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
+                    onclick="toggleSubmenu('interaccion-comunidad-submenu', this)">
+                    <span class="flex items-center space-x-5"><i
+                            class="fas fa-comments text-secondary dark:text-white"></i> <span>Interacción y
+                            Comunidad</span></span>
+                    <i class="fas fa-chevron-down dark:text-white"></i>
+                </button>
+                <div id="interaccion-comunidad-submenu" class="hidden">
+                    <a href="#noticias" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Noticias</a>
+                    <a href="#comentarios"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Comentarios</a>
+                    <a href="#eventos" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Eventos</a>
+                    <a href="#foro" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Foro</a>
+                </div>
+            </div>
+            <div class="border-t pt-4 border-primary dark:border-white">
+                <button
+                    class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
+                    onclick="toggleSubmenu('administracion-finanzas-submenu', this)">
+                    <span class="flex items-center space-x-5"><i
+                            class="fas fa-money-bill-wave text-secondary dark:text-white"></i> <span>Administración y
+                            Finanzas</span></span>
+                    <i class="fas fa-chevron-down dark:text-white"></i>
+                </button>
+                <div id="administracion-finanzas-submenu" class="hidden">
+                    <a href="#pagos" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Pagos</a>
+                    <a href="#inscripciones"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Inscripciones</a>
+                    <a href="#patrocinios"
+                        class="block pl-4 hover:text-secondary dark:hover:text-secondary">Patrocinios</a>
+                    <a href="#contratos" class="block pl-4 hover:text-secondary dark:hover:text-secondary">Contratos</a>
+                </div>
+            </div>
+            <div class="border-t pt-4 border-primary dark:border-white"></div>
+        </nav>
+    </aside>
+
+    <!-- 📌 Contenido Principal -->
+    <main class="flex flex-col items-center justify-center flex-grow text-center px-6">
+        <!-- Logo -->
+        <img id="logo" src="../assets/img/logos/logoOscuro.png" alt="FutbolGo Logo"
+            class="w-52 h-52 md:w-52 md:h-52 dark:hidden">
+        <img id="logo-dark" src="../assets/img/logos/logoClaro.png" alt="FutbolGo Logo"
+            class="w-52 h-52 md:w-52 md:h-52 hidden dark:block">
+
+        <!-- Slogan -->
+        <h1 class="text-4xl text-secondary mt-4 dark:text-white font-heading">"Formando el futuro"</h1>
+    </main>
+
+    <!-- 📌 Pie de página -->
+    <footer class="bg-white text-center py-4 dark:bg-primary dark:text-white">
+        <p class="text-xs">&copy; 2025. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="../assets/js/componets/dropDown.js"></script>
+    <script src="../assets/js/componets/themeToggle.js"></script>
+    <script src="../assets/js/componets/submenu.js" defer></script>
+
+    <script>
+        function logout() {
+            // Aquí puedes agregar la lógica para cerrar la sesión
+            window.location.href = '../index.html';
+        }
+    </script>
+
+
+</body>
+
+</html>

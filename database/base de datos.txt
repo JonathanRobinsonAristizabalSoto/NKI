@@ -1,0 +1,795 @@
+-- ===========================================
+-- ⚽ BASE DE DATOS NKI - OPTIMIZADA Y DOCUMENTADA
+-- ===========================================
+
+DROP DATABASE IF EXISTS nki;
+CREATE DATABASE nki CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE nki;
+
+-- ========================
+-- 📄 Tipos de documento
+-- ========================
+CREATE TABLE tipos_documento (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(10) NOT NULL UNIQUE,
+    descripcion VARCHAR(100) NOT NULL
+) COMMENT='Catálogo de tipos de documento para todas las personas';
+
+CREATE INDEX idx_tipos_documento_nombre ON tipos_documento(nombre);
+
+INSERT INTO tipos_documento (nombre, descripcion) VALUES
+('CC', 'Cédula de ciudadanía'),
+('TI', 'Tarjeta de Identidad'),
+('CE', 'Cédula de Extranjería'),
+('PAS', 'Pasaporte'),
+('DNI', 'Documento Nacional de Identidad'),
+('OTRO', 'Otro tipo de documento');
+
+-- ========================
+-- 👤 Roles
+-- ========================
+CREATE TABLE roles (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre ENUM('Administrador', 'Jugador', 'Entrenador', 'Asistente', 'Tutor') DEFAULT 'Tutor' NOT NULL,
+    descripcion TEXT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+) COMMENT='Roles del sistema';
+
+CREATE UNIQUE INDEX idx_roles_nombre ON roles(nombre);
+
+INSERT INTO roles (nombre, descripcion) VALUES
+('Administrador', 'Rol con acceso completo al sistema'),
+('Jugador', 'Rol para los jugadores del equipo'),
+('Entrenador', 'Rol para los entrenadores del equipo'),
+('Asistente', 'Rol para los asistentes del equipo'),
+('Tutor', 'Rol para los tutores de los jugadores');
+
+-- ========================
+-- 🔐 Permisos
+-- ========================
+CREATE TABLE permisos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre ENUM('Ver Usuarios', 'Crear Usuarios', 'Editar Usuarios', 'Eliminar Usuarios', 'Ver Entrenamientos', 'Crear Entrenamientos', 'Editar Entrenamientos', 'Eliminar Entrenamientos', 'Ver Partidos', 'Crear Partidos', 'Editar Partidos', 'Eliminar Partidos', 'Ver Estadisticas', 'Crear Estadisticas', 'Editar Estadisticas', 'Eliminar Estadisticas', 'Ver Pagos', 'Crear Pagos', 'Editar Pagos', 'Eliminar Pagos') NOT NULL,
+    descripcion TEXT,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+) COMMENT='Permisos asignables a roles';
+
+CREATE UNIQUE INDEX idx_permisos_nombre ON permisos(nombre);
+
+INSERT INTO permisos (nombre, descripcion) VALUES
+('Ver Usuarios', 'Permiso para ver usuarios'),
+('Crear Usuarios', 'Permiso para crear usuarios'),
+('Editar Usuarios', 'Permiso para editar usuarios'),
+('Eliminar Usuarios', 'Permiso para eliminar usuarios'),
+('Ver Entrenamientos', 'Permiso para ver entrenamientos'),
+('Crear Entrenamientos', 'Permiso para crear entrenamientos'),
+('Editar Entrenamientos', 'Permiso para editar entrenamientos'),
+('Eliminar Entrenamientos', 'Permiso para eliminar entrenamientos'),
+('Ver Partidos', 'Permiso para ver partidos'),
+('Crear Partidos', 'Permiso para crear partidos'),
+('Editar Partidos', 'Permiso para editar partidos'),
+('Eliminar Partidos', 'Permiso para eliminar partidos'),
+('Ver Estadisticas', 'Permiso para ver estadísticas'),
+('Crear Estadisticas', 'Permiso para crear estadísticas'),
+('Editar Estadisticas', 'Permiso para editar estadísticas'),
+('Eliminar Estadisticas', 'Permiso para eliminar estadísticas'),
+('Ver Pagos', 'Permiso para ver pagos'),
+('Crear Pagos', 'Permiso para crear pagos'),
+('Editar Pagos', 'Permiso para editar pagos'),
+('Eliminar Pagos', 'Permiso para eliminar pagos');
+
+-- ========================
+-- 🔗 Relación roles-permisos
+-- ========================
+CREATE TABLE roles_permisos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    rol_id INT UNSIGNED,
+    permiso_id INT UNSIGNED,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (rol_id) REFERENCES roles(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (permiso_id) REFERENCES permisos(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT='Relación muchos a muchos entre roles y permisos';
+
+CREATE INDEX idx_roles_permisos_rol_permiso ON roles_permisos(rol_id, permiso_id);
+
+-- Asignar todos los permisos al Administrador
+INSERT INTO roles_permisos (rol_id, permiso_id)
+SELECT r.id, p.id FROM roles r, permisos p WHERE r.nombre = 'Administrador';
+
+-- Ejemplo: Jugador solo puede ver entrenamientos, partidos y estadísticas
+INSERT INTO roles_permisos (rol_id, permiso_id)
+SELECT r.id, p.id FROM roles r, permisos p
+WHERE r.nombre = 'Jugador' AND p.nombre IN ('Ver Entrenamientos', 'Ver Partidos', 'Ver Estadisticas');
+
+-- Entrenador puede ver y gestionar entrenamientos, partidos y estadísticas
+INSERT INTO roles_permisos (rol_id, permiso_id)
+SELECT r.id, p.id FROM roles r, permisos p
+WHERE r.nombre = 'Entrenador' AND p.nombre IN (
+    'Ver Usuarios', 'Ver Entrenamientos', 'Crear Entrenamientos', 'Editar Entrenamientos', 'Eliminar Entrenamientos',
+    'Ver Partidos', 'Crear Partidos', 'Editar Partidos', 'Eliminar Partidos',
+    'Ver Estadisticas', 'Crear Estadisticas', 'Editar Estadisticas', 'Eliminar Estadisticas'
+);
+
+-- Asistente puede ver y editar entrenamientos y partidos
+INSERT INTO roles_permisos (rol_id, permiso_id)
+SELECT r.id, p.id FROM roles r, permisos p
+WHERE r.nombre = 'Asistente' AND p.nombre IN (
+    'Ver Entrenamientos', 'Editar Entrenamientos',
+    'Ver Partidos', 'Editar Partidos'
+);
+
+-- Tutor puede ver usuarios, pagos y estadísticas
+INSERT INTO roles_permisos (rol_id, permiso_id)
+SELECT r.id, p.id FROM roles r, permisos p
+WHERE r.nombre = 'Tutor' AND p.nombre IN (
+    'Ver Usuarios', 'Ver Pagos', 'Ver Estadisticas'
+);
+
+-- ========================
+-- 👥 Usuarios
+-- ========================
+CREATE TABLE usuarios (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    tipo_documento_id INT UNSIGNED NOT NULL,
+    documento VARCHAR(50) UNIQUE NOT NULL,
+    genero ENUM('Masculino', 'Femenino', 'Otro') DEFAULT 'Otro',
+    correo VARCHAR(100) UNIQUE NOT NULL,
+    contrasena VARCHAR(255) NOT NULL COMMENT 'Contraseña hasheada',
+    telefono VARCHAR(50),
+    direccion TEXT,
+    fecha_nacimiento DATE,
+    rol_id INT UNSIGNED,
+    estado BOOLEAN DEFAULT 1,
+    last_login TIMESTAMP NULL,
+    foto VARCHAR(255),
+    email_verificado BOOLEAN DEFAULT 0,
+    token_verificacion VARCHAR(255),
+    ultimo_cambio_contrasena TIMESTAMP NULL,
+    intentos_fallidos INT DEFAULT 0,
+    bloqueado_hasta DATETIME NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    updated_by INT UNSIGNED,
+    created_by INT UNSIGNED,
+    FOREIGN KEY (rol_id) REFERENCES roles(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (tipo_documento_id) REFERENCES tipos_documento(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (updated_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Usuarios del sistema (login y gestión, puede ser jugador, entrenador, asistente o tutor)';
+
+CREATE INDEX idx_usuarios_documento ON usuarios(documento);
+CREATE INDEX idx_usuarios_correo ON usuarios(correo);
+CREATE INDEX idx_usuarios_rol_estado ON usuarios(rol_id, estado);
+CREATE INDEX idx_usuarios_estado ON usuarios(estado);
+CREATE INDEX idx_usuarios_created_at ON usuarios(created_at);
+CREATE INDEX idx_usuarios_deleted_at ON usuarios(deleted_at);
+CREATE INDEX idx_usuarios_documento_correo ON usuarios(documento, correo);
+
+-- ========================
+-- 🔑 Password resets
+-- ========================
+CREATE TABLE password_resets (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT UNSIGNED NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expiracion DATETIME DEFAULT NULL,
+    usado BOOLEAN DEFAULT 0,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT='Solicitudes de recuperación de contraseña';
+
+CREATE INDEX idx_password_resets_usuario ON password_resets(usuario_id);
+CREATE INDEX idx_password_resets_token ON password_resets(token, usuario_id);
+
+-- ========================
+-- 🏆 Categorías
+-- ========================
+CREATE TABLE categorias (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion TEXT,
+    edad_minima INT NOT NULL CHECK (edad_minima >= 0),
+    edad_maxima INT NOT NULL CHECK (edad_maxima >= edad_minima),
+    estado ENUM('Activo', 'Inactivo') DEFAULT 'Activo',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+) COMMENT='Categorías de jugadores por edad';
+
+CREATE UNIQUE INDEX idx_categorias_nombre ON categorias(nombre);
+CREATE INDEX idx_categorias_estado ON categorias(estado);
+
+INSERT INTO categorias (nombre, descripcion, edad_minima, edad_maxima) VALUES
+('Baby', 'Iniciación (2019–2021)', 4, 6),
+('Mini', 'Microfútbol o Escuela (2017–2018)', 7, 8),
+('Preinfantil', 'Pony Fútbol (edades iniciales) (2015–2016)', 9, 10),
+('Infantil', 'Categoría Pony Fútbol oficial (2013–2014)', 11, 12),
+('Prejuvenil', 'Torneo Nacional Sub-13/Sub-14 (2011–2012)', 13, 14),
+('Juvenil', 'Sub-15/Sub-16 (2009–2010)', 15, 16),
+('Junior', 'Sub-17/Sub-18 (2007–2008)', 17, 18),
+('Sub-20', 'Torneo Nacional Sub-20 (Difútbol) (2005–2006)', 19, 20);
+
+-- ========================
+-- 🏅 Posiciones
+-- ========================
+CREATE TABLE posiciones (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(10) NOT NULL UNIQUE,
+    descripcion TEXT,
+    estado ENUM('Activo', 'Inactivo') DEFAULT 'Activo',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+) COMMENT='Posiciones de juego para los jugadores';
+
+CREATE INDEX idx_posiciones_estado ON posiciones(estado);
+
+INSERT INTO posiciones (nombre, descripcion, estado) VALUES
+('POR', 'Portero: Único que puede usar las manos en su área.', 'Activo'),
+('DC', 'Defensa Central: Intercepta ataques por el centro.', 'Activo'),
+('LD', 'Lateral Derecho: Defensa por la banda derecha.', 'Activo'),
+('LI', 'Lateral Izquierdo: Defensa por la banda izquierda.', 'Activo'),
+('LIB', 'Líbero: Defensa centralizado, último hombre.', 'Activo'),
+('MCD', 'Mediocentro Defensivo: Recupera balones, protege a la defensa.', 'Activo'),
+('MCO', 'Mediocentro Ofensivo: Crea juego ofensivo.', 'Activo'),
+('MC', 'Mediocampista Central: Distribuye el juego desde el centro.', 'Activo'),
+('ED', 'Extremo Derecho: Ataca por la banda derecha.', 'Activo'),
+('EI', 'Extremo Izquierdo: Ataca por la banda izquierda.', 'Activo'),
+('DCEN', 'Delantero Centro: Principal atacante, encargado de anotar goles.', 'Activo'),
+('SD', 'Segundo Delantero: Apoya al delantero centro, se mueve libremente en el frente.', 'Activo');
+
+-- ========================
+-- 👨‍👩‍👧‍👦 Tutores
+-- ========================
+CREATE TABLE tutores (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT UNSIGNED NOT NULL,
+    telefono_secundario VARCHAR(50),
+    relacion_con_jugador ENUM('Padre', 'Madre', 'Tío', 'Abuelo', 'Otro'),
+    es_emergencia BOOLEAN DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    updated_by INT UNSIGNED,
+    created_by INT UNSIGNED,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (updated_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Tutores y acudientes de los jugadores';
+
+CREATE INDEX idx_tutores_usuario_emergencia ON tutores(usuario_id, es_emergencia);
+
+-- ========================
+-- 🧒 Jugadores
+-- ========================
+CREATE TABLE jugadores (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT UNSIGNED NOT NULL,
+    fecha_ingreso DATE NOT NULL,
+    posicion_id INT UNSIGNED NOT NULL,
+    dorsal INT NOT NULL,
+    estatura DECIMAL(5,2),
+    peso DECIMAL(5,2),
+    categoria_id INT UNSIGNED NOT NULL,
+    estado BOOLEAN DEFAULT 1,
+    habilidades TEXT,
+    tutor_id INT UNSIGNED,
+    pie_habil ENUM('Derecho', 'Izquierdo') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    updated_by INT UNSIGNED,
+    created_by INT UNSIGNED,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (posicion_id) REFERENCES posiciones(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (tutor_id) REFERENCES tutores(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (updated_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT unique_categoria_dorsal UNIQUE (categoria_id, dorsal)
+) COMMENT='Jugadores registrados en el club';
+
+CREATE INDEX idx_jugadores_usuario_categoria ON jugadores(usuario_id, categoria_id);
+CREATE INDEX idx_jugadores_categoria_estado ON jugadores(categoria_id, estado);
+CREATE INDEX idx_jugadores_estado ON jugadores(estado);
+CREATE INDEX idx_jugadores_created_at ON jugadores(created_at);
+CREATE INDEX idx_jugadores_deleted_at ON jugadores(deleted_at);
+CREATE INDEX idx_jugadores_categoria_dorsal ON jugadores(categoria_id, dorsal, estado);
+
+-- ========================
+-- 🏋️‍♂️ Entrenadores
+-- ========================
+CREATE TABLE entrenadores (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT UNSIGNED NOT NULL,
+    especialidad ENUM('Físico', 'Táctico', 'Psicológico', 'Técnico', 'Preparación de Arqueros') DEFAULT 'Táctico',
+    experiencia TEXT,
+    nivel_educativo VARCHAR(100),
+    estado BOOLEAN DEFAULT 1,
+    fecha_ingreso DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    updated_by INT UNSIGNED,
+    created_by INT UNSIGNED,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (updated_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Entrenadores registrados';
+
+CREATE INDEX idx_entrenadores_usuario_estado ON entrenadores(usuario_id, estado);
+
+-- ========================
+-- 🏃‍♂️ Entrenamientos
+-- ========================
+CREATE TABLE entrenamientos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    objetivo TEXT,
+    duracion INT,
+    ubicacion VARCHAR(100),
+    descripcion TEXT,
+    intensidad ENUM('Baja', 'Media', 'Alta'),
+    tipo_entrenamiento ENUM('Físico', 'Técnico', 'Táctico', 'Mental'),
+    estado BOOLEAN DEFAULT 1,
+    entrenador_id INT UNSIGNED,
+    notas TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    updated_by INT UNSIGNED,
+    created_by INT UNSIGNED,
+    FOREIGN KEY (entrenador_id) REFERENCES entrenadores(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (updated_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Sesiones de entrenamiento';
+
+CREATE INDEX idx_entrenamientos_fecha_estado ON entrenamientos(fecha, estado);
+CREATE INDEX idx_entrenamientos_entrenador_estado ON entrenamientos(entrenador_id, estado);
+
+-- ========================
+-- 📋 Asistencia
+-- ========================
+CREATE TABLE asistencia (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    entrenamiento_id INT UNSIGNED,
+    jugador_id INT UNSIGNED,
+    presente BOOLEAN,
+    motivo_ausencia TEXT,
+    hora_entrada TIME,
+    hora_salida TIME,
+    comentarios TEXT,
+    tipo_ausencia ENUM('Justificada', 'No justificada') DEFAULT 'No justificada',
+    entrenador_id INT UNSIGNED,
+    tutor_id INT UNSIGNED,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_respuesta TIMESTAMP NULL,
+    respuesta_tutor TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    updated_by INT UNSIGNED,
+    created_by INT UNSIGNED,
+    FOREIGN KEY (entrenamiento_id) REFERENCES entrenamientos(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (entrenador_id) REFERENCES entrenadores(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (tutor_id) REFERENCES tutores(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (updated_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Registro de asistencia de jugadores a entrenamientos';
+
+CREATE INDEX idx_asistencia_entrenamiento_jugador ON asistencia(entrenamiento_id, jugador_id);
+CREATE INDEX idx_asistencia_presente ON asistencia(presente);
+CREATE INDEX idx_asistencia_created_at ON asistencia(created_at);
+CREATE INDEX idx_asistencia_deleted_at ON asistencia(deleted_at);
+CREATE INDEX idx_asistencia_entrenamiento_jugador_fecha ON asistencia(entrenamiento_id, jugador_id, fecha_registro);
+
+-- ========================
+-- 🔔 Notificaciones
+-- ========================
+CREATE TABLE notificaciones (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    asistencia_id INT UNSIGNED,
+    tutor_id INT UNSIGNED,
+    mensaje TEXT,
+    tipo ENUM('Asistencia', 'Pago', 'Evento', 'General') DEFAULT 'General',
+    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    leido BOOLEAN DEFAULT 0,
+    fecha_lectura TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (asistencia_id) REFERENCES asistencia(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tutor_id) REFERENCES tutores(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT='Notificaciones enviadas a tutores';
+
+CREATE INDEX idx_notificaciones_tutor_leido ON notificaciones(tutor_id, leido);
+CREATE INDEX idx_notificaciones_tipo_fecha ON notificaciones(tipo, fecha_envio);
+
+-- ========================
+-- 🏟️ Partidos
+-- ========================
+CREATE TABLE partidos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    resultado_local INT,
+    resultado_visitante INT,
+    lugar VARCHAR(255),
+    descripcion TEXT,
+    estado VARCHAR(50),
+    equipo_local VARCHAR(100),
+    equipo_visitante VARCHAR(100),
+    goles_local INT,
+    goles_visitante INT,
+    video_url VARCHAR(255),
+    comentarios TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+) COMMENT='Partidos jugados o programados';
+
+CREATE INDEX idx_partidos_fecha_estado ON partidos(fecha, estado);
+CREATE INDEX idx_partidos_equipos_fecha ON partidos(equipo_local, equipo_visitante, fecha);
+
+-- ========================
+-- 📝 Alineaciones
+-- ========================
+CREATE TABLE alineaciones (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    partido_id INT UNSIGNED,
+    jugador_id INT UNSIGNED,
+    titular BOOLEAN,
+    suplente BOOLEAN,
+    minuto_ingreso INT,
+    minuto_salida INT,
+    goles INT DEFAULT 0,
+    asistencias INT DEFAULT 0,
+    tarjetas_amarillas INT DEFAULT 0,
+    tarjetas_rojas INT DEFAULT 0,
+    sustitucion BOOLEAN DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (partido_id) REFERENCES partidos(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT='Alineaciones de jugadores en partidos';
+
+CREATE INDEX idx_alineaciones_partido_jugador ON alineaciones(partido_id, jugador_id);
+CREATE INDEX idx_alineaciones_partido_titular ON alineaciones(partido_id, titular);
+
+-- ========================
+-- 📊 Estadísticas
+-- ========================
+CREATE TABLE estadisticas (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    partido_id INT UNSIGNED,
+    jugador_id INT UNSIGNED,
+    goles INT DEFAULT 0,
+    asistencias INT DEFAULT 0,
+    minutos_jugados INT,
+    tarjetas_amarillas INT DEFAULT 0,
+    tarjetas_rojas INT DEFAULT 0,
+    tiros INT DEFAULT 0,
+    tiros_al_arco INT DEFAULT 0,
+    pases INT DEFAULT 0,
+    posesion DECIMAL(5,2) DEFAULT 0,
+    tiros_de_esquina INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (partido_id) REFERENCES partidos(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT='Estadísticas individuales por partido';
+
+CREATE INDEX idx_estadisticas_partido_jugador ON estadisticas(partido_id, jugador_id);
+CREATE INDEX idx_estadisticas_jugador_goles ON estadisticas(jugador_id, goles);
+
+-- ========================
+-- 👕 Indumentaria
+-- ========================
+CREATE TABLE indumentaria (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    tipo ENUM('Camiseta', 'Pantaloneta', 'Medias', 'Zapatos', 'Accesorios', 'Balones', 'Guantes', 'Otro') DEFAULT 'Otro',
+    descripcion VARCHAR(100),
+    talla ENUM('4', '6', '8', '10', '12', '14', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL') DEFAULT 'S',
+    cantidad INT,
+    fecha_ingreso DATE,
+    estado ENUM('Nuevo', 'Usado', 'Dañado') DEFAULT 'Nuevo',
+    tipo_uniforme ENUM('Local', 'Visitante', 'Entrenamiento') DEFAULT 'Entrenamiento',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+) COMMENT='Indumentaria y equipamiento';
+
+CREATE INDEX idx_indumentaria_tipo_estado ON indumentaria(tipo, estado);
+CREATE INDEX idx_indumentaria_talla_estado ON indumentaria(talla, estado);
+
+-- ========================
+-- 📦 Inventario
+-- ========================
+CREATE TABLE inventario (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    item_id INT UNSIGNED,
+    cantidad INT,
+    fecha_ingreso DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (item_id) REFERENCES indumentaria(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT='Inventario de indumentaria';
+
+CREATE INDEX idx_inventario_item_fecha ON inventario(item_id, fecha_ingreso);
+
+-- ========================
+-- 🛒 Productos
+-- ========================
+CREATE TABLE productos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10,2) NOT NULL CHECK (precio > 0),
+    indumentaria_id INT UNSIGNED,
+    estado ENUM('Disponible', 'No disponible') DEFAULT 'Disponible',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (indumentaria_id) REFERENCES indumentaria(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Productos a la venta';
+
+CREATE INDEX idx_productos_estado_nombre ON productos(estado, nombre);
+CREATE INDEX idx_productos_indumentaria_estado ON productos(indumentaria_id, estado);
+
+-- ========================
+-- 🧾 Servicios
+-- ========================
+CREATE TABLE servicios (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10,2) NOT NULL CHECK (precio > 0),
+    tipo ENUM('Mensualidad', 'Inscripcion') NOT NULL,
+    periodicidad ENUM('Unico', 'Mensual', 'Anual') DEFAULT 'Unico',
+    estado ENUM('Disponible', 'No disponible') DEFAULT 'Disponible',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+) COMMENT='Servicios ofrecidos (mensualidades, inscripciones, etc)';
+
+CREATE INDEX idx_servicios_estado_tipo ON servicios(estado, tipo);
+
+-- ========================
+-- 📝 Pedidos
+-- ========================
+CREATE TABLE pedidos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT UNSIGNED,
+    producto_id INT UNSIGNED,
+    servicio_id INT UNSIGNED,
+    cantidad INT CHECK (cantidad > 0),
+    total DECIMAL(10,2) CHECK (total >= 0),
+    estado ENUM('Pendiente', 'Pagado', 'Cancelado') DEFAULT 'Pendiente',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (producto_id) REFERENCES productos(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (servicio_id) REFERENCES servicios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Pedidos de productos y servicios';
+
+CREATE INDEX idx_pedidos_usuario_estado ON pedidos(usuario_id, estado);
+CREATE INDEX idx_pedidos_producto_servicio ON pedidos(producto_id, servicio_id, estado);
+
+-- ========================
+-- 💳 Transacciones
+-- ========================
+CREATE TABLE transacciones (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT UNSIGNED,
+    monto DECIMAL(10,2) CHECK (monto >= 0),
+    metodo_pago ENUM('Transferencia', 'Efectivo', 'Tarjeta', 'PSE', 'Otro') DEFAULT 'Otro',
+    estado_transaccion ENUM('Pendiente', 'Completada', 'Fallida', 'Reembolsada') DEFAULT 'Pendiente',
+    transaccion_id VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT='Transacciones de pagos de pedidos';
+
+CREATE INDEX idx_transacciones_estado_metodo ON transacciones(estado_transaccion, metodo_pago);
+CREATE INDEX idx_transacciones_pedido_estado ON transacciones(pedido_id, estado_transaccion);
+
+-- ========================
+-- 📰 Noticias
+-- ========================
+CREATE TABLE noticias (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100),
+    contenido TEXT,
+    fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    autor_id INT UNSIGNED,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (autor_id) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Noticias y comunicados';
+
+CREATE INDEX idx_noticias_fecha ON noticias(fecha_publicacion);
+
+-- ========================
+-- 🎉 Eventos
+-- ========================
+CREATE TABLE eventos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    descripcion TEXT,
+    fecha DATE,
+    hora TIME,
+    lugar VARCHAR(255),
+    organizador_id INT UNSIGNED,
+    estado ENUM('Activo', 'Cancelado', 'Finalizado') DEFAULT 'Activo',
+    tipo ENUM('Deportivo', 'Social', 'Formación', 'Otro') DEFAULT 'Otro',
+    capacidad INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (organizador_id) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Eventos deportivos y sociales';
+
+CREATE INDEX idx_eventos_fecha_estado ON eventos(fecha, estado);
+CREATE INDEX idx_eventos_tipo_estado ON eventos(tipo, estado);
+
+-- ========================
+-- 💰 Pagos
+-- ========================
+CREATE TABLE pagos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+    tutor_id INT UNSIGNED NOT NULL, 
+    jugador_id INT UNSIGNED NOT NULL, 
+    monto DECIMAL(10,2) NOT NULL CHECK (monto > 0), 
+    metodo_pago ENUM('Efectivo', 'Transferencia', 'Tarjeta', 'PayPal') NOT NULL, 
+    concepto VARCHAR(100) DEFAULT 'Mensualidad',
+    referencia VARCHAR(50) NULL, 
+    fecha_pago DATETIME DEFAULT CURRENT_TIMESTAMP, 
+    estado ENUM('Pendiente', 'Pagado', 'Vencido', 'Rechazado') NOT NULL DEFAULT 'Pendiente', 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (tutor_id) REFERENCES tutores(id) ON DELETE CASCADE ON UPDATE CASCADE, 
+    FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE ON UPDATE CASCADE 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Pagos realizados por tutores para jugadores';
+
+CREATE INDEX idx_pagos_tutor_jugador_estado ON pagos(tutor_id, jugador_id, estado);
+CREATE INDEX idx_pagos_fecha_estado ON pagos(fecha_pago, estado);
+CREATE INDEX idx_pagos_jugador_estado ON pagos(jugador_id, estado);
+
+-- ========================
+-- 🕓 Historial de pagos
+-- ========================
+CREATE TABLE historial_pagos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    pago_id INT UNSIGNED,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    monto DECIMAL(10,2),
+    estado_pago ENUM('Pendiente', 'Completado', 'Fallido', 'Reembolsado') DEFAULT 'Pendiente',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (pago_id) REFERENCES pagos(id) ON DELETE CASCADE ON UPDATE CASCADE
+) COMMENT='Historial de cambios en pagos';
+
+CREATE INDEX idx_historial_pagos_pago_estado ON historial_pagos(pago_id, estado_pago);
+CREATE INDEX idx_historial_pagos_fecha ON historial_pagos(fecha_actualizacion);
+
+-- ========================
+-- ⚙️ Configuración de pagos
+-- ========================
+CREATE TABLE configuracion_pagos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    metodo_pago ENUM('PSE', 'Tarjeta', 'Paypal', 'Otro'),
+    api_key VARCHAR(255),
+    estado ENUM('Activo', 'Inactivo') DEFAULT 'Activo',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL
+) COMMENT='Configuración de métodos de pago y API keys';
+
+-- ========================
+-- 🕵️ Auditoría
+-- ========================
+CREATE TABLE auditoria (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT UNSIGNED,
+    accion VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    tabla_afectada VARCHAR(100),
+    ip VARCHAR(45),
+    user_agent VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Bitácora de acciones importantes del sistema';
+
+CREATE INDEX idx_auditoria_usuario_accion ON auditoria(usuario_id, accion);
+CREATE INDEX idx_auditoria_fecha ON auditoria(created_at);
+
+-- ========================
+-- 👁️‍🗨️ VISTAS DE CONSULTA RÁPIDA
+-- ========================
+CREATE VIEW vista_usuarios_activos AS
+SELECT * FROM usuarios WHERE estado = 1 AND deleted_at IS NULL;
+
+CREATE VIEW vista_pagos_pendientes AS
+SELECT * FROM pagos WHERE estado = 'Pendiente' AND deleted_at IS NULL;
+
+CREATE VIEW vista_jugadores_activos AS
+SELECT * FROM jugadores WHERE estado = 1 AND deleted_at IS NULL;
+
+-- ========================
+-- 🛡️ TRIGGERS DE AUDITORÍA Y HISTORIAL
+-- ========================
+DELIMITER $$
+
+CREATE TRIGGER tr_pagos_update_historial
+AFTER UPDATE ON pagos
+FOR EACH ROW
+BEGIN
+    INSERT INTO historial_pagos (pago_id, fecha_actualizacion, monto, estado_pago, created_at)
+    VALUES (NEW.id, NOW(), NEW.monto, NEW.estado, NOW());
+END $$
+
+CREATE TRIGGER tr_usuarios_insert_auditoria
+AFTER INSERT ON usuarios
+FOR EACH ROW
+BEGIN
+    INSERT INTO auditoria (usuario_id, accion, descripcion, tabla_afectada, created_at)
+    VALUES (NEW.id, 'INSERT', CONCAT('Nuevo usuario: ', NEW.nombre, ' ', NEW.apellido), 'usuarios', NOW());
+END $$
+
+CREATE TRIGGER tr_usuarios_delete_auditoria
+AFTER DELETE ON usuarios
+FOR EACH ROW
+BEGIN
+    INSERT INTO auditoria (usuario_id, accion, descripcion, tabla_afectada, created_at)
+    VALUES (OLD.id, 'DELETE', CONCAT('Usuario eliminado: ', OLD.nombre, ' ', OLD.apellido), 'usuarios', NOW());
+END $$
+
+-- ========================
+-- 🛡️ TRIGGERS ADICIONALES DE AUDITORÍA PARA JUGADORES Y PAGOS
+-- ========================
+
+CREATE TRIGGER tr_jugadores_update_auditoria
+AFTER UPDATE ON jugadores
+FOR EACH ROW
+BEGIN
+    INSERT INTO auditoria (usuario_id, accion, descripcion, tabla_afectada, created_at)
+    VALUES (NEW.updated_by, 'UPDATE', CONCAT('Jugador actualizado: ', NEW.id), 'jugadores', NOW());
+END $$
+
+CREATE TRIGGER tr_jugadores_delete_auditoria
+AFTER DELETE ON jugadores
+FOR EACH ROW
+BEGIN
+    INSERT INTO auditoria (usuario_id, accion, descripcion, tabla_afectada, created_at)
+    VALUES (OLD.updated_by, 'DELETE', CONCAT('Jugador eliminado: ', OLD.id), 'jugadores', NOW());
+END $$
+
+CREATE TRIGGER tr_pagos_delete_auditoria
+AFTER DELETE ON pagos
+FOR EACH ROW
+BEGIN
+    INSERT INTO auditoria (usuario_id, accion, descripcion, tabla_afectada, created_at)
+    VALUES (OLD.tutor_id, 'DELETE', CONCAT('Pago eliminado: ', OLD.id), 'pagos', NOW());
+END $$
+
+DELIMITER ;

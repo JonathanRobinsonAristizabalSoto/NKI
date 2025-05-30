@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NKI - Historia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <script src="../../assets/js/jquery/jquery-3.7.1.min.js"></script>
+</head>
+
+<body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
+
+    <!-- 🌟 Header con menú hamburguesa -->
+    <header class="bg-white shadow-md fixed w-full top-0 left-0 z-50 dark:bg-primary dark:text-white">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Botón de menú hamburguesa (solo en móvil) -->
+            <button id="menu-btn" class="md:hidden focus:outline-none">
+                <svg class="w-8 h-8 text-primary dark:text-white" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+
+            <!-- Menú principal centrado -->
+            <nav class="hidden md:flex space-x-6 mx-auto">
+                <a href="../../../index.html"
+                    class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
+                <a href="../historia/history.html"
+                    class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Historia</a>
+                <a href="../inscripciones/inscriptions.html"
+                    class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
+                <a href="../contactanos/contact.html"
+                    class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Contactanos</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 📌 Contenido Principal -->
+    <main class="flex flex-col items-center justify-center flex-grow text-center px-6 mt-20">
+        <!-- Título -->
+        <h1 class="text-4xl text-secondary mt-4 dark:text-white font-heading">Historia del Club</h1>
+
+        <!-- Imagen Representativa -->
+        <section class="mt-10 flex justify-center">
+            <img src="../assets/img/history.jpg" alt="Historia del Club"
+                class="w-40 h-40 md:w-60 md:h-60 rounded-full shadow-lg">
+        </section>
+
+        <!-- Sección de Historia -->
+        <section class="mt-6 w-full max-w-4xl">
+            <div class="flex flex-col gap-6">
+                <!-- Bloque 1 -->
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl text-primary dark:text-secondary font-bold mb-4">Fundación del Club</h2>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        El Club NKI fue fundado en el año 2000 con el objetivo de formar jóvenes talentos en el fútbol.
+                        Desde sus inicios, el club ha trabajado arduamente para inculcar valores como el trabajo en
+                        equipo, la disciplina y el respeto.
+                    </p>
+                </div>
+
+                <!-- Bloque 2 -->
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl text-primary dark:text-secondary font-bold mb-4">Logros Destacados</h2>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        A lo largo de los años, el Club NKI ha ganado múltiples campeonatos locales y regionales,
+                        destacándose como uno de los mejores clubes formativos de la región. En 2015, el club logró su
+                        primer campeonato nacional.
+                    </p>
+                </div>
+
+                <!-- Bloque 3 -->
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl text-primary dark:text-secondary font-bold mb-4">Nuestra Filosofía</h2>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        En el Club NKI creemos que el fútbol es más que un deporte: es una herramienta para formar
+                        mejores personas. Nuestro enfoque está en el desarrollo integral de nuestros jugadores, tanto en
+                        el campo como fuera de él.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 📌 Pie de página -->
+    <footer class="bg-white text-center py-4 dark:bg-primary dark:text-white">
+        <p class="text-xs">&copy; 2025. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Script para menú hamburguesa -->
+    <script src="../assets/js/componets/menu.js" defer></script>
+    <script src="../assets/js/componets/themeToggle.js" defer></script>
+</body>
+
+</html>
