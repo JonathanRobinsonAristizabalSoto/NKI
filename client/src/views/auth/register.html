@@ -1,265 +1,299 @@
 <!DOCTYPE html>
 <html lang="es" class="light">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NKI - Registro</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link rel="stylesheet" href="../../assets/css/styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-  <script src="../../assets/js/jquery/jquery-3.7.1.min.js"></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NKI - Registro</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="../../assets/js/jquery/jquery-3.7.1.min.js"></script>
+  </head>
 
-<body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
-  <!-- 🌟 Header con menú hamburguesa -->
-  <header class="bg-white shadow-md fixed w-full top-0 left-0 z-50 dark:bg-primary dark:text-white">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <!-- Botón de menú hamburguesa (solo en móvil) -->
-      <button id="menu-btn" class="md:hidden focus:outline-none">
-        <svg class="w-8 h-8 text-primary dark:text-white" fill="none" stroke="currentColor" stroke-width="2"
-          viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
-        </svg>
-      </button>
-
-      <!-- Menú principal centrado -->
-      <nav class="hidden md:flex space-x-6 mx-auto">
-        <a href="../../../index.html"
-          class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
-        <a href="../../pages/team.html"
-          class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Mi Equipo</a>
-        <a href="../../pages/history.html"
-          class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Historia</a>
-        <a href="../../pages/inscriptions.html"
-          class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
-      </nav>
-
-      <!-- Botón de flecha con tema -->
-      <div class="relative">
-        <button id="dropdown-btn"
-          class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-2">
-          <i id="theme-icon" class="fas fa-moon"></i>
-          <i id="dropdown-icon" class="fas fa-chevron-down"></i>
+  <body
+    class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
+    <!-- 🌟 Header con menú hamburguesa -->
+    <header
+      class="bg-white shadow-md fixed w-full top-0 left-0 z-50 dark:bg-primary dark:text-white">
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <!-- Botón de menú hamburguesa (solo en móvil) -->
+        <button id="menu-btn" class="md:hidden focus:outline-none">
+          <svg class="w-8 h-8 text-primary dark:text-white" fill="none"
+            stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
         </button>
-        <!-- Menú desplegable -->
-        <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
-          <a href="../../pages/dashboard.html"
-            class="block px-4 py-2 text-sm text-primary dark:text-secondary">Dashboard</a>
-          <a href="#acerca-de" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Acerca de</a>
-          <a href="#politicas" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Políticas</a>
-          <a href="#contacto" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Contacto</a>
-          <!-- Botón de cambio de tema -->
-          <button id="theme-toggle"
-            class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
-            <i id="menu-theme-icon" class="fas fa-moon"></i> Tema Dark
+
+        <!-- Menú principal centrado -->
+        <nav class="hidden md:flex space-x-6 mx-auto">
+          <a href="../../../index.html"
+            class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
+          <a href="../../pages/team.html"
+            class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Mi
+            Equipo</a>
+          <a href="../../pages/history.html"
+            class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Historia</a>
+          <a href="../../pages/inscriptions.html"
+            class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
+        </nav>
+
+        <!-- Botón de flecha con tema -->
+        <div class="relative">
+          <button id="dropdown-btn"
+            class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-2">
+            <i id="theme-icon" class="fas fa-moon"></i>
+            <i id="dropdown-icon" class="fas fa-chevron-down"></i>
           </button>
+          <!-- Menú desplegable -->
+          <div id="dropdown-menu"
+            class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
+            <a href="../../pages/dashboard.html"
+              class="block px-4 py-2 text-sm text-primary dark:text-secondary">Dashboard</a>
+            <a href="#acerca-de"
+              class="block px-4 py-2 text-sm text-primary dark:text-secondary">Acerca
+              de</a>
+            <a href="#politicas"
+              class="block px-4 py-2 text-sm text-primary dark:text-secondary">Políticas</a>
+            <a href="#contacto"
+              class="block px-4 py-2 text-sm text-primary dark:text-secondary">Contacto</a>
+            <!-- Botón de cambio de tema -->
+            <button id="theme-toggle"
+              class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
+              <i id="menu-theme-icon" class="fas fa-moon"></i> Tema Dark
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Fondo opaco -->
-  <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
+    <!-- Fondo opaco -->
+    <div id="overlay"
+      class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
 
-  <!-- Menú lateral -->
-  <div id="menu"
-    class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform dark:bg-primary dark:text-white z-50">
-    <div class="p-4">
-      <button id="close-menu" class="text-gray-700 dark:text-white">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <nav class="flex flex-col space-y-4 p-4">
-      <a href="../../../index.html"
-        class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-        <i class="fas fa-home mr-4"></i> Inicio
-      </a>
-      <a href="../../pages/team.html"
-        class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-        <i class="fas fa-users mr-4"></i> Mi Equipo
-      </a>
-      <a href="../../pages/history.html"
-        class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-        <i class="fas fa-book mr-4"></i> Historia
-      </a>
-      <a href="../../pages/inscriptions.html"
-        class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-        <i class="fas fa-edit mr-4"></i> Inscripciones
-      </a>
-    </nav>
-  </div>
-
-  <!-- 📌 Contenido Principal -->
-  <main class="flex flex-col items-center justify-center flex-grow text-center px-6 mt-20">
-    <!-- Logo -->
-    <img id="logo" src="../../assets/img/logos/logoOscuro.png" alt="FutbolGo Logo"
-      class="w-44 h-44 md:w-52 md:h-52 dark:hidden" />
-    <img id="logo-dark" src="../../assets/img/logos/logoClaro.png" alt="FutbolGo Logo"
-      class="w-44 h-44 md:w-52 md:h-52 hidden dark:block" />
-
-    <!-- Formulario de Registro -->
-    <h1 class="text-4xl text-secondary mt-4 dark:text-white font-heading">
-      Registro
-    </h1>
-
-    <!-- Formulario de Registro -->
-    <form class="mt-6 w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Nombre -->
-      <div class="flex flex-col">
-        <input type="text" id="name" placeholder="Nombre"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-      </div>
-
-      <!-- Apellido -->
-      <div class="flex flex-col">
-        <input type="text" id="surname" placeholder="Apellido"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-      </div>
-
-      <!-- Tipo de Documento -->
-      <div class="flex flex-col">
-        <label for="document-type" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-          <i class="fas fa-id-card"></i> Tipo de Documento
-        </label>
-        <select id="document-type"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
-          <option value="" disabled selected class="text-center">Selecciona el tipo de documento</option>
-          <option value="cc" class="text-center">Cédula de Ciudadanía</option>
-          <option value="ti" class="text-center">Tarjeta de Identidad</option>
-          <option value="ce" class="text-center">Cédula de Extranjería</option>
-          <option value="passport" class="text-center">Pasaporte</option>
-        </select>
-      </div>
-
-      <!-- Número de Documento -->
-      <div class="flex flex-col relative">
-        <label for="document" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-          <i class="fas fa-id-card"></i> Número de Documento
-        </label>
-        <input type="text" id="document" placeholder="Ingresa tu número de documento"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-      </div>
-
-      <!-- Correo Electrónico -->
-      <div class="flex flex-col">
-        <input type="email" id="email" placeholder="Correo Electrónico"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-      </div>
-
-      <!-- Teléfono -->
-      <div class="flex flex-col">
-        <input type="tel" id="phone" placeholder="Teléfono"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-      </div>
-
-      <!-- Fecha de Nacimiento -->
-      <div class="flex flex-col">
-        <input type="date" id="birthdate" placeholder="Fecha de Nacimiento"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-      </div>
-
-      <!-- Género -->
-      <div class="flex flex-col">
-        <label for="gender" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-          <i class="fas fa-venus-mars"></i> Género
-        </label>
-        <select id="gender"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
-          <option value="" disabled selected class="text-center">Elige tu género</option>
-          <option value="male" class="text-center">Masculino</option>
-          <option value="female" class="text-center">Femenino</option>
-          <option value="other" class="text-center">Otro</option>
-        </select>
-      </div>
-
-      <!-- Rol -->
-      <div class="flex flex-col">
-        <label for="role" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-          <i class="fas fa-user-tag"></i> Rol
-        </label>
-        <select id="role"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
-          <option value="" disabled selected class="text-center">Escoge tu rol</option>
-          <option value="player" class="text-center">Jugador</option>
-          <option value="parent" class="text-center">Tutor</option>
-        </select>
-      </div>
-
-      <!-- Contraseña -->
-      <div class="flex flex-col relative">
-        <label for="password" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-          <i class="fas fa-lock"></i> Contraseña
-        </label>
-        <input type="password" id="password" placeholder="***********"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-        <span class="absolute top-10 right-3 flex items-center cursor-pointer"
-          onclick="togglePasswordVisibility('password')">
-          <i class="fas fa-eye text-gray-700 dark:text-white"></i>
-        </span>
-      </div>
-
-      <!-- Confirmar Contraseña -->
-      <div class="flex flex-col relative">
-        <label for="confirm-password" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-          <i class="fas fa-lock"></i> Confirmar Contraseña
-        </label>
-        <input type="password" id="confirm-password" placeholder="***********"
-          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-        <span class="absolute top-10 right-3 flex items-center cursor-pointer"
-          onclick="togglePasswordVisibility('confirm-password')">
-          <i class="fas fa-eye text-gray-700 dark:text-white"></i>
-        </span>
-      </div>
-
-      <!-- Condiciones de la Contraseña -->
-      <div class="col-span-1 md:col-span-2 flex justify-center mt-2">
-        <p class="text-gray-700 dark:text-white text-center">
-          La contraseña debe ser alfanumérica y tener al menos 6 caracteres.
-        </p>
-      </div>
-
-      <!-- Botón de Registro -->
-      <div class="col-span-1 md:col-span-2 flex justify-center">
-        <button type="submit"
-          class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">
-          Registrarse
+    <!-- Menú lateral -->
+    <div id="menu"
+      class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform dark:bg-primary dark:text-white z-50">
+      <div class="p-4">
+        <button id="close-menu" class="text-gray-700 dark:text-white">
+          <i class="fas fa-times"></i>
         </button>
       </div>
-
-      <!-- Enlace a Iniciar Sesión -->
-      <div class="col-span-1 md:col-span-2 flex justify-center mt-4">
-        <a href="login.html" class="text-primary dark:text-secondary hover:underline hover:text-secondary">
-          ¿Ya tienes una cuenta? Inicia Sesión
+      <nav class="flex flex-col space-y-4 p-4">
+        <a href="../../../index.html"
+          class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+          <i class="fas fa-home mr-4"></i> Inicio
         </a>
-      </div>
-    </form>
-  </main>
-
-  <!-- 📌 Pie de página -->
-  <footer class="bg-white text-center py-4 dark:bg-primary dark:text-white">
-    <!-- Íconos de redes sociales -->
-    <div class="flex justify-center space-x-4 mb-4">
-      <a href="#" class="text-primary dark:text-white hover:text-blue-500 dark:hover:text-blue-500"><i
-          class="fab fa-facebook-f"></i></a>
-      <a href="#" class="text-primary dark:text-white hover:text-blue-400 dark:hover:text-blue-400"><i
-          class="fab fa-twitter"></i></a>
-      <a href="#" class="text-primary dark:text-white hover:text-pink-500 dark:hover:text-pink-500"><i
-          class="fab fa-instagram"></i></a>
-      <a href="#" class="text-primary dark:text-white hover:text-red-600 dark:hover:text-red-600"><i
-          class="fab fa-youtube"></i></a>
+        <a href="../../pages/team.html"
+          class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+          <i class="fas fa-users mr-4"></i> Mi Equipo
+        </a>
+        <a href="../../pages/history.html"
+          class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+          <i class="fas fa-book mr-4"></i> Historia
+        </a>
+        <a href="../../pages/inscriptions.html"
+          class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+          <i class="fas fa-edit mr-4"></i> Inscripciones
+        </a>
+      </nav>
     </div>
-    <p class="text-xs">&copy; 2025. Todos los derechos reservados.</p>
-  </footer>
 
-  <!-- 🚀 Script para menú hamburguesa y cambio de tema -->
-  <script src="../../assets/js/componets/menu.js"></script>
-  <script src="../../assets/js/componets/themeToggle.js"></script>
-  <script src="../../assets/js/componets/passwordVisible.js"></script>
-  <script src="../../assets/js/componets/phoneInput.js"></script>
-  <script src="../../assets/js/componets/dropDown.js"></script>
+    <!-- 📌 Contenido Principal -->
+    <main
+      class="flex flex-col items-center justify-center flex-grow text-center px-6 mt-20">
+      <!-- Logo -->
+      <img id="logo" src="../../assets/img/logos/logoOscuro.png"
+        alt="FutbolGo Logo"
+        class="w-44 h-44 md:w-52 md:h-52 dark:hidden" />
+      <img id="logo-dark" src="../../assets/img/logos/logoClaro.png"
+        alt="FutbolGo Logo"
+        class="w-44 h-44 md:w-52 md:h-52 hidden dark:block" />
 
-</body>
+      <!-- Formulario de Registro -->
+      <h1 class="text-4xl text-secondary mt-4 dark:text-white font-heading">
+        Registro
+      </h1>
+
+      <!-- Formulario de Registro -->
+      <form class="mt-6 w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Nombre -->
+        <div class="flex flex-col">
+          <input type="text" id="name" placeholder="Nombre"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        </div>
+
+        <!-- Apellido -->
+        <div class="flex flex-col">
+          <input type="text" id="surname" placeholder="Apellido"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        </div>
+
+        <!-- Tipo de Documento -->
+        <div class="flex flex-col">
+          <label for="document-type"
+            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+            <i class="fas fa-id-card"></i> Tipo de Documento
+          </label>
+          <select id="document-type"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
+            <option value disabled selected class="text-center">Selecciona el
+              tipo de documento</option>
+            <option value="cc" class="text-center">Cédula de Ciudadanía</option>
+            <option value="ti" class="text-center">Tarjeta de Identidad</option>
+            <option value="ce" class="text-center">Cédula de
+              Extranjería</option>
+            <option value="passport" class="text-center">Pasaporte</option>
+          </select>
+        </div>
+
+        <!-- Número de Documento -->
+        <div class="flex flex-col relative">
+          <label for="document"
+            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+            <i class="fas fa-id-card"></i> Número de Documento
+          </label>
+          <input type="text" id="document"
+            placeholder="Ingresa tu número de documento"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        </div>
+
+        <!-- Correo Electrónico -->
+        <div class="flex flex-col">
+          <input type="email" id="email" placeholder="Correo Electrónico"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        </div>
+
+        <!-- Teléfono -->
+        <div class="flex flex-col">
+          <input type="tel" id="phone" placeholder="Teléfono"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        </div>
+
+        <!-- Fecha de Nacimiento -->
+        <div class="flex flex-col">
+          <input type="date" id="birthdate" placeholder="Fecha de Nacimiento"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        </div>
+
+        <!-- Género -->
+        <div class="flex flex-col">
+          <label for="gender"
+            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+            <i class="fas fa-venus-mars"></i> Género
+          </label>
+          <select id="gender"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
+            <option value disabled selected class="text-center">Elige tu
+              género</option>
+            <option value="male" class="text-center">Masculino</option>
+            <option value="female" class="text-center">Femenino</option>
+            <option value="other" class="text-center">Otro</option>
+          </select>
+        </div>
+
+        <!-- Rol -->
+        <div class="flex flex-col">
+          <label for="role"
+            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+            <i class="fas fa-user-tag"></i> Rol
+          </label>
+          <select id="role"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
+            <option value disabled selected class="text-center">Escoge tu
+              rol</option>
+            <option value="player" class="text-center">Jugador</option>
+            <option value="parent" class="text-center">Tutor</option>
+          </select>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="flex flex-col relative">
+          <label for="password"
+            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+            <i class="fas fa-lock"></i> Contraseña
+          </label>
+          <input type="password" id="password" placeholder="***********"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+          <span class="absolute top-10 right-3 flex items-center cursor-pointer"
+            onclick="togglePasswordVisibility('password')">
+            <i class="fas fa-eye text-gray-700 dark:text-white"></i>
+          </span>
+        </div>
+
+        <!-- Confirmar Contraseña -->
+        <div class="flex flex-col relative">
+          <label for="confirm-password"
+            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+            <i class="fas fa-lock"></i> Confirmar Contraseña
+          </label>
+          <input type="password" id="confirm-password" placeholder="***********"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+          <span class="absolute top-10 right-3 flex items-center cursor-pointer"
+            onclick="togglePasswordVisibility('confirm-password')">
+            <i class="fas fa-eye text-gray-700 dark:text-white"></i>
+          </span>
+        </div>
+
+        <!-- Condiciones de la Contraseña -->
+        <div class="col-span-1 md:col-span-2 flex justify-center mt-2">
+          <p class="text-gray-700 dark:text-white text-center">
+            La contraseña debe ser alfanumérica y tener al menos 6 caracteres.
+          </p>
+        </div>
+
+        <!-- Botón de Registro -->
+        <div class="col-span-1 md:col-span-2 flex justify-center">
+          <button type="submit"
+            class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">
+            Registrarse
+          </button>
+        </div>
+
+        <!-- Enlace a Iniciar Sesión -->
+        <div class="col-span-1 md:col-span-2 flex justify-center mt-4">
+          <a href="login.html"
+            class="text-primary dark:text-secondary hover:underline hover:text-secondary">
+            ¿Ya tienes una cuenta? Inicia Sesión
+          </a>
+        </div>
+      </form>
+    </main>
+
+    <!-- 📌 Pie de página -->
+    <footer class="bg-white text-center py-4 dark:bg-primary dark:text-white">
+      <!-- Íconos de redes sociales -->
+      <div class="flex justify-center space-x-4 mb-4">
+        <a href="#"
+          class="text-primary dark:text-white hover:text-blue-500 dark:hover:text-blue-500"><i
+            class="fab fa-facebook-f"></i></a>
+        <a href="#"
+          class="text-primary dark:text-white hover:text-blue-400 dark:hover:text-blue-400"><i
+            class="fab fa-twitter"></i></a>
+        <a href="#"
+          class="text-primary dark:text-white hover:text-pink-500 dark:hover:text-pink-500"><i
+            class="fab fa-instagram"></i></a>
+        <a href="#"
+          class="text-primary dark:text-white hover:text-red-600 dark:hover:text-red-600"><i
+            class="fab fa-youtube"></i></a>
+      </div>
+      <p class="text-xs">&copy; 2025. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- 🚀 Script para menú hamburguesa y cambio de tema -->
+    <script src="../../assets/js/componets/menu.js"></script>
+    <script src="../../assets/js/componets/themeToggle.js"></script>
+    <script src="../../assets/js/componets/passwordVisible.js"></script>
+    <script src="../../assets/js/componets/phoneInput.js"></script>
+    <script src="../../assets/js/componets/dropDown.js"></script>
+
+  </body>
 
 </html>
