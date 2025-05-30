@@ -44,7 +44,7 @@ NKI/
 │   │   │   │   ├── components/
 │   │   │   │   │   ├── botonanimado.css
 │   │   │   │   │   ├── hamburgermenu.css
-│   │   │   │   │   ├── menu_hambur_dash.css
+│   │   │   │   │   ├── menu-hambur-dash.css
 │   │   │   │   ├── styles.css
 │   │   │   │   ├── tailwind.css
 │   │   │   ├── img/
@@ -57,23 +57,21 @@ NKI/
 │   │   │   │   ├── api/
 │   │   │   │   │   ├── api.js
 │   │   │   │   ├── auth/
-│   │   │   │   │   ├── forgotpassword.js
+│   │   │   │   │   ├── forgot-password.js
 │   │   │   │   │   ├── login.js
 │   │   │   │   │   ├── register.js
-│   │   │   │   │   ├── resetpassword.js
+│   │   │   │   │   ├── reset-password.js
 │   │   │   │   ├── components/
-│   │   │   │   │   ├── dropdown.js
+│   │   │   │   │   ├── drop-down.js
 │   │   │   │   │   ├── menu.js
-│   │   │   │   │   ├── passwordvisible.js
-│   │   │   │   │   ├── paybutton.js
-│   │   │   │   │   ├── phoneinput.js
+│   │   │   │   │   ├── password-visible.js
+│   │   │   │   │   ├── pay-button.js
+│   │   │   │   │   ├── phone-input.js
 │   │   │   │   │   ├── submenu.js
-│   │   │   │   │   ├── themetoggle.js
-│   │   │   │   │   ├── whatsappbutton.js
+│   │   │   │   │   ├── theme-toggle.js
+│   │   │   │   │   ├── whatsapp-button.js
 │   │   │   │   ├── jquery/
 │   │   │   │   │   ├── jquery-3.7.1.min.js
-│   │   │   │   ├── middleware/
-│   │   │   │   │   ├── errorhandler.js
 │   │   │   │   ├── pages/
 │   │   │   │   │   ├── alineaciones.js
 │   │   │   │   │   ├── asistencia.js
@@ -176,14 +174,14 @@ NKI/
 │   │   │   │   ├── tutores.html
 │   │   │   ├── usuarios/
 │   │   │   │   ├── usuarios.html
-│   │   ├── index.html
+│   ├── index.html
 │   ├── package-lock.json
 │   ├── package.json
 │   ├── tailwind.config.js
 ├── database/
 │   ├── base de datos.txt
 │   ├── migrations/
-│   │   ├── 20250530_create_tables.sql
+│   │   ├── 20250530_create_usuarios.sql
 │   ├── nki.sql
 ├── docs/
 │   ├── api.md
@@ -201,117 +199,122 @@ NKI/
 │   │   ├── config/
 │   │   │   ├── connection.php
 │   │   ├── controllers/
-│   │   │   ├── alineacionescontroller.php
-│   │   │   ├── asistenciacontroller.php
-│   │   │   ├── auditoriacontroller.php
-│   │   │   ├── categoriascontroller.php
-│   │   │   ├── entrenadorescontroller.php
-│   │   │   ├── entrenamientoscontroller.php
-│   │   │   ├── estadisticascontroller.php
-│   │   │   ├── eventoscontroller.php
-│   │   │   ├── historialpagoscontroller.php
-│   │   │   ├── indumentariacontroller.php
-│   │   │   ├── inventariocontroller.php
-│   │   │   ├── jugadorescontroller.php
-│   │   │   ├── noticiascontroller.php
-│   │   │   ├── notificacionescontroller.php
-│   │   │   ├── pagoscontroller.php
-│   │   │   ├── partidoscontroller.php
-│   │   │   ├── pedidoscontroller.php
-│   │   │   ├── permisoscontroller.php
-│   │   │   ├── posicionescontroller.php
-│   │   │   ├── productoscontroller.php
-│   │   │   ├── rolescontroller.php
-│   │   │   ├── rolespermisoscontroller.php
-│   │   │   ├── servicioscontroller.php
-│   │   │   ├── tiposdocumentocontroller.php
-│   │   │   ├── transaccionescontroller.php
-│   │   │   ├── tutorescontroller.php
-│   │   │   ├── usuarioscontroller.php
 │   │   │   ├── auth/
-│   │   │   │   ├── forgotpasswordcontroller.php
-│   │   │   │   ├── logincontroller.php
-│   │   │   │   ├── passwordresetscontroller.php
-│   │   │   │   ├── registercontroller.php
+│   │   │   │   ├── ForgotPasswordController.php
+│   │   │   │   ├── LoginController.php
+│   │   │   │   ├── PasswordResetsController.php
+│   │   │   │   ├── RegisterController.php
+│   │   │   ├── AlineacionesController.php
+│   │   │   ├── AsistenciaController.php
+│   │   │   ├── AuditoriaController.php
+│   │   │   ├── CategoriasController.php
+│   │   │   ├── EntrenadoresController.php
+│   │   │   ├── EntrenamientosController.php
+│   │   │   ├── EstadisticasController.php
+│   │   │   ├── EventosController.php
+│   │   │   ├── HistorialPagosController.php
+│   │   │   ├── IndumentariaController.php
+│   │   │   ├── InventarioController.php
+│   │   │   ├── JugadoresController.php
+│   │   │   ├── NoticiasController.php
+│   │   │   ├── NotificacionesController.php
+│   │   │   ├── PagosController.php
+│   │   │   ├── PartidosController.php
+│   │   │   ├── PedidosController.php
+│   │   │   ├── PermisosController.php
+│   │   │   ├── PosicionesController.php
+│   │   │   ├── ProductosController.php
+│   │   │   ├── RolesController.php
+│   │   │   ├── RolesPermisosController.php
+│   │   │   ├── ServiciosController.php
+│   │   │   ├── TiposDocumentoController.php
+│   │   │   ├── TransaccionesController.php
+│   │   │   ├── TutoresController.php
+│   │   │   ├── UsuariosController.php
 │   │   ├── error/
 │   │   │   ├── errorhandler.php
 │   │   ├── middleware/
-│   │   │   ├── authmiddleware.php
-│   │   │   ├── rolemiddleware.php
+│   │   │   ├── CsrfMiddleware.php
+│   │   │   ├── GuestMiddleware.php
+│   │   │   ├── LoginMiddleware.php
+│   │   │   ├── PermissionMiddleware.php
+│   │   │   ├── RegisterMiddleware.php
+│   │   │   ├── RoleMiddleware.php
+│   │   │   ├── ThrottleMiddleware.php
 │   │   ├── models/
-│   │   │   ├── alineaciones.php
-│   │   │   ├── asistencia.php
-│   │   │   ├── auditoria.php
-│   │   │   ├── categorias.php
-│   │   │   ├── entrenadores.php
-│   │   │   ├── entrenamientos.php
-│   │   │   ├── estadisticas.php
-│   │   │   ├── eventos.php
-│   │   │   ├── historialpagos.php
-│   │   │   ├── indumentaria.php
-│   │   │   ├── inventario.php
-│   │   │   ├── jugadores.php
-│   │   │   ├── noticias.php
-│   │   │   ├── notificaciones.php
-│   │   │   ├── pagos.php
-│   │   │   ├── partidos.php
-│   │   │   ├── pedidos.php
-│   │   │   ├── permisos.php
-│   │   │   ├── posiciones.php
-│   │   │   ├── productos.php
-│   │   │   ├── roles.php
-│   │   │   ├── rolespermisos.php
-│   │   │   ├── servicios.php
-│   │   │   ├── tiposdocumento.php
-│   │   │   ├── transacciones.php
-│   │   │   ├── tutores.php
-│   │   │   ├── usuarios.php
+│   │   │   ├── Alineacion.php
+│   │   │   ├── Asistencia.php
+│   │   │   ├── Auditoria.php
+│   │   │   ├── Categoria.php
+│   │   │   ├── Entrenador.php
+│   │   │   ├── Entrenamiento.php
+│   │   │   ├── Estadistica.php
+│   │   │   ├── Evento.php
+│   │   │   ├── HistorialPago.php
+│   │   │   ├── Indumentaria.php
+│   │   │   ├── Inventario.php
+│   │   │   ├── Jugador.php
+│   │   │   ├── Noticia.php
+│   │   │   ├── Notificacion.php
+│   │   │   ├── Pago.php
+│   │   │   ├── Partido.php
+│   │   │   ├── Pedido.php
+│   │   │   ├── Permiso.php
+│   │   │   ├── Posicion.php
+│   │   │   ├── Producto.php
+│   │   │   ├── Rol.php
+│   │   │   ├── RolPermiso.php
+│   │   │   ├── Servicio.php
+│   │   │   ├── TipoDocumento.php
+│   │   │   ├── Transaccion.php
+│   │   │   ├── Tutor.php
+│   │   │   ├── Usuario.php
 │   │   ├── routes/
 │   │   │   ├── api.php
 │   │   ├── tests/
 │   │   │   ├── controllers/
-│   │   │   │   ├── usuarioscontrollertest.php
-│   │   │   │   ├── pagoscontrollertest.php
+│   │   │   │   ├── UsuariosControllerTest.php
+│   │   │   │   ├── PagosControllerTest.php
 │   │   │   ├── models/
-│   │   │   │   ├── usuariosmodeltest.php
-│   │   │   │   ├── pagosmodeltest.php
+│   │   │   │   ├── UsuariosModelTest.php
+│   │   │   │   ├── PagosModelTest.php
 │   │   ├── utils/
-│   │   │   ├── datehelper.php
-│   │   │   ├── helpers.php
-│   │   │   ├── validator.php
+│   │   │   ├── DateHelper.php
+│   │   │   ├── Helpers.php
+│   │   │   ├── Validator.php
 │   │   ├── validations/
-│   │   │   ├── alineacionesvalidation.php
-│   │   │   ├── asistenciavalidation.php
-│   │   │   ├── auditoriavalidation.php
-│   │   │   ├── categoriasvalidation.php
-│   │   │   ├── entrenadoresvalidation.php
-│   │   │   ├── entrenamientosvalidation.php
-│   │   │   ├── estadisticasvalidation.php
-│   │   │   ├── eventosvalidation.php
-│   │   │   ├── historialpagosvalidation.php
-│   │   │   ├── indumentariavalidation.php
-│   │   │   ├── inventariovalidation.php
-│   │   │   ├── jugadoresvalidation.php
-│   │   │   ├── noticiasvalidation.php
-│   │   │   ├── notificacionesvalidation.php
-│   │   │   ├── pagosvalidation.php
-│   │   │   ├── partidosvalidation.php
-│   │   │   ├── pedidosvalidation.php
-│   │   │   ├── permisosvalidation.php
-│   │   │   ├── posicionesvalidation.php
-│   │   │   ├── productosvalidation.php
-│   │   │   ├── rolespermisosvalidation.php
-│   │   │   ├── rolesvalidation.php
-│   │   │   ├── serviciosvalidation.php
-│   │   │   ├── tiposdocumentovalidation.php
-│   │   │   ├── transaccionesvalidation.php
-│   │   │   ├── tutoresvalidation.php
-│   │   │   ├── usuariosvalidation.php
 │   │   │   ├── auth/
-│   │   │   │   ├── forgotpasswordvalidation.php
-│   │   │   │   ├── loginvalidation.php
-│   │   │   │   ├── passwordresetsvalidation.php
-│   │   │   │   ├── registervalidation.php
+│   │   │   │   ├── ForgotPasswordValidation.php
+│   │   │   │   ├── LoginValidation.php
+│   │   │   │   ├── PasswordResetsValidation.php
+│   │   │   │   ├── RegisterValidation.php
+│   │   │   ├── AlineacionesValidation.php
+│   │   │   ├── AsistenciaValidation.php
+│   │   │   ├── AuditoriaValidation.php
+│   │   │   ├── CategoriasValidation.php
+│   │   │   ├── EntrenadoresValidation.php
+│   │   │   ├── EntrenamientosValidation.php
+│   │   │   ├── EstadisticasValidation.php
+│   │   │   ├── EventosValidation.php
+│   │   │   ├── HistorialPagosValidation.php
+│   │   │   ├── IndumentariaValidation.php
+│   │   │   ├── InventarioValidation.php
+│   │   │   ├── JugadoresValidation.php
+│   │   │   ├── NoticiasValidation.php
+│   │   │   ├── NotificacionesValidation.php
+│   │   │   ├── PagosValidation.php
+│   │   │   ├── PartidosValidation.php
+│   │   │   ├── PedidosValidation.php
+│   │   │   ├── PermisosValidation.php
+│   │   │   ├── PosicionesValidation.php
+│   │   │   ├── ProductosValidation.php
+│   │   │   ├── RolesPermisosValidation.php
+│   │   │   ├── RolesValidation.php
+│   │   │   ├── ServiciosValidation.php
+│   │   │   ├── TiposDocumentoValidation.php
+│   │   │   ├── TransaccionesValidation.php
+│   │   │   ├── TutoresValidation.php
+│   │   │   ├── UsuariosValidation.php
 ├── README.md
 ```
 
