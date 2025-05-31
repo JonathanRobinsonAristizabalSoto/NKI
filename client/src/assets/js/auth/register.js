@@ -1,4 +1,4 @@
-import { apiPost } from '../api/api.js';
+import { apiPost } from "../api/api.js";
 
 // Cambia esta constante según la ruta real de tu backend
 const API_BASE = "http://localhost/NKI/server/public";
@@ -8,8 +8,9 @@ async function cargarTiposDocumento() {
   const res = await fetch(`${API_BASE}/api/tipos-documento`);
   const tipos = await res.json();
   const select = document.getElementById("document-type");
-  select.innerHTML = '<option value disabled selected>Selecciona el tipo de documento</option>';
-  tipos.forEach(tipo => {
+  select.innerHTML =
+    "<option value disabled selected>Selecciona el tipo de documento</option>";
+  tipos.forEach((tipo) => {
     select.innerHTML += `<option value="${tipo.id}">${tipo.descripcion}</option>`;
   });
 }
@@ -19,10 +20,10 @@ async function cargarRoles() {
   const res = await fetch(`${API_BASE}/api/roles`);
   const roles = await res.json();
   const select = document.getElementById("role");
-  select.innerHTML = '<option value disabled selected>Escoge tu rol</option>';
+  select.innerHTML = "<option value disabled selected>Escoge tu rol</option>";
   // Solo permite los roles de jugador y tutor
-  roles.forEach(rol => {
-    if (rol.nombre === 'Jugador' || rol.nombre === 'Tutor') {
+  roles.forEach((rol) => {
+    if (rol.nombre === "Jugador" || rol.nombre === "Tutor") {
       select.innerHTML += `<option value="${rol.id}">${rol.nombre}</option>`;
     }
   });
@@ -33,8 +34,9 @@ async function cargarGeneros() {
   const res = await fetch(`${API_BASE}/api/generos`);
   const generos = await res.json();
   const select = document.getElementById("gender");
-  select.innerHTML = '<option value disabled selected>Selecciona el género</option>';
-  generos.forEach(genero => {
+  select.innerHTML =
+    "<option value disabled selected>Selecciona el género</option>";
+  generos.forEach((genero) => {
     select.innerHTML += `<option value="${genero}">${genero}</option>`;
   });
 }
@@ -45,8 +47,9 @@ async function cargarCategorias() {
   const categorias = await res.json();
   const select = document.getElementById("categoria_id");
   if (!select) return;
-  select.innerHTML = '<option value disabled selected>Selecciona la categoría</option>';
-  categorias.forEach(cat => {
+  select.innerHTML =
+    "<option value disabled selected>Selecciona la categoría</option>";
+  categorias.forEach((cat) => {
     // Si tu API devuelve edad_minima y edad_maxima:
     if (cat.edad_minima !== undefined && cat.edad_maxima !== undefined) {
       select.innerHTML += `<option value="${cat.id}" data-edad-min="${cat.edad_minima}" data-edad-max="${cat.edad_maxima}">${cat.nombre} (${cat.edad_minima}-${cat.edad_maxima} años)</option>`;
@@ -86,7 +89,12 @@ function seleccionarCategoriaPorEdad() {
   for (let option of select.options) {
     const edadMin = parseInt(option.getAttribute("data-edad-min"));
     const edadMax = parseInt(option.getAttribute("data-edad-max"));
-    if (!isNaN(edadMin) && !isNaN(edadMax) && edad >= edadMin && edad <= edadMax) {
+    if (
+      !isNaN(edadMin) &&
+      !isNaN(edadMax) &&
+      edad >= edadMin &&
+      edad <= edadMax
+    ) {
       select.value = option.value;
       encontrada = true;
       break;
@@ -130,15 +138,23 @@ document.addEventListener("DOMContentLoaded", function () {
       birthdate: document.getElementById("birthdate").value,
       gender: document.getElementById("gender").value,
       direccion: [
-        document.getElementById("street").value,
-        document.getElementById("number").value,
+        document.getElementById("street-type").value,
+        document.getElementById("street-number").value,
+        document.getElementById("street-letter").value,
+        document.getElementById("street-number2").value,
+        // Eliminado street-number3 porque no existe en el HTML
+        document.getElementById("block").value,
+        document.getElementById("apartment").value,
+        document.getElementById("reference").value,
         document.getElementById("neighborhood").value,
         document.getElementById("city").value,
-        document.getElementById("state").value
-      ].filter(Boolean).join(", "),
+        document.getElementById("state").value,
+      ]
+        .filter(Boolean)
+        .join(", "),
       role: document.getElementById("role").value,
       password: document.getElementById("password").value,
-      confirm_password: document.getElementById("confirm-password").value
+      confirm_password: document.getElementById("confirm-password").value,
     };
 
     // Si el rol es Jugador, agrega la categoría
@@ -152,7 +168,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ------------------------Validación básica de campos obligatorios-------------------
-    if (!data.name || !data.surname || !data.document || !data.email || !data.password) {
+    if (
+      !data.name ||
+      !data.surname ||
+      !data.document ||
+      !data.email ||
+      !data.password
+    ) {
       alert("Por favor, completa todos los campos obligatorios.");
       return;
     }
