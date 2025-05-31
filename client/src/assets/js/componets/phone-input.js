@@ -7,7 +7,7 @@ $(document).ready(function() {
       initialCountry: "auto",
       geoIpLookup: function(success, failure) {
           // Realiza una solicitud para obtener la información de geolocalización
-          fetch("https://ipinfo.io/json?token=<YOUR_TOKEN>")
+          fetch("https://ipinfo.io/json?token=780bba7ae90754")
               .then((resp) => resp.json())
               .then((resp) => success(resp.country))
               .catch(() => success("us"));
