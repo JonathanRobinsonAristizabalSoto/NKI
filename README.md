@@ -31,8 +31,6 @@ Sistema de gestión para la Escuela y Club de Fútbol NKI. Permite administrar j
 
 ## 📁 Estructura del Proyecto (Alfabética y Modular)
 
-## 📁 Estructura del Proyecto (Alfabética y Modular)
-
 ```
 NKI/
 ├── client/
@@ -156,6 +154,7 @@ NKI/
 │   │   │   │   ├── notificaciones.html
 │   │   │   ├── pagos/
 │   │   │   │   ├── pagos.html
+│   │   │   │   ├── payment.html
 │   │   │   ├── partidos/
 │   │   │   │   ├── partidos.html
 │   │   │   ├── pedidos/

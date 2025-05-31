@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NKI - Pago de Mensualidades</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <script src="../assets/js/jquery/jquery-3.7.1.min.js" defer></script>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <script src="../../assets/js/jquery/jquery-3.7.1.min.js" defer></script>
 </head>
 <body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
 
@@ -22,10 +22,9 @@
 
             <!-- Menú principal centrado -->
             <nav class="hidden md:flex space-x-6 mx-auto">
-                <a href="../../index.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
-                <a href="../pages/team.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Mi Equipo</a>
-                <a href="../pages/history.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Historia</a>
-                <a href="../pages/inscriptions.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
+                <a href="../../../index.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
+                <a href="../info/about.html" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Historia</a>
+                <a href="../inscripciones/" class="text-gray-700 hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
             </nav>
 
             <!-- Botón de flecha con tema -->
@@ -36,10 +35,10 @@
                 </button>
                 <!-- Menú desplegable -->
                 <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
-                    <a href="../pages/dashboard.html" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Dashboard</a>
+                    <a href="../dashboard/dashboard.html" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Dashboard</a>
                     <a href="#acerca-de" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Acerca de</a>
                     <a href="#politicas" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Políticas</a>
-                    <a href="#contacto" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Contacto</a>
+                    <a href="../info/contact.html" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Contacto</a>
                     <!-- Botón de cambio de tema -->
                     <button id="theme-toggle" class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
                         <i id="menu-theme-icon" class="fas fa-moon"></i> Tema Dark
@@ -70,8 +69,8 @@
     <!-- 📌 Contenido Principal -->
     <main class="flex flex-col items-center justify-center flex-grow text-center px-6 mt-20">
         <!-- Logo -->
-        <img id="logo" src="../assets/img/logos/logoOscuro.png" alt="FutbolGo Logo" class="w-36 h-36 md:w-52 md:h-52 dark:hidden">
-        <img id="logo-dark" src="../assets/img/logos/logoClaro.png" alt="FutbolGo Logo" class="w-36 h-36 md:w-52 md:h-52 hidden dark:block">
+        <img id="logo" src="../../assets/img/logos/logoOscuro.png" alt="FutbolGo Logo" class="w-36 h-36 md:w-52 md:h-52 dark:hidden">
+        <img id="logo-dark" src="../../assets/img/logos/logoClaro.png" alt="FutbolGo Logo" class="w-36 h-36 md:w-52 md:h-52 hidden dark:block">
 
         <!-- Título -->
         <h1 class="text-3xl md:text-4xl text-secondary mt-4 dark:text-white font-heading">Consulta y paga tu mensualidad</h1>
@@ -117,9 +116,9 @@
     </footer>
 
     <!-- Script para menú hamburguesa y cambio de tema -->
-    <script src="../assets/js/componets/menu.js" defer></script>
-    <script src="../assets/js/componets/themeToggle.js" defer></script>
-    <script src="../assets/js/componets/dropDown.js"></script>
+    <script src="../../assets/js/componets/menu.js" defer></script>
+    <script src="../../assets/js/componets/theme-toggle.js" defer></script>
+    <script src="../../assets/js/componets/drop-down.js"></script>
 
     <script>
         document.getElementById('search-form').addEventListener('submit', function(event) {

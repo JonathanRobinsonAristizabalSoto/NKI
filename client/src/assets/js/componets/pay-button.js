@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const payNowButton = document.getElementById('pay-now-button');
     if (payNowButton) {
         payNowButton.addEventListener('click', function () {
-            window.location.href = 'src/pages/payment.html';
+            window.location.href = './src/views/pagos/payment.html';
         });
 
         function togglePayButton() {

@@ -1,132 +1,184 @@
 <!DOCTYPE html>
 <html lang="es" class="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NKI - Iniciar Sesión</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../../assets/css/styles.css">
-    <script src="../../assets/js/jquery/jquery-3.7.1.min.js"></script>
-</head>
-<body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NKI - Iniciar Sesión</title>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="../../assets/css/styles.css">
+        <script src="../../assets/js/jquery/jquery-3.7.1.min.js"></script>
+    </head>
+    <body
+        class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
 
-    <!-- 🌟 Header con menú hamburguesa -->
-    <header class="bg-white shadow-md fixed w-full top-0 left-0 z-50 dark:bg-primary dark:text-white">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Botón de menú hamburguesa (solo en móvil) -->
-            <button id="menu-btn" class="md:hidden focus:outline-none">
-                <svg class="w-8 h-8 text-primary dark:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-
-            <!-- Menú principal centrado -->
-            <nav class="hidden md:flex space-x-6 mx-auto">
-                <a href="../../../index.html" class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
-                <a href="../info/about.html" class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Historia</a>
-                <a href="../inscripciones/" class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
-                <a href="../info/contact.html" class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Contactanos</a>
-            </nav>
-
-            <!-- Botón de flecha con tema -->
-            <div class="relative">
-                <button id="dropdown-btn" class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-2">
-                    <i id="theme-icon" class="fas fa-moon"></i>
-                    <i id="dropdown-icon" class="fas fa-chevron-down"></i>
+        <!-- 🌟 Header con menú hamburguesa -->
+        <header
+            class="bg-white shadow-md fixed w-full top-0 left-0 z-50 dark:bg-primary dark:text-white">
+            <div
+                class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <!-- Botón de menú hamburguesa (solo en móvil) -->
+                <button id="menu-btn" class="md:hidden focus:outline-none">
+                    <svg class="w-8 h-8 text-primary dark:text-white"
+                        fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
                 </button>
-                <!-- Menú desplegable -->
-                <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
-                    <a href="../dashboard/" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Dashboard</a>
-                    <a href="#acerca-de" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Acerca de</a>
-                    <a href="#politicas" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Políticas</a>
-                    <a href="../info/contact.html" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Contacto</a>
-                    <!-- Botón de cambio de tema -->
-                    <button id="theme-toggle" class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
-                        <i id="menu-theme-icon" class="fas fa-moon"></i> Tema Dark
+
+                <!-- Menú principal centrado -->
+                <nav class="hidden md:flex space-x-6 mx-auto">
+                    <a href="../../../index.html"
+                        class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
+                    <a href="../info/about.html"
+                        class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Nosotros</a>
+                    <a href="../inscripciones/inscripciones.html"
+                        class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
+                    <a href="../info/contact.html"
+                        class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Contactanos</a>
+                </nav>
+
+                <!-- Botón de flecha con tema -->
+                <div class="relative">
+                    <button id="dropdown-btn"
+                        class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-2">
+                        <i id="theme-icon" class="fas fa-moon"></i>
+                        <i id="dropdown-icon" class="fas fa-chevron-down"></i>
                     </button>
+                    <!-- Menú desplegable -->
+                    <div id="dropdown-menu"
+                        class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
+                        <a href="../dashboard/dashboard.html"
+                            class="block px-4 py-2 text-sm text-primary dark:text-secondary">Dashboard</a>
+                        <a href="../info/about.html"
+                            class="block px-4 py-2 text-sm text-primary dark:text-secondary">Acerca
+                            de</a>
+                        <a href="../inf/Políticas.html"
+                            class="block px-4 py-2 text-sm text-primary dark:text-secondary">Políticas</a>
+                        <a href="../info/contact.html"
+                            class="block px-4 py-2 text-sm text-primary dark:text-secondary">Contacto</a>
+                        <!-- Botón de cambio de tema -->
+                        <button id="theme-toggle"
+                            class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
+                            <i id="menu-theme-icon" class="fas fa-moon"></i>
+                            Tema Dark
+                        </button>
+                    </div>
                 </div>
             </div>
+        </header>
+
+        <!-- Fondo opaco -->
+        <div id="overlay"
+            class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
+
+        <!-- Menú lateral -->
+        <div id="menu"
+            class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform dark:bg-primary dark:text-white z-50">
+            <div class="p-4">
+                <button id="close-menu" class="text-primary dark:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col space-y-4 p-4">
+                <a href="../../../index.html"
+                    class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+                    <i class="fas fa-home mr-4"></i> Inicio
+                </a>
+                <a href="../info/about.html"
+                    class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+                    <i class="fas fa-book mr-4"></i> Historia
+                </a>
+                <a href="../inscripciones/inscripciones.html"
+                    class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+                    <i class="fas fa-edit mr-4"></i> Inscripciones
+                </a>
+                <a href="../info/contact.html"
+                    class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+                    <i class="fas fa-envelope mr-4"></i> Contactanos
+                </a>
+            </nav>
         </div>
-    </header>
 
-    <!-- Fondo opaco -->
-    <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
+        <!-- 📌 Contenido Principal -->
+        <main
+            class="flex flex-col items-center justify-center flex-grow text-center px-6 mt-20">
+            <!-- Logo -->
+            <img id="logo" src="../../assets/img/logos/logoOscuro.png"
+                alt="FutbolGo Logo"
+                class="w-44 h-44 md:w-52 md:h-52 dark:hidden">
+            <img id="logo-dark" src="../../assets/img/logos/logoClaro.png"
+                alt="FutbolGo Logo"
+                class="w-44 h-44 md:w-52 md:h-52 hidden dark:block">
 
-    <!-- Menú lateral -->
-    <div id="menu" class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform dark:bg-primary dark:text-white z-50">
-        <div class="p-4">
-            <button id="close-menu" class="text-primary dark:text-white">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <nav class="flex flex-col space-y-4 p-4">
-            <a href="../../../index.html" class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-                <i class="fas fa-home mr-4"></i> Inicio
-            </a>
-            <a href="../info/about.html" class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-                <i class="fas fa-book mr-4"></i> Historia
-            </a>
-            <a href="../inscripciones/inscripciones.html" class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-                <i class="fas fa-edit mr-4"></i> Inscripciones
-            </a>
-            <a href="../info/contact.html" class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-                <i class="fas fa-envelope mr-4"></i> Contactanos
-            </a>
-        </nav>
-    </div>
+            <!-- Formulario de Inicio de Sesión -->
+            <h1
+                class="text-4xl text-secondary mt-4 dark:text-white font-heading">Iniciar
+                Sesión</h1>
 
-    <!-- 📌 Contenido Principal -->
-    <main class="flex flex-col items-center justify-center flex-grow text-center px-6 mt-20">
-        <!-- Logo -->
-        <img id="logo" src="../../assets/img/logos/logoOscuro.png" alt="FutbolGo Logo" class="w-44 h-44 md:w-52 md:h-52 dark:hidden">
-        <img id="logo-dark" src="../../assets/img/logos/logoClaro.png" alt="FutbolGo Logo" class="w-44 h-44 md:w-52 md:h-52 hidden dark:block">
+            <form class="mt-6 w-full max-w-md flex flex-col gap-6">
+                <!-- Correo Electrónico -->
+                <div class="flex flex-col">
+                    <input type="email" id="email"
+                        placeholder="Correo Electrónico"
+                        class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+                </div>
 
-        <!-- Formulario de Inicio de Sesión -->
-        <h1 class="text-4xl text-secondary mt-4 dark:text-white font-heading">Iniciar Sesión</h1>
+                <!-- Contraseña -->
+                <div class="flex flex-col relative">
+                    <input type="password" id="password"
+                        placeholder="Contraseña"
+                        class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+                    <span
+                        class="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                        onclick="togglePasswordVisibility('password')">
+                        <i class="fas fa-eye text-gray-700 dark:text-white"></i>
+                    </span>
+                </div>
 
-        <form class="mt-6 w-full max-w-md flex flex-col gap-6">
-            <!-- Correo Electrónico -->
-            <div class="flex flex-col">
-                <input type="email" id="email" placeholder="Correo Electrónico" class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+                <!-- Botón de Inicio de Sesión -->
+                <div class="flex justify-center">
+                    <button type="submit"
+                        class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">Iniciar
+                        Sesión</button>
+                </div>
+
+                <!-- Enlace a Registro -->
+                <div class="flex justify-center mt-4">
+                    <a href="register.html"
+                        class="text-primary dark:text-secondary hover:underline hover:text-secondary">¿No
+                        tienes una cuenta? Regístrate</a>
+                </div>
+            </form>
+        </main>
+
+        <!-- 📌 Pie de página -->
+        <footer
+            class="bg-white text-center py-4 dark:bg-primary dark:text-white">
+            <!-- Íconos de redes sociales -->
+            <div class="flex justify-center space-x-4 mb-4">
+                <a href="#"
+                    class="text-primary dark:text-white hover:text-secondary dark:hover:text-secondary"><i
+                        class="fab fa-facebook-f"></i></a>
+                <a href="#"
+                    class="text-primary dark:text-white hover:text-secondary dark:hover:text-secondary"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="#"
+                    class="text-primary dark:text-white hover:text-secondary dark:hover:text-secondary"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="#"
+                    class="text-primary dark:text-white hover:text-secondary dark:hover:text-secondary"><i
+                        class="fab fa-youtube"></i></a>
             </div>
+            <p class="text-xs">&copy; 2025. Todos los derechos reservados.</p>
+        </footer>
 
-            <!-- Contraseña -->
-            <div class="flex flex-col relative">
-                <input type="password" id="password" placeholder="Contraseña" class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-                <span class="absolute inset-y-0 right-3 flex items-center cursor-pointer" onclick="togglePasswordVisibility('password')">
-                    <i class="fas fa-eye text-gray-700 dark:text-white"></i>
-                </span>
-            </div>
+        <!-- Script para menú hamburguesa y cambio de tema -->
+        <script src="../../assets/js/componets/menu.js"></script>
+        <script src="../../assets/js/componets/theme-toggle.js"></script>
+        <script src="../../assets/js/componets/password-visible.js"></script>
+        <script src="../../assets/js/componets/drop-down.js"></script>
 
-            <!-- Botón de Inicio de Sesión -->
-            <div class="flex justify-center">
-                <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">Iniciar Sesión</button>
-            </div>
-
-            <!-- Enlace a Registro -->
-            <div class="flex justify-center mt-4">
-                <a href="register.html" class="text-primary dark:text-secondary hover:underline hover:text-secondary">¿No tienes una cuenta? Regístrate</a>
-            </div>
-        </form>
-    </main>
-
-    <!-- 📌 Pie de página -->
-    <footer class="bg-white text-center py-4 dark:bg-primary dark:text-white">
-        <!-- Íconos de redes sociales -->
-        <div class="flex justify-center space-x-4 mb-4">
-            <a href="#" class="text-primary dark:text-white hover:text-secondary dark:hover:text-secondary"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="text-primary dark:text-white hover:text-secondary dark:hover:text-secondary"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-primary dark:text-white hover:text-secondary dark:hover:text-secondary"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="text-primary dark:text-white hover:text-secondary dark:hover:text-secondary"><i class="fab fa-youtube"></i></a>
-        </div>
-        <p class="text-xs">&copy; 2025. Todos los derechos reservados.</p>
-    </footer>
-
-    <!-- Script para menú hamburguesa y cambio de tema -->
-    <script src="../../assets/js/componets/menu.js"></script>
-    <script src="../../assets/js/componets/themeToggle.js"></script>
-    <script src="../../assets/js/componets/passwordVisible.js"></script>
-    <script src="../../assets/js/componets/dropDown.js"></script>
-
-</body>
+    </body>
 </html>
