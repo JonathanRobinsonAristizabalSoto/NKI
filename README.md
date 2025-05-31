@@ -200,6 +200,7 @@ NKI/
 │   │   ├── system.log
 │   ├── public/
 │   │   ├── index.php
+│   │   ├── .htaccess
 │   ├── src/
 │   │   ├── config/
 │   │   │   ├── connection.php
@@ -217,6 +218,7 @@ NKI/
 │   │   │   ├── EntrenamientosController.php
 │   │   │   ├── EstadisticasController.php
 │   │   │   ├── EventosController.php
+│   │   │   ├── GenerosController.php
 │   │   │   ├── HistorialPagosController.php
 │   │   │   ├── IndumentariaController.php
 │   │   │   ├── InventarioController.php
@@ -325,6 +327,9 @@ NKI/
 │   │   │   ├── TransaccionesValidation.php
 │   │   │   ├── TutoresValidation.php
 │   │   │   ├── UsuariosValidation.php
+├── vendor/
+├── composer.json
+├── composer.lock
 ├── README.md
 ```
 

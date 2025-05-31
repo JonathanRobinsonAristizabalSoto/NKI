@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Si la petición es para un archivo o directorio real, no reescribir
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirige todo lo que empiece por /api/ a index.php
+RewriteRule ^api/ index.php [QSA,L]

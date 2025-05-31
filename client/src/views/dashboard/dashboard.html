@@ -70,56 +70,68 @@
             <nav class="flex flex-col space-y-4 p-4 mt-2">
                 <h2
                     class="text-center text-xl text-secondary dark:text-white font-bold">MENU</h2>
+
+                <!-- 1. Gestión de Personas -->
                 <div class="border-t pt-4 border-primary dark:border-white">
                     <button
-                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
-                        onclick="toggleSubmenu('usuarios-roles-submenu', this)">
-                        <span class="flex items-center space-x-5"><i
+                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center"
+                        onclick="toggleSubmenu('personas-submenu', this)">
+                        <span class="flex items-center space-x-5">
+                            <i
                                 class="fas fa-users text-secondary dark:text-white"></i>
-                            <span>Usuarios y Roles</span></span>
+                            <span>Gestión de Personas</span>
+                        </span>
                         <i class="fas fa-chevron-down dark:text-white"></i>
                     </button>
-                    <div id="usuarios-roles-submenu" class="hidden">
+                    <div id="personas-submenu" class="hidden">
                         <a href="#usuarios"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Usuarios</a>
+                        <a href="#tutores"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Tutores</a>
                         <a href="#roles"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Roles</a>
                         <a href="#permisos"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Permisos</a>
-                        <a href="#tutores"
-                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Tutores</a>
                     </div>
                 </div>
+
+                <!-- 2. Plantel Deportivo -->
                 <div class="border-t pt-4 border-primary dark:border-white">
                     <button
-                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
-                        onclick="toggleSubmenu('estructura-equipo-submenu', this)">
-                        <span class="flex items-center space-x-5"><i
+                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center"
+                        onclick="toggleSubmenu('plantel-submenu', this)">
+                        <span class="flex items-center space-x-5">
+                            <i
                                 class="fas fa-sitemap text-secondary dark:text-white"></i>
-                            <span>Equipo y Jugadores</span></span>
+                            <span>Plantel Deportivo</span>
+                        </span>
                         <i class="fas fa-chevron-down dark:text-white"></i>
                     </button>
-                    <div id="estructura-equipo-submenu" class="hidden">
+                    <div id="plantel-submenu" class="hidden">
                         <a href="#jugadores"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Jugadores</a>
+                        <a href="#entrenadores"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Entrenadores</a>
                         <a href="#posiciones"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Posiciones</a>
                         <a href="#categorias"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Categorías</a>
-                        <a href="#entrenadores"
-                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Entrenadores</a>
                     </div>
                 </div>
+
+                <!-- 3. Actividades Deportivas -->
                 <div class="border-t pt-4 border-primary dark:border-white">
                     <button
-                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
-                        onclick="toggleSubmenu('entrenamientos-partidos-submenu', this)">
-                        <span class="flex items-center space-x-5"><i
+                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center"
+                        onclick="toggleSubmenu('actividades-submenu', this)">
+                        <span class="flex items-center space-x-5">
+                            <i
                                 class="fas fa-futbol text-secondary dark:text-white"></i>
-                            <span>Entrenamientos y Partidos</span></span>
+                            <span>Actividades Deportivas</span>
+                        </span>
                         <i class="fas fa-chevron-down dark:text-white"></i>
                     </button>
-                    <div id="entrenamientos-partidos-submenu" class="hidden">
+                    <div id="actividades-submenu" class="hidden">
                         <a href="#entrenamientos"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Entrenamientos</a>
                         <a href="#asistencia"
@@ -132,50 +144,44 @@
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Estadísticas</a>
                     </div>
                 </div>
+
+                <!-- 4. Tienda y Equipamiento -->
                 <div class="border-t pt-4 border-primary dark:border-white">
                     <button
-                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
-                        onclick="toggleSubmenu('equipamiento-submenu', this)">
-                        <span class="flex items-center space-x-5"><i
+                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center"
+                        onclick="toggleSubmenu('tienda-submenu', this)">
+                        <span class="flex items-center space-x-5">
+                            <i
                                 class="fas fa-tshirt text-secondary dark:text-white"></i>
-                            <span>Equipamiento</span></span>
+                            <span>Tienda y Equipamiento</span>
+                        </span>
                         <i class="fas fa-chevron-down dark:text-white"></i>
                     </button>
-                    <div id="equipamiento-submenu" class="hidden">
+                    <div id="tienda-submenu" class="hidden">
                         <a href="#indumentaria"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Indumentaria</a>
                         <a href="#inventario"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Inventario</a>
                         <a href="#productos"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Productos</a>
+                        <a href="#pedidos"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Pedidos</a>
                     </div>
                 </div>
+
+                <!-- 5. Gestión Económica -->
                 <div class="border-t pt-4 border-primary dark:border-white">
                     <button
-                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
-                        onclick="toggleSubmenu('noticias-eventos-submenu', this)">
-                        <span class="flex items-center space-x-5"><i
-                                class="fas fa-bullhorn text-secondary dark:text-white"></i>
-                            <span>Noticias y Eventos</span></span>
-                        <i class="fas fa-chevron-down dark:text-white"></i>
-                    </button>
-                    <div id="noticias-eventos-submenu" class="hidden">
-                        <a href="#noticias"
-                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Noticias</a>
-                        <a href="#eventos"
-                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Eventos</a>
-                    </div>
-                </div>
-                <div class="border-t pt-4 border-primary dark:border-white">
-                    <button
-                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center transform transition-transform duration-200 hover:scale-103"
-                        onclick="toggleSubmenu('pagos-inscripciones-submenu', this)">
-                        <span class="flex items-center space-x-5"><i
+                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center"
+                        onclick="toggleSubmenu('economica-submenu', this)">
+                        <span class="flex items-center space-x-5">
+                            <i
                                 class="fas fa-money-bill-wave text-secondary dark:text-white"></i>
-                            <span>Pagos e Inscripciones</span></span>
+                            <span>Gestión Económica</span>
+                        </span>
                         <i class="fas fa-chevron-down dark:text-white"></i>
                     </button>
-                    <div id="pagos-inscripciones-submenu" class="hidden">
+                    <div id="economica-submenu" class="hidden">
                         <a href="#pagos"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Pagos</a>
                         <a href="#historialpagos"
@@ -190,10 +196,58 @@
                         <a href="#conceptoscobro"
                             class="block pl-4 hover:text-secondary dark:hover:text-secondary">Conceptos
                             de Cobro</a>
+                        <a href="#configuracionpagos"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Configuración
+                            de Pagos</a>
                     </div>
                 </div>
-                <div
-                    class="border-t pt-4 border-primary dark:border-white"></div>
+
+                <!-- 6. Comunicaciones -->
+                <div class="border-t pt-4 border-primary dark:border-white">
+                    <button
+                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center"
+                        onclick="toggleSubmenu('comunicaciones-submenu', this)">
+                        <span class="flex items-center space-x-5">
+                            <i
+                                class="fas fa-bullhorn text-secondary dark:text-white"></i>
+                            <span>Comunicaciones</span>
+                        </span>
+                        <i class="fas fa-chevron-down dark:text-white"></i>
+                    </button>
+                    <div id="comunicaciones-submenu" class="hidden">
+                        <a href="#noticias"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Noticias</a>
+                        <a href="#eventos"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Eventos</a>
+                        <a href="#notificaciones"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Notificaciones</a>
+                    </div>
+                </div>
+
+                <!-- 7. Auditoría (solo admins) -->
+                <div class="border-t pt-4 border-primary dark:border-white">
+                    <button
+                        class="text-base w-full text-left font-bold text-primary dark:text-secondary flex justify-between items-center"
+                        onclick="toggleSubmenu('auditoria-submenu', this)">
+                        <span class="flex items-center space-x-5">
+                            <i
+                                class="fas fa-shield-alt text-secondary dark:text-white"></i>
+                            <span>Auditoría</span>
+                        </span>
+                        <i class="fas fa-chevron-down dark:text-white"></i>
+                    </button>
+                    <div id="auditoria-submenu" class="hidden">
+                        <a href="#bitacora"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Bitácora
+                            General</a>
+                        <a href="#auditoria-usuarios"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Usuarios</a>
+                        <a href="#auditoria-pagos"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Pagos</a>
+                        <a href="#auditoria-jugadores"
+                            class="block pl-4 hover:text-secondary dark:hover:text-secondary">Jugadores</a>
+                    </div>
+                </div>
             </nav>
         </aside>
 
