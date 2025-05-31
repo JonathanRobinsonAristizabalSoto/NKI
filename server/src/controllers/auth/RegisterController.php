@@ -1,7 +1,10 @@
 <?php
+
 namespace Src\Controllers\Auth;
 
 use Src\Models\Usuario;
+use Src\Models\Jugador;
+use Src\Models\Tutor;
 
 class RegisterController
 {
@@ -34,6 +37,14 @@ class RegisterController
             exit;
         }
 
+        // Validar que solo se puedan registrar roles de Jugador o Tutor (IDs permitidos)
+        $rolesPermitidos = [2, 5]; // Ajusta estos IDs según tu base de datos
+        if (!in_array((int)$input['role'], $rolesPermitidos)) {
+            http_response_code(403);
+            echo json_encode(['message' => 'No tienes permiso para registrarte con ese rol.']);
+            exit;
+        }
+
         $usuario = new Usuario();
         $usuario->nombre = $input['name'];
         $usuario->apellido = $input['surname'];
@@ -47,7 +58,20 @@ class RegisterController
         $usuario->rol_id = Usuario::getRolId($input['role']);
         $usuario->contrasena = password_hash($input['password'], PASSWORD_DEFAULT);
 
-        if ($usuario->save()) {
+        $usuarioId = $usuario->save();
+
+        if ($usuarioId) {
+            if ((int)$usuario->rol_id === 2) { // Jugador
+                $jugador = new Jugador();
+                $jugador->usuario_id = $usuarioId;
+                $jugador->categoria_id = $input['categoria_id'];
+                $jugador->fecha_ingreso = date('Y-m-d'); // O usa $input['fecha_ingreso'] si lo recibes del formulario
+                $jugador->save();
+            } elseif ((int)$usuario->rol_id === 5) { // Tutor
+                $tutor = new Tutor();
+                $tutor->usuario_id = $usuarioId;
+                $tutor->save();
+            }
             echo json_encode(['message' => 'Usuario registrado correctamente']);
         } else {
             http_response_code(500);

@@ -4,6 +4,7 @@ use Src\Controllers\TiposDocumentoController;
 use Src\Controllers\RolesController;
 use Src\Controllers\GenerosController;
 use Src\Controllers\UsuariosController;
+use Src\Controllers\CategoriasController; // Agrega el controlador de categorías
 
 // Ruta para registrar usuario
 $router->post('/api/auth/register', function() {
@@ -32,5 +33,11 @@ $router->get('/api/generos', function() {
 // Ruta para obtener usuarios
 $router->get('/api/usuarios', function() {
     $controller = new UsuariosController();
+    $controller->index();
+});
+
+// Ruta para obtener categorías
+$router->get('/api/categorias', function() {
+    $controller = new CategoriasController();
     $controller->index();
 });

@@ -217,54 +217,111 @@
             class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
             <i class="fas fa-map-marker-alt"></i> Dirección
           </label>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Fila 1: Tipo de vía, número, letra, primer número, guion, segundo número -->
+          <div
+            class="grid grid-cols-2 gap-2 w-full mb-2 items-center sm:grid-cols-2 md:flex md:flex-row md:gap-2 md:items-center md:justify-center md:flex-nowrap">
+            <select
+              id="street-type"
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+              <option value disabled selected>Tipo de vía</option>
+              <option value="Calle">Calle</option>
+              <option value="Carrera">Carrera</option>
+              <option value="Avenida">Avenida</option>
+              <option value="Transversal">Transversal</option>
+              <option value="Diagonal">Diagonal</option>
+              <option value="Circular">Circular</option>
+              <option value="Manzana">Manzana</option>
+              <option value="Autopista">Autopista</option>
+              <option value="Otro">Otro</option>
+            </select>
             <input
-              type="text"
-              id="street"
-              placeholder="Calle o Avenida"
+              type="number"
+              id="street-number"
+              placeholder="N°"
+              maxlength="4"
+              min="0"
               autocomplete="address-line1"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center transition duration-150 ease-in-out">
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+            <select
+              id="street-letter"
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+              <option value selected>Opcional</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+              <option value="G">G</option>
+              <option value="H">H</option>
+              <option value="I">I</option>
+              <option value="J">J</option>
+              <option value="K">K</option>
+              <option value="L">L</option>
+              <option value="M">M</option>
+              <option value="N">N</option>
+              <option value="O">O</option>
+              <option value="P">P</option>
+              <option value="Q">Q</option>
+              <option value="R">R</option>
+              <option value="S">S</option>
+              <option value="T">T</option>
+              <option value="U">U</option>
+              <option value="V">V</option>
+              <option value="W">W</option>
+              <option value="X">X</option>
+              <option value="Y">Y</option>
+              <option value="Z">Z</option>
+            </select>
             <input
               type="text"
-              id="number"
-              placeholder="Número"
+              id="street-number2"
+              placeholder="N°"
+              maxlength="7"
+              min="0"
               autocomplete="address-line2"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center transition duration-150 ease-in-out">
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+
+          </div>
+          <!-- Fila 2: Bloque/Torre, Apartamento, Referencia -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2 w-full mb-2">
+            <input
+              type="text"
+              id="block"
+              placeholder="Bloque o Torre"
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+            <input
+              type="text"
+              id="apartment"
+              placeholder="Apartamento"
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+            <input
+              type="text"
+              id="reference"
+              placeholder="Referencia (opcional)"
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+          </div>
+          <!-- Fila 3: Barrio, Ciudad, Departamento -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
             <input
               type="text"
               id="neighborhood"
               placeholder="Barrio o Localidad"
               autocomplete="address-level3"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center transition duration-150 ease-in-out">
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
             <input
               type="text"
               id="city"
               placeholder="Ciudad"
               autocomplete="address-level2"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center transition duration-150 ease-in-out">
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
             <input
               type="text"
               id="state"
-              placeholder="Departamento o Provincia"
+              placeholder="Departamento"
               autocomplete="address-level1"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center transition duration-150 ease-in-out">
+              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
           </div>
-        </div>
-
-        <!-- Rol -->
-        <div class="flex flex-col">
-          <label for="role"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-user-tag"></i> Rol
-          </label>
-          <select id="role"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
-            <option value disabled selected class="text-center">Escoge tu
-              rol</option>
-            <!-- Las opciones se llenan dinámicamente por JS -->
-          </select>
         </div>
 
         <!-- Contraseña -->
@@ -295,6 +352,47 @@
             onclick="togglePasswordVisibility('confirm-password')">
             <i class="fas fa-eye text-gray-700 dark:text-white"></i>
           </span>
+        </div>
+
+        <!-- Rol y Categoría -->
+        <div
+          class="col-span-1 md:col-span-2 flex flex-col items-center justify-center">
+          <div id="rol-categoria-row"
+            class="w-full flex flex-col items-center md:flex-row md:justify-center md:gap-6">
+            <!-- Rol -->
+            <div id="rol-row"
+              class="w-full max-w-xs flex justify-center md:justify-end md:w-1/2">
+              <div class="w-full">
+                <label for="role"
+                  class="text-gray-700 dark:text-white font-semibold mb-1 text-center block">
+                  <i class="fas fa-user-tag"></i> Rol
+                </label>
+                <select id="role"
+                  class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
+                  <option value disabled selected class="text-center">Escoge tu
+                    rol</option>
+                  <!-- Las opciones se llenan dinámicamente por JS -->
+                </select>
+              </div>
+            </div>
+            <!-- Categoría solo visible si el rol es jugador -->
+            <div id="categoria-row"
+              class="w-full max-w-xs flex justify-center md:justify-start md:w-1/2 mt-2 md:mt-0"
+              style="display:none;">
+              <div class="w-full">
+                <label for="categoria_id"
+                  class="text-gray-700 dark:text-white font-semibold mb-1 text-center block">
+                  <i class="fas fa-layer-group"></i> Categoría
+                </label>
+                <select id="categoria_id"
+                  class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
+                  <option value disabled selected class="text-center">Selecciona
+                    la categoría</option>
+                  <!-- Opciones dinámicas por JS -->
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Condiciones de la Contraseña -->
@@ -351,6 +449,9 @@
 
     <!-- Al final del archivo, asegúrate de incluir tu JS de registro -->
     <script type="module" src="../../assets/js/auth/register.js"></script>
+
+    <script type="module"
+      src="../../assets/js/componets/categoria-rol.js"></script>
 
   </body>
 
