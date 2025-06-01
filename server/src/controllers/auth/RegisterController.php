@@ -5,6 +5,8 @@ namespace Src\Controllers\Auth;
 use Src\Models\Usuario;
 use Src\Models\Jugador;
 use Src\Models\Tutor;
+use Src\Models\Seguidor;
+use Src\Utils\EmailHelper;
 
 class RegisterController
 {
@@ -37,11 +39,18 @@ class RegisterController
             exit;
         }
 
-        // Validar que solo se puedan registrar roles de Jugador o Tutor (IDs permitidos)
-        $rolesPermitidos = [2, 5]; // Ajusta estos IDs según tu base de datos
+        // Permitir registro de Jugador, Tutor y Seguidor/Aficionado (IDs según tu base)
+        $rolesPermitidos = [2, 5, 6]; // 2: Jugador, 5: Tutor, 6: Seguidor/Aficionado
         if (!in_array((int)$input['role'], $rolesPermitidos)) {
             http_response_code(403);
             echo json_encode(['message' => 'No tienes permiso para registrarte con ese rol.']);
+            exit;
+        }
+
+        // Verifica si el correo ya está registrado
+        if (Usuario::existeCorreo($input['email'])) {
+            http_response_code(409);
+            echo json_encode(['message' => 'El correo ya está registrado.']);
             exit;
         }
 
@@ -61,21 +70,61 @@ class RegisterController
         $usuarioId = $usuario->save();
 
         if ($usuarioId) {
-            if ((int)$usuario->rol_id === 2) { // Jugador
+            if ((int)$usuario->rol_id === 2 && !empty($input['categoria_id'])) { // Jugador
                 $jugador = new Jugador();
                 $jugador->usuario_id = $usuarioId;
                 $jugador->categoria_id = $input['categoria_id'];
-                $jugador->fecha_ingreso = date('Y-m-d'); // O usa $input['fecha_ingreso'] si lo recibes del formulario
+                $jugador->fecha_ingreso = date('Y-m-d');
                 $jugador->save();
             } elseif ((int)$usuario->rol_id === 5) { // Tutor
                 $tutor = new Tutor();
                 $tutor->usuario_id = $usuarioId;
                 $tutor->save();
+            } elseif ((int)$usuario->rol_id === 6) { // Seguidor/Aficionado
+                $seguidor = new Seguidor();
+                $seguidor->usuario_id = $usuarioId;
+                $seguidor->intereses = $input['intereses'] ?? null;
+                $seguidor->recibe_boletin = $input['recibe_boletin'] ?? 1;
+                $seguidor->save();
             }
-            echo json_encode(['message' => 'Usuario registrado correctamente']);
+
+            // Generar código de verificación
+            $codigo = Usuario::generarCodigoVerificacion();
+            Usuario::saveVerificationCode($usuario->correo, $codigo);
+
+            // Enviar correo con el código
+            EmailHelper::enviarCodigoVerificacion($usuario->correo, $codigo);
+
+            echo json_encode(['message' => 'Usuario registrado correctamente. Se envió un código de verificación a tu correo.']);
         } else {
             http_response_code(500);
             echo json_encode(['message' => 'Error al registrar usuario']);
+        }
+    }
+
+    // Endpoint para verificar el código
+    public function verificarCodigo()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (empty($input['email']) || empty($input['code'])) {
+            http_response_code(400);
+            echo json_encode(['message' => 'Datos incompletos']);
+            exit;
+        }
+
+        $usuario = Usuario::findByEmailOrDocumento($input['email']);
+        if (!$usuario) {
+            http_response_code(404);
+            echo json_encode(['message' => 'Usuario no encontrado']);
+            exit;
+        }
+
+        if (Usuario::verifyCode($input['email'], $input['code'])) {
+            Usuario::marcarEmailVerificado($usuario['id']);
+            echo json_encode(['message' => 'Correo verificado correctamente']);
+        } else {
+            http_response_code(400);
+            echo json_encode(['message' => 'Código incorrecto o expirado']);
         }
     }
 }

@@ -30,7 +30,7 @@ INSERT INTO tipos_documento (nombre, descripcion) VALUES
 -- ========================
 CREATE TABLE roles (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombre ENUM('Administrador', 'Jugador', 'Entrenador', 'Asistente', 'Tutor') DEFAULT 'Tutor' NOT NULL,
+    nombre VARCHAR(30) NOT NULL UNIQUE,
     descripcion TEXT,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -38,21 +38,21 @@ CREATE TABLE roles (
     deleted_at TIMESTAMP NULL
 ) COMMENT='Roles del sistema';
 
-CREATE UNIQUE INDEX idx_roles_nombre ON roles(nombre);
-
+-- Inserta los roles base
 INSERT INTO roles (nombre, descripcion) VALUES
 ('Administrador', 'Rol con acceso completo al sistema'),
 ('Jugador', 'Rol para los jugadores del equipo'),
 ('Entrenador', 'Rol para los entrenadores del equipo'),
 ('Asistente', 'Rol para los asistentes del equipo'),
-('Tutor', 'Rol para los tutores de los jugadores');
+('Tutor', 'Rol para los tutores de los jugadores'),
+('Seguidor', 'Rol para usuarios que siguen el club, reciben noticias y participan en eventos, pero no son jugadores ni tutores');
 
 -- ========================
 -- 🔐 Permisos
 -- ========================
 CREATE TABLE permisos (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nombre ENUM('Ver Usuarios', 'Crear Usuarios', 'Editar Usuarios', 'Eliminar Usuarios', 'Ver Entrenamientos', 'Crear Entrenamientos', 'Editar Entrenamientos', 'Eliminar Entrenamientos', 'Ver Partidos', 'Crear Partidos', 'Editar Partidos', 'Eliminar Partidos', 'Ver Estadisticas', 'Crear Estadisticas', 'Editar Estadisticas', 'Eliminar Estadisticas', 'Ver Pagos', 'Crear Pagos', 'Editar Pagos', 'Eliminar Pagos') NOT NULL,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
     descripcion TEXT,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -133,7 +133,7 @@ WHERE r.nombre = 'Tutor' AND p.nombre IN (
 );
 
 -- ========================
--- 👥 Usuarios
+-- 👥 Usuarios (índice compuesto y tipo_documento_id como FK, genero como ENUM)
 -- ========================
 CREATE TABLE usuarios (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -152,6 +152,8 @@ CREATE TABLE usuarios (
     last_login TIMESTAMP NULL,
     foto VARCHAR(255),
     email_verificado BOOLEAN DEFAULT 0,
+    codigo_verificacion VARCHAR(10) NULL,
+    codigo_expira DATETIME NULL,
     token_verificacion VARCHAR(255),
     ultimo_cambio_contrasena TIMESTAMP NULL,
     intentos_fallidos INT DEFAULT 0,
@@ -174,6 +176,7 @@ CREATE INDEX idx_usuarios_estado ON usuarios(estado);
 CREATE INDEX idx_usuarios_created_at ON usuarios(created_at);
 CREATE INDEX idx_usuarios_deleted_at ON usuarios(deleted_at);
 CREATE INDEX idx_usuarios_documento_correo ON usuarios(documento, correo);
+CREATE INDEX idx_usuarios_rol_estado_created ON usuarios(rol_id, estado, created_at);
 
 -- ========================
 -- 🔑 Password resets
@@ -268,6 +271,27 @@ CREATE TABLE tutores (
 ) COMMENT='Tutores y acudientes de los jugadores';
 
 CREATE INDEX idx_tutores_usuario_emergencia ON tutores(usuario_id, es_emergencia);
+
+-- ========================
+-- 👥 Seguidores
+-- ========================
+CREATE TABLE seguidores (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT UNSIGNED NOT NULL,
+    intereses TEXT,
+    recibe_boletin BOOLEAN DEFAULT 1,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    updated_by INT UNSIGNED,
+    created_by INT UNSIGNED,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (updated_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
+) COMMENT='Usuarios que siguen el club, reciben noticias y pueden participar en eventos';
+
+CREATE INDEX idx_seguidores_usuario ON seguidores(usuario_id);
+CREATE INDEX idx_seguidores_boletin ON seguidores(recibe_boletin);
 
 -- ========================
 -- 🧒 Jugadores
@@ -518,7 +542,7 @@ CREATE INDEX idx_partidos_fecha_estado ON partidos(fecha, estado);
 CREATE INDEX idx_partidos_equipos_fecha ON partidos(equipo_local, equipo_visitante, fecha);
 
 -- ========================
--- 📝 Alineaciones
+-- 📝 Alineaciones (soft delete)
 -- ========================
 CREATE TABLE alineaciones (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -535,7 +559,7 @@ CREATE TABLE alineaciones (
     sustitucion BOOLEAN DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at TIMESTAMP NULL,
+    deleted_at TIMESTAMP NULL, -- agregado para soft delete
     FOREIGN KEY (partido_id) REFERENCES partidos(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) COMMENT='Alineaciones de jugadores en partidos';
@@ -544,7 +568,7 @@ CREATE INDEX idx_alineaciones_partido_jugador ON alineaciones(partido_id, jugado
 CREATE INDEX idx_alineaciones_partido_titular ON alineaciones(partido_id, titular);
 
 -- ========================
--- 📊 Estadísticas
+-- 📊 Estadísticas (soft delete)
 -- ========================
 CREATE TABLE estadisticas (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -562,7 +586,7 @@ CREATE TABLE estadisticas (
     tiros_de_esquina INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at TIMESTAMP NULL,
+    deleted_at TIMESTAMP NULL, -- agregado para soft delete
     FOREIGN KEY (partido_id) REFERENCES partidos(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (jugador_id) REFERENCES jugadores(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) COMMENT='Estadísticas individuales por partido';
@@ -800,7 +824,7 @@ CREATE TABLE configuracion_pagos (
 ) COMMENT='Configuración de métodos de pago y API keys';
 
 -- ========================
--- 🕵️ Auditoría
+-- 🕵️ Auditoría 
 -- ========================
 CREATE TABLE auditoria (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -810,6 +834,8 @@ CREATE TABLE auditoria (
     tabla_afectada VARCHAR(100),
     ip VARCHAR(45),
     user_agent VARCHAR(255),
+    datos_anteriores JSON NULL, -- nuevo campo
+    datos_nuevos JSON NULL,     -- nuevo campo
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL ON UPDATE CASCADE
 ) COMMENT='Bitácora de acciones importantes del sistema';

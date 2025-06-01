@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-05-2025 a las 01:32:41
+-- Tiempo de generación: 01-06-2025 a las 19:40:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -113,14 +113,14 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `edad_minima`, `edad_maxima`, `estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Baby', 'Iniciación (2019–2021)', 4, 6, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(2, 'Mini', 'Microfútbol o Escuela (2017–2018)', 7, 8, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(3, 'Preinfantil', 'Pony Fútbol (edades iniciales) (2015–2016)', 9, 10, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(4, 'Infantil', 'Categoría Pony Fútbol oficial (2013–2014)', 11, 12, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(5, 'Prejuvenil', 'Torneo Nacional Sub-13/Sub-14 (2011–2012)', 13, 14, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(6, 'Juvenil', 'Sub-15/Sub-16 (2009–2010)', 15, 16, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(7, 'Junior', 'Sub-17/Sub-18 (2007–2008)', 17, 18, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(8, 'Sub-20', 'Torneo Nacional Sub-20 (Difútbol) (2005–2006)', 19, 20, 'Activo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL);
+(1, 'Baby', 'Iniciación (2019–2021)', 4, 6, 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(2, 'Mini', 'Microfútbol o Escuela (2017–2018)', 7, 8, 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(3, 'Preinfantil', 'Pony Fútbol (edades iniciales) (2015–2016)', 9, 10, 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(4, 'Infantil', 'Categoría Pony Fútbol oficial (2013–2014)', 11, 12, 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(5, 'Prejuvenil', 'Torneo Nacional Sub-13/Sub-14 (2011–2012)', 13, 14, 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(6, 'Juvenil', 'Sub-15/Sub-16 (2009–2010)', 15, 16, 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(7, 'Junior', 'Sub-17/Sub-18 (2007–2008)', 17, 18, 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(8, 'Sub-20', 'Torneo Nacional Sub-20 (Difútbol) (2005–2006)', 19, 20, 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -143,9 +143,9 @@ CREATE TABLE `conceptos_cobro` (
 --
 
 INSERT INTO `conceptos_cobro` (`id`, `nombre`, `descripcion`, `valor`, `estado`, `created_at`, `updated_at`) VALUES
-(1, 'Inscripcion', 'Valor de inscripción al club', 35000.00, 'Activo', '2025-05-30 23:31:59', '2025-05-30 23:31:59'),
-(2, 'Mensualidad', 'Pago mensual por pertenecer al club', 53000.00, 'Activo', '2025-05-30 23:31:59', '2025-05-30 23:31:59'),
-(3, 'Torneo', 'Valor de participación en torneo', 35000.00, 'Activo', '2025-05-30 23:31:59', '2025-05-30 23:31:59');
+(1, 'Inscripcion', 'Valor de inscripción al club', 35000.00, 'Activo', '2025-06-01 17:40:22', '2025-06-01 17:40:22'),
+(2, 'Mensualidad', 'Pago mensual por pertenecer al club', 53000.00, 'Activo', '2025-06-01 17:40:22', '2025-06-01 17:40:22'),
+(3, 'Torneo', 'Valor de participación en torneo', 35000.00, 'Activo', '2025-06-01 17:40:22', '2025-06-01 17:40:22');
 
 -- --------------------------------------------------------
 
@@ -320,15 +320,15 @@ CREATE TABLE `jugadores` (
   `id` int(10) UNSIGNED NOT NULL,
   `usuario_id` int(10) UNSIGNED NOT NULL,
   `fecha_ingreso` date NOT NULL,
-  `posicion_id` int(10) UNSIGNED NOT NULL,
-  `dorsal` int(11) NOT NULL,
-  `estatura` decimal(5,2) DEFAULT NULL,
-  `peso` decimal(5,2) DEFAULT NULL,
+  `posicion_id` int(10) UNSIGNED DEFAULT NULL,
+  `dorsal` enum('01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99') DEFAULT NULL,
+  `estatura` enum('0.30','0.31','0.32','0.33','0.34','0.35','0.36','0.37','0.38','0.39','0.40','0.41','0.42','0.43','0.44','0.45','0.46','0.47','0.48','0.49','0.50','0.51','0.52','0.53','0.54','0.55','0.56','0.57','0.58','0.59','0.60','0.61','0.62','0.63','0.64','0.65','0.66','0.67','0.68','0.69','0.70','0.71','0.72','0.73','0.74','0.75','0.76','0.77','0.78','0.79','0.80','0.81','0.82','0.83','0.84','0.85','0.86','0.87','0.88','0.89','0.90','0.91','0.92','0.93','0.94','0.95','0.96','0.97','0.98','0.99','1.00','1.01','1.02','1.03','1.04','1.05','1.06','1.07','1.08','1.09','1.10','1.11','1.12','1.13','1.14','1.15','1.16','1.17','1.18','1.19','1.20','1.21','1.22','1.23','1.24','1.25','1.26','1.27','1.28','1.29','1.30','1.31','1.32','1.33','1.34','1.35','1.36','1.37','1.38','1.39','1.40','1.41','1.42','1.43','1.44','1.45','1.46','1.47','1.48','1.49','1.50','1.51','1.52','1.53','1.54','1.55','1.56','1.57','1.58','1.59','1.60','1.61','1.62','1.63','1.64','1.65','1.66','1.67','1.68','1.69','1.70','1.71','1.72','1.73','1.74','1.75','1.76','1.77','1.78','1.79','1.80','1.81','1.82','1.83','1.84','1.85','1.86','1.87','1.88','1.89','1.90','1.91','1.92','1.93','1.94','1.95','1.96','1.97','1.98','1.99','2.00','2.01','2.02','2.03','2.04','2.05','2.06','2.07','2.08','2.09','2.10','2.11','2.12','2.13','2.14','2.15','2.16','2.17','2.18','2.19','2.20','2.21','2.22','2.23','2.24','2.25','2.26','2.27','2.28','2.29','2.30') DEFAULT NULL,
+  `peso` enum('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127','128','129','130','131','132','133','134','135','136','137','138','139','140','141','142','143','144','145','146','147','148','149','150') DEFAULT NULL,
   `categoria_id` int(10) UNSIGNED NOT NULL,
   `estado` tinyint(1) DEFAULT 1,
-  `habilidades` text DEFAULT NULL,
+  `habilidades` set('Velocidad','Resistencia','Regate','Pase corto','Pase largo','Tiro','Defensa','Visión de juego','Juego aéreo','Liderazgo','Trabajo en equipo','Marcaje','Desmarque','Anticipación','Control de balón','Potencia','Técnica','Táctica','Agilidad','Reflejos','Finalización','Conducción','Cobertura','Intercepción','Centros','Remate','Cabeceo','Penales','Tiro libre','Caza goles','Apoyo ofensivo','Apoyo defensivo','Comunicación','Concentración','Creatividad','Disciplina','Versatilidad','Recuperación') DEFAULT NULL,
   `tutor_id` int(10) UNSIGNED DEFAULT NULL,
-  `pie_habil` enum('Derecho','Izquierdo') NOT NULL,
+  `pie_habil` enum('Derecho','Izquierdo') DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -511,26 +511,26 @@ CREATE TABLE `permisos` (
 --
 
 INSERT INTO `permisos` (`id`, `nombre`, `descripcion`, `fecha_creacion`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Ver Usuarios', 'Permiso para ver usuarios', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(2, 'Crear Usuarios', 'Permiso para crear usuarios', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(3, 'Editar Usuarios', 'Permiso para editar usuarios', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(4, 'Eliminar Usuarios', 'Permiso para eliminar usuarios', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(5, 'Ver Entrenamientos', 'Permiso para ver entrenamientos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(6, 'Crear Entrenamientos', 'Permiso para crear entrenamientos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(7, 'Editar Entrenamientos', 'Permiso para editar entrenamientos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(8, 'Eliminar Entrenamientos', 'Permiso para eliminar entrenamientos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(9, 'Ver Partidos', 'Permiso para ver partidos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(10, 'Crear Partidos', 'Permiso para crear partidos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(11, 'Editar Partidos', 'Permiso para editar partidos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(12, 'Eliminar Partidos', 'Permiso para eliminar partidos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(13, 'Ver Estadisticas', 'Permiso para ver estadísticas', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(14, 'Crear Estadisticas', 'Permiso para crear estadísticas', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(15, 'Editar Estadisticas', 'Permiso para editar estadísticas', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(16, 'Eliminar Estadisticas', 'Permiso para eliminar estadísticas', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(17, 'Ver Pagos', 'Permiso para ver pagos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(18, 'Crear Pagos', 'Permiso para crear pagos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(19, 'Editar Pagos', 'Permiso para editar pagos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(20, 'Eliminar Pagos', 'Permiso para eliminar pagos', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL);
+(1, 'Ver Usuarios', 'Permiso para ver usuarios', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(2, 'Crear Usuarios', 'Permiso para crear usuarios', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(3, 'Editar Usuarios', 'Permiso para editar usuarios', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(4, 'Eliminar Usuarios', 'Permiso para eliminar usuarios', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(5, 'Ver Entrenamientos', 'Permiso para ver entrenamientos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(6, 'Crear Entrenamientos', 'Permiso para crear entrenamientos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(7, 'Editar Entrenamientos', 'Permiso para editar entrenamientos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(8, 'Eliminar Entrenamientos', 'Permiso para eliminar entrenamientos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(9, 'Ver Partidos', 'Permiso para ver partidos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(10, 'Crear Partidos', 'Permiso para crear partidos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(11, 'Editar Partidos', 'Permiso para editar partidos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(12, 'Eliminar Partidos', 'Permiso para eliminar partidos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(13, 'Ver Estadisticas', 'Permiso para ver estadísticas', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(14, 'Crear Estadisticas', 'Permiso para crear estadísticas', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(15, 'Editar Estadisticas', 'Permiso para editar estadísticas', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(16, 'Eliminar Estadisticas', 'Permiso para eliminar estadísticas', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(17, 'Ver Pagos', 'Permiso para ver pagos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(18, 'Crear Pagos', 'Permiso para crear pagos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(19, 'Editar Pagos', 'Permiso para editar pagos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(20, 'Eliminar Pagos', 'Permiso para eliminar pagos', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -553,18 +553,18 @@ CREATE TABLE `posiciones` (
 --
 
 INSERT INTO `posiciones` (`id`, `nombre`, `descripcion`, `estado`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'POR', 'Portero: Único que puede usar las manos en su área.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(2, 'DC', 'Defensa Central: Intercepta ataques por el centro.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(3, 'LD', 'Lateral Derecho: Defensa por la banda derecha.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(4, 'LI', 'Lateral Izquierdo: Defensa por la banda izquierda.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(5, 'LIB', 'Líbero: Defensa centralizado, último hombre.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(6, 'MCD', 'Mediocentro Defensivo: Recupera balones, protege a la defensa.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(7, 'MCO', 'Mediocentro Ofensivo: Crea juego ofensivo.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(8, 'MC', 'Mediocampista Central: Distribuye el juego desde el centro.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(9, 'ED', 'Extremo Derecho: Ataca por la banda derecha.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(10, 'EI', 'Extremo Izquierdo: Ataca por la banda izquierda.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(11, 'DCEN', 'Delantero Centro: Principal atacante, encargado de anotar goles.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL),
-(12, 'SD', 'Segundo Delantero: Apoya al delantero centro, se mueve libremente en el frente.', 'Activo', '2025-05-30 23:31:57', '2025-05-30 23:31:57', NULL);
+(1, 'POR', 'Portero: Único que puede usar las manos en su área.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(2, 'DC', 'Defensa Central: Intercepta ataques por el centro.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(3, 'LD', 'Lateral Derecho: Defensa por la banda derecha.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(4, 'LI', 'Lateral Izquierdo: Defensa por la banda izquierda.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(5, 'LIB', 'Líbero: Defensa centralizado, último hombre.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(6, 'MCD', 'Mediocentro Defensivo: Recupera balones, protege a la defensa.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(7, 'MCO', 'Mediocentro Ofensivo: Crea juego ofensivo.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(8, 'MC', 'Mediocampista Central: Distribuye el juego desde el centro.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(9, 'ED', 'Extremo Derecho: Ataca por la banda derecha.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(10, 'EI', 'Extremo Izquierdo: Ataca por la banda izquierda.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(11, 'DCEN', 'Delantero Centro: Principal atacante, encargado de anotar goles.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL),
+(12, 'SD', 'Segundo Delantero: Apoya al delantero centro, se mueve libremente en el frente.', 'Activo', '2025-06-01 17:40:20', '2025-06-01 17:40:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -605,11 +605,11 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `fecha_registro`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Administrador', 'Rol con acceso completo al sistema', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(2, 'Jugador', 'Rol para los jugadores del equipo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(3, 'Entrenador', 'Rol para los entrenadores del equipo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(4, 'Asistente', 'Rol para los asistentes del equipo', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL),
-(5, 'Tutor', 'Rol para los tutores de los jugadores', '2025-05-30 23:31:56', '2025-05-30 23:31:56', '2025-05-30 23:31:56', NULL);
+(1, 'Administrador', 'Rol con acceso completo al sistema', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(2, 'Jugador', 'Rol para los jugadores del equipo', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(3, 'Entrenador', 'Rol para los entrenadores del equipo', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(4, 'Asistente', 'Rol para los asistentes del equipo', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL),
+(5, 'Tutor', 'Rol para los tutores de los jugadores', '2025-06-01 17:40:19', '2025-06-01 17:40:19', '2025-06-01 17:40:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -630,49 +630,49 @@ CREATE TABLE `roles_permisos` (
 --
 
 INSERT INTO `roles_permisos` (`id`, `rol_id`, `permiso_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(2, 1, 2, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(3, 1, 3, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(4, 1, 4, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(5, 1, 5, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(6, 1, 6, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(7, 1, 7, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(8, 1, 8, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(9, 1, 9, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(10, 1, 10, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(11, 1, 11, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(12, 1, 12, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(13, 1, 13, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(14, 1, 14, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(15, 1, 15, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(16, 1, 16, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(17, 1, 17, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(18, 1, 18, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(19, 1, 19, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(20, 1, 20, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(32, 2, 5, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(33, 2, 9, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(34, 2, 13, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(35, 3, 1, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(36, 3, 5, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(37, 3, 6, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(38, 3, 7, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(39, 3, 8, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(40, 3, 9, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(41, 3, 10, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(42, 3, 11, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(43, 3, 12, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(44, 3, 13, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(45, 3, 14, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(46, 3, 15, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(47, 3, 16, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(50, 4, 5, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(51, 4, 7, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(52, 4, 9, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(53, 4, 11, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(57, 5, 1, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(58, 5, 13, '2025-05-30 23:31:56', '2025-05-30 23:31:56'),
-(59, 5, 17, '2025-05-30 23:31:56', '2025-05-30 23:31:56');
+(1, 1, 1, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(2, 1, 2, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(3, 1, 3, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(4, 1, 4, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(5, 1, 5, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(6, 1, 6, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(7, 1, 7, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(8, 1, 8, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(9, 1, 9, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(10, 1, 10, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(11, 1, 11, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(12, 1, 12, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(13, 1, 13, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(14, 1, 14, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(15, 1, 15, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(16, 1, 16, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(17, 1, 17, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(18, 1, 18, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(19, 1, 19, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(20, 1, 20, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(32, 2, 5, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(33, 2, 9, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(34, 2, 13, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(35, 3, 1, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(36, 3, 5, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(37, 3, 6, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(38, 3, 7, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(39, 3, 8, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(40, 3, 9, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(41, 3, 10, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(42, 3, 11, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(43, 3, 12, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(44, 3, 13, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(45, 3, 14, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(46, 3, 15, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(47, 3, 16, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(50, 4, 5, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(51, 4, 7, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(52, 4, 9, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(53, 4, 11, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(57, 5, 1, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(58, 5, 13, '2025-06-01 17:40:20', '2025-06-01 17:40:20'),
+(59, 5, 17, '2025-06-01 17:40:20', '2025-06-01 17:40:20');
 
 -- --------------------------------------------------------
 
@@ -777,6 +777,8 @@ CREATE TABLE `usuarios` (
   `last_login` timestamp NULL DEFAULT NULL,
   `foto` varchar(255) DEFAULT NULL,
   `email_verificado` tinyint(1) DEFAULT 0,
+  `codigo_verificacion` varchar(10) DEFAULT NULL,
+  `codigo_expira` datetime DEFAULT NULL,
   `token_verificacion` varchar(255) DEFAULT NULL,
   `ultimo_cambio_contrasena` timestamp NULL DEFAULT NULL,
   `intentos_fallidos` int(11) DEFAULT 0,
@@ -817,12 +819,12 @@ CREATE TABLE `vista_jugadores_activos` (
 ,`usuario_id` int(10) unsigned
 ,`fecha_ingreso` date
 ,`posicion_id` int(10) unsigned
-,`dorsal` int(11)
-,`estatura` decimal(5,2)
-,`peso` decimal(5,2)
+,`dorsal` enum('01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99')
+,`estatura` enum('0.30','0.31','0.32','0.33','0.34','0.35','0.36','0.37','0.38','0.39','0.40','0.41','0.42','0.43','0.44','0.45','0.46','0.47','0.48','0.49','0.50','0.51','0.52','0.53','0.54','0.55','0.56','0.57','0.58','0.59','0.60','0.61','0.62','0.63','0.64','0.65','0.66','0.67','0.68','0.69','0.70','0.71','0.72','0.73','0.74','0.75','0.76','0.77','0.78','0.79','0.80','0.81','0.82','0.83','0.84','0.85','0.86','0.87','0.88','0.89','0.90','0.91','0.92','0.93','0.94','0.95','0.96','0.97','0.98','0.99','1.00','1.01','1.02','1.03','1.04','1.05','1.06','1.07','1.08','1.09','1.10','1.11','1.12','1.13','1.14','1.15','1.16','1.17','1.18','1.19','1.20','1.21','1.22','1.23','1.24','1.25','1.26','1.27','1.28','1.29','1.30','1.31','1.32','1.33','1.34','1.35','1.36','1.37','1.38','1.39','1.40','1.41','1.42','1.43','1.44','1.45','1.46','1.47','1.48','1.49','1.50','1.51','1.52','1.53','1.54','1.55','1.56','1.57','1.58','1.59','1.60','1.61','1.62','1.63','1.64','1.65','1.66','1.67','1.68','1.69','1.70','1.71','1.72','1.73','1.74','1.75','1.76','1.77','1.78','1.79','1.80','1.81','1.82','1.83','1.84','1.85','1.86','1.87','1.88','1.89','1.90','1.91','1.92','1.93','1.94','1.95','1.96','1.97','1.98','1.99','2.00','2.01','2.02','2.03','2.04','2.05','2.06','2.07','2.08','2.09','2.10','2.11','2.12','2.13','2.14','2.15','2.16','2.17','2.18','2.19','2.20','2.21','2.22','2.23','2.24','2.25','2.26','2.27','2.28','2.29','2.30')
+,`peso` enum('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53','54','55','56','57','58','59','60','61','62','63','64','65','66','67','68','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','85','86','87','88','89','90','91','92','93','94','95','96','97','98','99','100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127','128','129','130','131','132','133','134','135','136','137','138','139','140','141','142','143','144','145','146','147','148','149','150')
 ,`categoria_id` int(10) unsigned
 ,`estado` tinyint(1)
-,`habilidades` text
+,`habilidades` set('Velocidad','Resistencia','Regate','Pase corto','Pase largo','Tiro','Defensa','Visión de juego','Juego aéreo','Liderazgo','Trabajo en equipo','Marcaje','Desmarque','Anticipación','Control de balón','Potencia','Técnica','Táctica','Agilidad','Reflejos','Finalización','Conducción','Cobertura','Intercepción','Centros','Remate','Cabeceo','Penales','Tiro libre','Caza goles','Apoyo ofensivo','Apoyo defensivo','Comunicación','Concentración','Creatividad','Disciplina','Versatilidad','Recuperación')
 ,`tutor_id` int(10) unsigned
 ,`pie_habil` enum('Derecho','Izquierdo')
 ,`created_at` timestamp
@@ -876,6 +878,8 @@ CREATE TABLE `vista_usuarios_activos` (
 ,`last_login` timestamp
 ,`foto` varchar(255)
 ,`email_verificado` tinyint(1)
+,`codigo_verificacion` varchar(10)
+,`codigo_expira` datetime
 ,`token_verificacion` varchar(255)
 ,`ultimo_cambio_contrasena` timestamp
 ,`intentos_fallidos` int(11)
@@ -912,7 +916,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vista_usuarios_activos`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_usuarios_activos`  AS SELECT `usuarios`.`id` AS `id`, `usuarios`.`nombre` AS `nombre`, `usuarios`.`apellido` AS `apellido`, `usuarios`.`tipo_documento_id` AS `tipo_documento_id`, `usuarios`.`documento` AS `documento`, `usuarios`.`genero` AS `genero`, `usuarios`.`correo` AS `correo`, `usuarios`.`contrasena` AS `contrasena`, `usuarios`.`telefono` AS `telefono`, `usuarios`.`direccion` AS `direccion`, `usuarios`.`fecha_nacimiento` AS `fecha_nacimiento`, `usuarios`.`rol_id` AS `rol_id`, `usuarios`.`estado` AS `estado`, `usuarios`.`last_login` AS `last_login`, `usuarios`.`foto` AS `foto`, `usuarios`.`email_verificado` AS `email_verificado`, `usuarios`.`token_verificacion` AS `token_verificacion`, `usuarios`.`ultimo_cambio_contrasena` AS `ultimo_cambio_contrasena`, `usuarios`.`intentos_fallidos` AS `intentos_fallidos`, `usuarios`.`bloqueado_hasta` AS `bloqueado_hasta`, `usuarios`.`created_at` AS `created_at`, `usuarios`.`updated_at` AS `updated_at`, `usuarios`.`deleted_at` AS `deleted_at`, `usuarios`.`updated_by` AS `updated_by`, `usuarios`.`created_by` AS `created_by` FROM `usuarios` WHERE `usuarios`.`estado` = 1 AND `usuarios`.`deleted_at` is null ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vista_usuarios_activos`  AS SELECT `usuarios`.`id` AS `id`, `usuarios`.`nombre` AS `nombre`, `usuarios`.`apellido` AS `apellido`, `usuarios`.`tipo_documento_id` AS `tipo_documento_id`, `usuarios`.`documento` AS `documento`, `usuarios`.`genero` AS `genero`, `usuarios`.`correo` AS `correo`, `usuarios`.`contrasena` AS `contrasena`, `usuarios`.`telefono` AS `telefono`, `usuarios`.`direccion` AS `direccion`, `usuarios`.`fecha_nacimiento` AS `fecha_nacimiento`, `usuarios`.`rol_id` AS `rol_id`, `usuarios`.`estado` AS `estado`, `usuarios`.`last_login` AS `last_login`, `usuarios`.`foto` AS `foto`, `usuarios`.`email_verificado` AS `email_verificado`, `usuarios`.`codigo_verificacion` AS `codigo_verificacion`, `usuarios`.`codigo_expira` AS `codigo_expira`, `usuarios`.`token_verificacion` AS `token_verificacion`, `usuarios`.`ultimo_cambio_contrasena` AS `ultimo_cambio_contrasena`, `usuarios`.`intentos_fallidos` AS `intentos_fallidos`, `usuarios`.`bloqueado_hasta` AS `bloqueado_hasta`, `usuarios`.`created_at` AS `created_at`, `usuarios`.`updated_at` AS `updated_at`, `usuarios`.`deleted_at` AS `deleted_at`, `usuarios`.`updated_by` AS `updated_by`, `usuarios`.`created_by` AS `created_by` FROM `usuarios` WHERE `usuarios`.`estado` = 1 AND `usuarios`.`deleted_at` is null ;
 
 --
 -- Índices para tablas volcadas

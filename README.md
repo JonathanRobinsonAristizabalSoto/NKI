@@ -28,6 +28,12 @@ Sistema de gestión para la Escuela y Club de Fútbol NKI. Permite administrar j
 
 ---
 
+## 🔒 Verificación de Login por Correo
+
+- El sistema envía un código de verificación al correo electrónico del usuario tras el login.
+- El usuario debe ingresar el código recibido para acceder al sistema.
+- El envío de correos se realiza mediante PHPMailer y SMTP (Gmail o proveedor propio).
+
 
 ## 📁 Estructura del Proyecto (Alfabética y Modular)
 
@@ -61,6 +67,7 @@ NKI/
 │   │   │   │   │   ├── login.js
 │   │   │   │   │   ├── register.js
 │   │   │   │   │   ├── reset-password.js
+│   │   │   │   │   ├── verify-code.js
 │   │   │   │   ├── components/
 │   │   │   │   │   ├── drop-down.js
 │   │   │   │   │   ├── menu.js
@@ -123,6 +130,7 @@ NKI/
 │   │   │   │   ├── login.html
 │   │   │   │   ├── register.html
 │   │   │   │   ├── resetpassword.html
+│   │   │   │   ├── verify-code.html
 │   │   │   ├── categorias/
 │   │   │   │   ├── categorias.html
 │   │   │   ├── dashboard/
@@ -194,7 +202,6 @@ NKI/
 │   ├── swagger/
 │   │   ├── openapi.yaml
 ├── server/
-│   ├── .env.example
 │   ├── logs/
 │   │   ├── error.log
 │   │   ├── system.log
@@ -292,7 +299,9 @@ NKI/
 │   │   ├── utils/
 │   │   │   ├── DateHelper.php
 │   │   │   ├── Helpers.php
+│   │   │   ├── EmailHelper.php
 │   │   │   ├── Validator.php
+
 │   │   ├── validations/
 │   │   │   ├── auth/
 │   │   │   │   ├── ForgotPasswordValidation.php
@@ -327,6 +336,7 @@ NKI/
 │   │   │   ├── TransaccionesValidation.php
 │   │   │   ├── TutoresValidation.php
 │   │   │   ├── UsuariosValidation.php
+│   ├── .env
 ├── vendor/
 ├── composer.json
 ├── composer.lock
