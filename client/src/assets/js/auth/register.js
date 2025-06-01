@@ -1,4 +1,10 @@
-import { apiPost, API_BASE } from "../api/api.js"; // Importa también API_BASE centralizado
+import { apiPost, API_BASE } from "../api/api.js";
+import {
+  mostrarModalVerificacion,
+  ocultarModalVerificacion,
+  activarAutoAvanceInputs,
+  asignarEventosCerrarModal
+} from "./modal-verificacion.js";
 
 // ------------------------Carga dinámica de tipos de documento-------------------
 async function cargarTiposDocumento() {
@@ -103,16 +109,6 @@ function seleccionarCategoriaPorEdad() {
   }
 }
 
-// ------------------------Mostrar/Ocultar modal de verificación-------------------
-function mostrarModalVerificacion() {
-  document.getElementById("verify-modal").classList.remove("hidden");
-}
-function ocultarModalVerificacion() {
-  document.getElementById("verify-modal").classList.add("hidden");
-  document.getElementById("verify-code-input").value = "";
-  document.getElementById("verify-error").textContent = "";
-}
-
 document.addEventListener("DOMContentLoaded", function () {
   cargarTiposDocumento();
   cargarRoles();
@@ -129,7 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (roleSelect) {
     roleSelect.addEventListener("change", function () {
       const categoriaRow = document.getElementById("categoria-row");
-      // "2" es Jugador, busca el id de seguidor/aficionado si lo necesitas
       if (this.options[this.selectedIndex].text === "Jugador") {
         categoriaRow.style.display = "flex";
       } else {
@@ -138,8 +133,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Modal: cerrar
-  document.getElementById("close-verify-modal").onclick = ocultarModalVerificacion;
+  // Inicializa lógica del modal de verificación
+  activarAutoAvanceInputs();
+  asignarEventosCerrarModal();
 
   // ------------------------Formulario de registro-------------------
   const form = document.getElementById("register-form");
@@ -241,7 +237,12 @@ document.addEventListener("DOMContentLoaded", function () {
       oldBtn.parentNode.replaceChild(newBtn, oldBtn);
 
       newBtn.addEventListener("click", async function () {
-        const code = document.getElementById("verify-code-input").value.trim();
+        // Obtiene el código de los 6 inputs individuales
+        const code = Array.from(
+          document.querySelectorAll('#verify-modal input[type="text"]')
+        )
+          .map((input) => input.value.trim())
+          .join("");
         if (!/^\d{6}$/.test(code)) {
           document.getElementById("verify-error").textContent = "El código debe tener 6 dígitos.";
           return;
