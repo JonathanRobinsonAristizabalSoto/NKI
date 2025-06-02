@@ -65,10 +65,12 @@ NKI/
 │   │   │   │   ├── auth/
 │   │   │   │   │   ├── forgot-password.js
 │   │   │   │   │   ├── login.js
+│   │   │   │   │   ├── modal-verificacion.js
 │   │   │   │   │   ├── register.js
 │   │   │   │   │   ├── reset-password.js
 │   │   │   │   │   ├── verify-code.js
 │   │   │   │   ├── components/
+│   │   │   │   │   ├── categoria-rol.js
 │   │   │   │   │   ├── drop-down.js
 │   │   │   │   │   ├── menu.js
 │   │   │   │   │   ├── password-visible.js
@@ -117,7 +119,6 @@ NKI/
 │   │   │   │   │   ├── helpers.js
 │   │   │   │   │   ├── validators.js
 │   │   │   ├── config.js
-│   │   │   ├── .env.example
 │   │   ├── views/
 │   │   │   ├── alineaciones/
 │   │   │   │   ├── alineaciones.html
@@ -206,8 +207,8 @@ NKI/
 │   │   ├── error.log
 │   │   ├── system.log
 │   ├── public/
-│   │   ├── index.php
 │   │   ├── .htaccess
+│   │   ├── index.php
 │   ├── src/
 │   │   ├── config/
 │   │   │   ├── connection.php
@@ -241,6 +242,7 @@ NKI/
 │   │   │   ├── ProductosController.php
 │   │   │   ├── RolesController.php
 │   │   │   ├── RolesPermisosController.php
+│   │   │   ├── SeguidoresController.php
 │   │   │   ├── ServiciosController.php
 │   │   │   ├── TiposDocumentoController.php
 │   │   │   ├── TransaccionesController.php
@@ -267,8 +269,8 @@ NKI/
 │   │   │   ├── Evento.php
 │   │   │   ├── HistorialPago.php
 │   │   │   ├── Indumentaria.php
-│   │   │   ├── Inventario.php
 │   │   │   ├── Inscripcion.php
+│   │   │   ├── Inventario.php
 │   │   │   ├── Jugador.php
 │   │   │   ├── Noticia.php
 │   │   │   ├── Notificacion.php
@@ -280,6 +282,7 @@ NKI/
 │   │   │   ├── Producto.php
 │   │   │   ├── Rol.php
 │   │   │   ├── RolPermiso.php
+│   │   │   ├── Seguidor.php
 │   │   │   ├── Servicio.php
 │   │   │   ├── TipoDocumento.php
 │   │   │   ├── Transaccion.php
