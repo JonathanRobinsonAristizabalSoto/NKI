@@ -1,544 +1,456 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NKI - Registro</title>
-    <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link rel="stylesheet" href="../../assets/css/styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker.min.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-    <!-- Vanilla JS Datepicker -->
-    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/i18n/datepicker.es.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NKI - Registro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="../../assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker.min.css">
 
-    <script src="../../assets/js/jquery/jquery-3.7.1.min.js"></script>
-    <script src="../../assets/js/components/theme-system.js"></script>
-    <script src="../../assets/js/components/birthdate-datepicker.js"></script>
-  </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+  <!-- Vanilla JS Datepicker -->
+  <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/i18n/datepicker.es.js"></script>
 
-  <body
-    class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
-    <!-- 🌟 Header con menú hamburguesa -->
-    <header
-      class="bg-white shadow-md fixed w-full top-0 left-0 z-50 dark:bg-primary dark:text-white">
-      <div
-        class="container mx-auto px-4 py-3 flex justify-between items-center">
-        <!-- Botón de menú hamburguesa (solo en móvil) -->
-        <button id="menu-btn" class="md:hidden focus:outline-none">
-          <svg class="w-8 h-8 text-primary dark:text-white" fill="none"
-            stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
+  <script src="../../assets/js/jquery/jquery-3.7.1.min.js"></script>
+  <script src="../../assets/js/components/theme-system.js"></script>
+  <script src="../../assets/js/components/birthdate-datepicker.js"></script>
+</head>
+
+<body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
+  <!-- 🌟 Header con menú hamburguesa -->
+  <header class="bg-white shadow-md fixed w-full top-0 left-0 z-50 dark:bg-primary dark:text-white">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <!-- Botón de menú hamburguesa (solo en móvil) -->
+      <button id="menu-btn" class="md:hidden focus:outline-none">
+        <svg class="w-8 h-8 text-primary dark:text-white" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+
+      <!-- Menú principal centrado -->
+      <nav class="hidden md:flex space-x-6 mx-auto">
+        <a href="../../../index.html"
+          class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
+        <a href="../info/about.html"
+          class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Nosotros</a>
+        <a href="../inscripciones/inscripciones.html"
+          class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
+        <a href="../info/contact.html"
+          class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Contactanos</a>
+      </nav>
+
+      <!-- Botón de flecha con tema -->
+      <div class="relative">
+        <button id="dropdown-btn"
+          class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-2">
+          <i id="theme-icon" class="fas fa-moon"></i>
+          <i id="dropdown-icon" class="fas fa-chevron-down"></i>
         </button>
-
-        <!-- Menú principal centrado -->
-        <nav class="hidden md:flex space-x-6 mx-auto">
-          <a href="../../../index.html"
-            class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
-          <a href="../info/about.html"
-            class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Nosotros</a>
-          <a href="../inscripciones/inscripciones.html"
-            class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
-          <a href="../info/contact.html"
-            class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Contactanos</a>
-        </nav>
-
-        <!-- Botón de flecha con tema -->
-        <div class="relative">
-          <button id="dropdown-btn"
-            class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-2">
-            <i id="theme-icon" class="fas fa-moon"></i>
-            <i id="dropdown-icon" class="fas fa-chevron-down"></i>
+        <!-- Menú desplegable -->
+        <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
+          <a href="#acerca-de" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Acerca
+            de</a>
+          <a href="#politicas" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Políticas</a>
+          <!-- Botón de cambio de tema -->
+          <button id="theme-toggle"
+            class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
+            <i id="menu-theme-icon" class="fas fa-moon"></i> Tema Dark
           </button>
-          <!-- Menú desplegable -->
-          <div id="dropdown-menu"
-            class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
-            <a href="#acerca-de"
-              class="block px-4 py-2 text-sm text-primary dark:text-secondary">Acerca
-              de</a>
-            <a href="#politicas"
-              class="block px-4 py-2 text-sm text-primary dark:text-secondary">Políticas</a>
-            <!-- Botón de cambio de tema -->
-            <button id="theme-toggle"
-              class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
-              <i id="menu-theme-icon" class="fas fa-moon"></i> Tema Dark
-            </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fondo opaco -->
+  <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
+
+  <!-- Menú lateral -->
+  <div id="menu"
+    class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform dark:bg-primary dark:text-white z-50">
+    <div class="p-4">
+      <button id="close-menu" class="text-gray-700 dark:text-white">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col space-y-4 p-4">
+      <a href="../../../index.html"
+        class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+        <i class="fas fa-home mr-4"></i> Inicio
+      </a>
+      <a href="../info/about.html"
+        class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+        <i class="fas fa-book mr-4"></i> Nosotros
+      </a>
+      <a href="../inscripciones/inscripciones.html"
+        class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+        <i class="fas fa-edit mr-4"></i> Inscripciones
+      </a>
+      <a href="../../pages/team.html"
+        class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+        <i class="fas fa-users mr-4"></i> Contactanos
+      </a>
+    </nav>
+  </div>
+
+  <!-- 📌 Contenido Principal -->
+  <main class="flex flex-col items-center justify-center flex-grow text-center px-6 mt-20">
+    <!-- Logo -->
+    <img id="logo" src="../../assets/img/logos/logoOscuro.png" alt="FutbolGo Logo"
+      class="w-44 h-44 md:w-52 md:h-52 dark:hidden" />
+    <img id="logo-dark" src="../../assets/img/logos/logoClaro.png" alt="FutbolGo Logo"
+      class="w-44 h-44 md:w-52 md:h-52 hidden dark:block" />
+
+    <!-- Formulario de Registro -->
+    <h1 class="text-4xl text-secondary mt-4 dark:text-white font-heading">
+      Registro
+    </h1>
+
+    <!-- Formulario de Registro -->
+    <form class="mt-6 w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-6" id="register-form">
+      <!-- Nombre -->
+      <div class="flex flex-col">
+        <label for="name" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-user"></i> Nombre
+        </label>
+        <input type="text" id="name" placeholder="Ingresa tu nombre"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+      </div>
+
+      <!-- Apellido -->
+      <div class="flex flex-col">
+        <label for="surname" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-user"></i> Apellido
+        </label>
+        <input type="text" id="surname" placeholder="Ingresa tu apellido"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+      </div>
+
+      <!-- Tipo de Documento -->
+      <div class="flex flex-col">
+        <label for="document-type" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-id-card"></i> Tipo de Documento
+        </label>
+        <select id="document-type"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
+          <option value disabled selected class="text-center">Selecciona el
+            tipo de documento</option>
+          <!-- Las opciones se llenan dinámicamente por JS -->
+        </select>
+      </div>
+
+      <!-- Número de Documento -->
+      <div class="flex flex-col relative">
+        <label for="document" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-id-card"></i> Número de Documento
+        </label>
+        <input type="text" id="document" placeholder="Ingresa tu número de documento"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+      </div>
+
+      <!-- Correo Electrónico -->
+      <div class="flex flex-col">
+        <label for="email" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-envelope"></i> Correo Electrónico
+        </label>
+        <input type="email" id="email" placeholder="Ingresa tu correo electrónico"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+      </div>
+
+      <!-- Teléfono -->
+      <div class="flex flex-col">
+        <label for="phone" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-phone"></i> Teléfono
+        </label>
+        <input type="tel" id="phone" placeholder="Ingresa tu número de teléfono"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+      </div>
+
+      <!-- fecha de nacimiento -->
+      <div class="flex flex-col">
+        <label for="birthdate" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-calendar-alt"></i> Fecha de Nacimiento
+        </label>
+        <div class="relative">
+          <input type="text" id="birthdate" name="birthdate" placeholder="dd/mm/aaaa" autocomplete="off"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center cursor-pointer" />
+          <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+            <i class="fas fa-calendar-alt text-gray-400"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Género -->
+      <div class="flex flex-col">
+        <label for="gender" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-venus-mars"></i> Género
+        </label>
+        <select id="gender"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
+          <option value disabled selected class="text-center">Elige tu
+            género</option>
+          <!-- Las opciones se llenan dinámicamente por JS -->
+        </select>
+      </div>
+
+      <!-- Dirección -->
+      <div class="flex flex-col md:col-span-2">
+        <label class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-map-marker-alt"></i> Dirección
+        </label>
+        <!-- Fila 1: Tipo de vía, número, letra, compuesto (número-número) -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full mb-2">
+          <select id="street-type"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+            <option value disabled selected>Tipo de vía</option>
+            <option value="Calle">Calle</option>
+            <option value="Carrera">Carrera</option>
+            <option value="Avenida">Avenida</option>
+            <option value="Transversal">Transversal</option>
+            <option value="Diagonal">Diagonal</option>
+            <option value="Circular">Circular</option>
+            <option value="Manzana">Manzana</option>
+            <option value="Autopista">Autopista</option>
+            <option value="Otro">Otro</option>
+          </select>
+          <input type="number" id="street-number" placeholder="Número de vía" maxlength="4" min="0"
+            autocomplete="address-line1"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+          <select id="street-letter"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+            <option value selected>Letra (opcional)</option>
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+            <option value="d">d</option>
+            <option value="e">e</option>
+            <option value="f">f</option>
+            <option value="g">g</option>
+            <option value="h">h</option>
+            <option value="i">i</option>
+            <option value="j">j</option>
+            <option value="k">k</option>
+            <option value="l">l</option>
+            <option value="m">m</option>
+            <option value="n">n</option>
+            <option value="o">o</option>
+            <option value="p">p</option>
+            <option value="q">q</option>
+            <option value="r">r</option>
+            <option value="s">s</option>
+            <option value="t">t</option>
+            <option value="u">u</option>
+            <option value="v">v</option>
+            <option value="w">w</option>
+            <option value="x">x</option>
+            <option value="y">y</option>
+            <option value="z">z</option>
+          </select>
+          <input type="text" id="street-compound" placeholder="Compuesto (Ej: 12-34)" maxlength="10"
+            autocomplete="address-line2"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        </div>
+        <!-- Fila 2: Tipo de conjunto, número/letra, tipo de unidad, número/referencia -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full mb-2">
+          <select id="complex-type"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+            <option value disabled selected>Tipo de conjunto</option>
+            <option value="Casa">Casa</option>
+            <option value="Bloque">Bloque</option>
+            <option value="Torre">Torre</option>
+            <option value="Edificio">Edificio</option>
+            <option value="Conjunto">Conjunto</option>
+            <option value="Otro">Otro</option>
+          </select>
+          <input type="text" id="complex-number" placeholder="N° o letra de conjunto"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+          <select id="unit-type"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+            <option value selected>Tipo de unidad</option>
+            <option value="Apto">Apto</option>
+            <option value="Local">Local</option>
+            <option value="Oficina">Oficina</option>
+            <option value="Otro">Otro</option>
+          </select>
+          <input type="text" id="unit-number" placeholder="N° unidad o referencia"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        </div>
+        <!-- Fila 3: Barrio, Ciudad, Departamento -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
+          <input type="text" id="neighborhood" placeholder="Barrio o Localidad" autocomplete="address-level3"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+          <input type="text" id="city" placeholder="Ciudad" autocomplete="address-level2"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+          <input type="text" id="state" placeholder="Departamento" autocomplete="address-level1"
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="flex flex-col relative">
+        <label for="password" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-lock"></i> Contraseña
+        </label>
+        <input type="password" id="password" placeholder="Ingresa tu contraseña"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        <span class="absolute top-10 right-3 flex items-center cursor-pointer"
+          onclick="togglePasswordVisibility('password')">
+          <i class="fas fa-eye text-gray-700 dark:text-white"></i>
+        </span>
+      </div>
+
+      <!-- Confirmar Contraseña -->
+      <div class="flex flex-col relative">
+        <label for="confirm-password" class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
+          <i class="fas fa-lock"></i> Confirmar Contraseña
+        </label>
+        <input type="password" id="confirm-password" placeholder="Confirma tu contraseña"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+        <span class="absolute top-10 right-3 flex items-center cursor-pointer"
+          onclick="togglePasswordVisibility('confirm-password')">
+          <i class="fas fa-eye text-gray-700 dark:text-white"></i>
+        </span>
+      </div>
+
+      <!-- Rol y Categoría -->
+      <div class="col-span-1 md:col-span-2 flex flex-col items-center justify-center">
+        <div id="rol-categoria-row" class="w-full flex flex-col items-center md:flex-row md:justify-center md:gap-6">
+          <!-- Rol -->
+          <div id="rol-row" class="w-full max-w-xs flex justify-center md:justify-end md:w-1/2">
+            <div class="w-full">
+              <label for="role" class="text-gray-700 dark:text-white font-semibold mb-1 text-center block">
+                <i class="fas fa-user-tag"></i> Rol
+              </label>
+              <select id="role"
+                class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
+                <option value disabled selected class="text-center">Escoge tu
+                  rol</option>
+                <!-- Las opciones se llenan dinámicamente por JS -->
+              </select>
+            </div>
+          </div>
+          <!-- Categoría solo visible si el rol es jugador -->
+          <div id="categoria-row" class="w-full max-w-xs flex justify-center md:justify-start md:w-1/2 mt-2 md:mt-0"
+            style="display:none;">
+            <div class="w-full">
+              <label for="categoria_id" class="text-gray-700 dark:text-white font-semibold mb-1 text-center block">
+                <i class="fas fa-layer-group"></i> Categoría
+              </label>
+              <select id="categoria_id"
+                class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
+                <option value disabled selected class="text-center">Selecciona
+                  la categoría</option>
+                <!-- Opciones dinámicas por JS -->
+              </select>
+            </div>
           </div>
         </div>
       </div>
-    </header>
 
-    <!-- Fondo opaco -->
-    <div id="overlay"
-      class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
+      <!-- Condiciones de la Contraseña -->
+      <div class="col-span-1 md:col-span-2 flex justify-center mt-2">
+        <p class="text-gray-700 dark:text-white text-center">
+          La contraseña debe ser alfanumérica y tener al menos 6 caracteres.
+        </p>
+      </div>
 
-    <!-- Menú lateral -->
-    <div id="menu"
-      class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform dark:bg-primary dark:text-white z-50">
-      <div class="p-4">
-        <button id="close-menu" class="text-gray-700 dark:text-white">
+      <!-- Botón de Registro -->
+      <div class="col-span-1 md:col-span-2 flex justify-center">
+        <button type="submit"
+          class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">
+          Registrarse
+        </button>
+      </div>
+
+      <!-- Enlace a Iniciar Sesión -->
+      <div class="col-span-1 md:col-span-2 flex justify-center mt-4">
+        <a href="login.html" class="text-primary dark:text-secondary hover:underline hover:text-secondary">
+          ¿Ya tienes una cuenta? Inicia Sesión
+        </a>
+      </div>
+    </form>
+
+    <!-- Modal de verificación de código mejorado, centrado, blur y 6 cajas individuales pequeñas y responsivas -->
+    <div id="verify-modal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md hidden">
+      <div
+        class="relative bg-white dark:bg-primary rounded-3xl shadow-2xl w-[92vw] max-w-xs sm:max-w-sm md:max-w-md p-7 sm:p-10 flex flex-col items-center border border-gray-200 dark:border-gray-700">
+        <!-- Botón cerrar (ícono) -->
+        <button id="close-verify-modal"
+          class="absolute top-4 right-4 text-gray-400 hover:text-primary dark:hover:text-secondary text-2xl focus:outline-none"
+          aria-label="Cerrar modal">
           <i class="fas fa-times"></i>
         </button>
+        <h2 class="text-2xl font-bold mb-3 text-primary dark:text-white text-center font-heading">
+          Verifica tu correo
+        </h2>
+        <p class="mb-4 text-gray-700 dark:text-white text-sm text-center font-body">
+          Ingresa el código de 6 dígitos que enviamos a tu correo electrónico.
+        </p>
+        <!-- Inputs individuales para cada dígito, tamaño pequeño y nunca salen del modal -->
+        <div class="flex justify-center gap-1 sm:gap-2 mb-3 w-full max-w-[260px]">
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+            class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
+            id="digit-1" autocomplete="one-time-code" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+            class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
+            id="digit-2" autocomplete="one-time-code" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+            class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
+            id="digit-3" autocomplete="one-time-code" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+            class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
+            id="digit-4" autocomplete="one-time-code" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+            class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
+            id="digit-5" autocomplete="one-time-code" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*"
+            class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
+            id="digit-6" autocomplete="one-time-code" />
+        </div>
+        <div id="verify-error" class="text-red-500 mb-2 text-sm"></div>
+        <button id="verify-code-btn"
+          class="bg-primary dark:bg-secondary text-white font-semibold px-6 py-2 rounded-lg mb-2 w-full hover:bg-secondary dark:hover:bg-primary transition font-body">
+          Verificar
+        </button>
+        <button id="close-verify-modal-2"
+          class="text-gray-500 dark:text-gray-300 mt-1 underline w-full text-sm hover:text-primary dark:hover:text-secondary transition font-body">
+          Cancelar
+        </button>
       </div>
-      <nav class="flex flex-col space-y-4 p-4">
-        <a href="../../../index.html"
-          class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-          <i class="fas fa-home mr-4"></i> Inicio
-        </a>
-        <a href="../info/about.html"
-          class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-          <i class="fas fa-book mr-4"></i> Nosotros
-        </a>
-        <a href="../inscripciones/inscripciones.html"
-          class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-          <i class="fas fa-edit mr-4"></i> Inscripciones
-        </a>
-        <a href="../../pages/team.html"
-          class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
-          <i class="fas fa-users mr-4"></i> Contactanos
-        </a>
-      </nav>
     </div>
+  </main>
 
-    <!-- 📌 Contenido Principal -->
-    <main
-      class="flex flex-col items-center justify-center flex-grow text-center px-6 mt-20">
-      <!-- Logo -->
-      <img id="logo" src="../../assets/img/logos/logoOscuro.png"
-        alt="FutbolGo Logo"
-        class="w-44 h-44 md:w-52 md:h-52 dark:hidden" />
-      <img id="logo-dark" src="../../assets/img/logos/logoClaro.png"
-        alt="FutbolGo Logo"
-        class="w-44 h-44 md:w-52 md:h-52 hidden dark:block" />
+  <!-- 📌 Pie de página -->
+  <footer class="bg-white text-center py-4 dark:bg-primary dark:text-white">
+    <!-- Íconos de redes sociales -->
+    <div class="flex justify-center space-x-4 mb-4">
+      <a href="#" class="text-primary dark:text-white hover:text-blue-500 dark:hover:text-blue-500"><i
+          class="fab fa-facebook-f"></i></a>
+      <a href="#" class="text-primary dark:text-white hover:text-blue-400 dark:hover:text-blue-400"><i
+          class="fab fa-twitter"></i></a>
+      <a href="#" class="text-primary dark:text-white hover:text-pink-500 dark:hover:text-pink-500"><i
+          class="fab fa-instagram"></i></a>
+      <a href="#" class="text-primary dark:text-white hover:text-red-600 dark:hover:text-red-600"><i
+          class="fab fa-youtube"></i></a>
+    </div>
+    <p class="text-xs">&copy; 2025. Todos los derechos reservados.</p>
+  </footer>
 
-      <!-- Formulario de Registro -->
-      <h1 class="text-4xl text-secondary mt-4 dark:text-white font-heading">
-        Registro
-      </h1>
+  <!-- 🚀 Script para menú hamburguesa y cambio de tema -->
+  <script src="../../assets/js/components/menu.js"></script>
+  <script src="../../assets/js/components/theme-toggle.js"></script>
+  <script src="../../assets/js/components/password-visible.js"></script>
+  <script src="../../assets/js/components/phone-input.js"></script>
+  <script src="../../assets/js/components/drop-down.js"></script>
 
-      <!-- Formulario de Registro -->
-      <form class="mt-6 w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-6"
-        id="register-form">
-        <!-- Nombre -->
-        <div class="flex flex-col">
-          <label for="name"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-user"></i> Nombre
-          </label>
-          <input type="text" id="name" placeholder="Ingresa tu nombre"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-        </div>
+  <script type="module" src="../../assets/js/auth/register.js"></script>
+  <script type="module" src="../../assets/js/components/categoria-rol.js"></script>
 
-        <!-- Apellido -->
-        <div class="flex flex-col">
-          <label for="surname"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-user"></i> Apellido
-          </label>
-          <input type="text" id="surname" placeholder="Ingresa tu apellido"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-        </div>
-
-        <!-- Tipo de Documento -->
-        <div class="flex flex-col">
-          <label for="document-type"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-id-card"></i> Tipo de Documento
-          </label>
-          <select id="document-type"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
-            <option value disabled selected class="text-center">Selecciona el
-              tipo de documento</option>
-            <!-- Las opciones se llenan dinámicamente por JS -->
-          </select>
-        </div>
-
-        <!-- Número de Documento -->
-        <div class="flex flex-col relative">
-          <label for="document"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-id-card"></i> Número de Documento
-          </label>
-          <input type="text" id="document"
-            placeholder="Ingresa tu número de documento"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-        </div>
-
-        <!-- Correo Electrónico -->
-        <div class="flex flex-col">
-          <label for="email"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-envelope"></i> Correo Electrónico
-          </label>
-          <input type="email" id="email"
-            placeholder="Ingresa tu correo electrónico"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-        </div>
-
-        <!-- Teléfono -->
-        <div class="flex flex-col">
-          <label for="phone"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-phone"></i> Teléfono
-          </label>
-          <input type="tel" id="phone"
-            placeholder="Ingresa tu número de teléfono"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-        </div>
-
-        <!-- fecha de nacimiento -->
-        <div class="flex flex-col">
-          <label for="birthdate"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-calendar-alt"></i> Fecha de Nacimiento
-          </label>
-          <div class="relative">
-            <input
-              type="text"
-              id="birthdate"
-              name="birthdate"
-              placeholder="dd/mm/aaaa"
-              autocomplete="off"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center cursor-pointer" />
-            <span
-              class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-              <i class="fas fa-calendar-alt text-gray-400"></i>
-            </span>
-          </div>
-        </div>
-
-        <!-- Género -->
-        <div class="flex flex-col">
-          <label for="gender"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-venus-mars"></i> Género
-          </label>
-          <select id="gender"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
-            <option value disabled selected class="text-center">Elige tu
-              género</option>
-            <!-- Las opciones se llenan dinámicamente por JS -->
-          </select>
-        </div>
-
-        <!-- Dirección -->
-        <div class="flex flex-col md:col-span-2">
-          <label
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-map-marker-alt"></i> Dirección
-          </label>
-          <!-- Fila 1: Tipo de vía, número, letra, compuesto (número-número) -->
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full mb-2">
-            <select
-              id="street-type"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-              <option value disabled selected>Tipo de vía</option>
-              <option value="Calle">Calle</option>
-              <option value="Carrera">Carrera</option>
-              <option value="Avenida">Avenida</option>
-              <option value="Transversal">Transversal</option>
-              <option value="Diagonal">Diagonal</option>
-              <option value="Circular">Circular</option>
-              <option value="Manzana">Manzana</option>
-              <option value="Autopista">Autopista</option>
-              <option value="Otro">Otro</option>
-            </select>
-            <input
-              type="number"
-              id="street-number"
-              placeholder="Número de vía"
-              maxlength="4"
-              min="0"
-              autocomplete="address-line1"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-            <select
-              id="street-letter"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-              <option value selected>Letra (opcional)</option>
-              <option value="a">a</option>
-              <option value="b">b</option>
-              <option value="c">c</option>
-              <option value="d">d</option>
-              <option value="e">e</option>
-              <option value="f">f</option>
-              <option value="g">g</option>
-              <option value="h">h</option>
-              <option value="i">i</option>
-              <option value="j">j</option>
-              <option value="k">k</option>
-              <option value="l">l</option>
-              <option value="m">m</option>
-              <option value="n">n</option>
-              <option value="o">o</option>
-              <option value="p">p</option>
-              <option value="q">q</option>
-              <option value="r">r</option>
-              <option value="s">s</option>
-              <option value="t">t</option>
-              <option value="u">u</option>
-              <option value="v">v</option>
-              <option value="w">w</option>
-              <option value="x">x</option>
-              <option value="y">y</option>
-              <option value="z">z</option>
-            </select>
-            <input
-              type="text"
-              id="street-compound"
-              placeholder="Compuesto (Ej: 12-34)"
-              maxlength="10"
-              autocomplete="address-line2"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-          </div>
-          <!-- Fila 2: Tipo de conjunto, número/letra, tipo de unidad, número/referencia -->
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full mb-2">
-            <select
-              id="complex-type"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-              <option value disabled selected>Tipo de conjunto</option>
-              <option value="Casa">Casa</option>
-              <option value="Bloque">Bloque</option>
-              <option value="Torre">Torre</option>
-              <option value="Edificio">Edificio</option>
-              <option value="Conjunto">Conjunto</option>
-              <option value="Otro">Otro</option>
-            </select>
-            <input
-              type="text"
-              id="complex-number"
-              placeholder="N° o letra de conjunto"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-            <select
-              id="unit-type"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-              <option value selected>Tipo de unidad</option>
-              <option value="Apto">Apto</option>
-              <option value="Local">Local</option>
-              <option value="Oficina">Oficina</option>
-              <option value="Otro">Otro</option>
-            </select>
-            <input
-              type="text"
-              id="unit-number"
-              placeholder="N° unidad o referencia"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-          </div>
-          <!-- Fila 3: Barrio, Ciudad, Departamento -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
-            <input
-              type="text"
-              id="neighborhood"
-              placeholder="Barrio o Localidad"
-              autocomplete="address-level3"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-            <input
-              type="text"
-              id="city"
-              placeholder="Ciudad"
-              autocomplete="address-level2"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-            <input
-              type="text"
-              id="state"
-              placeholder="Departamento"
-              autocomplete="address-level1"
-              class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-          </div>
-        </div>
-
-        <!-- Contraseña -->
-        <div class="flex flex-col relative">
-          <label for="password"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-lock"></i> Contraseña
-          </label>
-          <input type="password" id="password"
-            placeholder="Ingresa tu contraseña"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-          <span class="absolute top-10 right-3 flex items-center cursor-pointer"
-            onclick="togglePasswordVisibility('password')">
-            <i class="fas fa-eye text-gray-700 dark:text-white"></i>
-          </span>
-        </div>
-
-        <!-- Confirmar Contraseña -->
-        <div class="flex flex-col relative">
-          <label for="confirm-password"
-            class="text-gray-700 dark:text-white font-semibold mb-1 text-center">
-            <i class="fas fa-lock"></i> Confirmar Contraseña
-          </label>
-          <input type="password" id="confirm-password"
-            placeholder="Confirma tu contraseña"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
-          <span class="absolute top-10 right-3 flex items-center cursor-pointer"
-            onclick="togglePasswordVisibility('confirm-password')">
-            <i class="fas fa-eye text-gray-700 dark:text-white"></i>
-          </span>
-        </div>
-
-        <!-- Rol y Categoría -->
-        <div
-          class="col-span-1 md:col-span-2 flex flex-col items-center justify-center">
-          <div id="rol-categoria-row"
-            class="w-full flex flex-col items-center md:flex-row md:justify-center md:gap-6">
-            <!-- Rol -->
-            <div id="rol-row"
-              class="w-full max-w-xs flex justify-center md:justify-end md:w-1/2">
-              <div class="w-full">
-                <label for="role"
-                  class="text-gray-700 dark:text-white font-semibold mb-1 text-center block">
-                  <i class="fas fa-user-tag"></i> Rol
-                </label>
-                <select id="role"
-                  class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
-                  <option value disabled selected class="text-center">Escoge tu
-                    rol</option>
-                  <!-- Las opciones se llenan dinámicamente por JS -->
-                </select>
-              </div>
-            </div>
-            <!-- Categoría solo visible si el rol es jugador -->
-            <div id="categoria-row"
-              class="w-full max-w-xs flex justify-center md:justify-start md:w-1/2 mt-2 md:mt-0"
-              style="display:none;">
-              <div class="w-full">
-                <label for="categoria_id"
-                  class="text-gray-700 dark:text-white font-semibold mb-1 text-center block">
-                  <i class="fas fa-layer-group"></i> Categoría
-                </label>
-                <select id="categoria_id"
-                  class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary text-center">
-                  <option value disabled selected class="text-center">Selecciona
-                    la categoría</option>
-                  <!-- Opciones dinámicas por JS -->
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Condiciones de la Contraseña -->
-        <div class="col-span-1 md:col-span-2 flex justify-center mt-2">
-          <p class="text-gray-700 dark:text-white text-center">
-            La contraseña debe ser alfanumérica y tener al menos 6 caracteres.
-          </p>
-        </div>
-
-        <!-- Botón de Registro -->
-        <div class="col-span-1 md:col-span-2 flex justify-center">
-          <button type="submit"
-            class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-gray-dark transition dark:bg-secondary dark:hover:bg-gray-dark">
-            Registrarse
-          </button>
-        </div>
-
-        <!-- Enlace a Iniciar Sesión -->
-        <div class="col-span-1 md:col-span-2 flex justify-center mt-4">
-          <a href="login.html"
-            class="text-primary dark:text-secondary hover:underline hover:text-secondary">
-            ¿Ya tienes una cuenta? Inicia Sesión
-          </a>
-        </div>
-      </form>
-
-      <!-- Modal de verificación de código mejorado, centrado, blur y 6 cajas individuales pequeñas y responsivas -->
-      <div id="verify-modal"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md hidden">
-        <div
-          class="relative bg-white dark:bg-primary rounded-3xl shadow-2xl w-[92vw] max-w-xs sm:max-w-sm md:max-w-md p-7 sm:p-10 flex flex-col items-center border border-gray-200 dark:border-gray-700">
-          <!-- Botón cerrar (ícono) -->
-          <button id="close-verify-modal"
-            class="absolute top-4 right-4 text-gray-400 hover:text-primary dark:hover:text-secondary text-2xl focus:outline-none"
-            aria-label="Cerrar modal">
-            <i class="fas fa-times"></i>
-          </button>
-          <h2
-            class="text-2xl font-bold mb-3 text-primary dark:text-white text-center font-heading">
-            Verifica tu correo
-          </h2>
-          <p
-            class="mb-4 text-gray-700 dark:text-white text-sm text-center font-body">
-            Ingresa el código de 6 dígitos que enviamos a tu correo electrónico.
-          </p>
-          <!-- Inputs individuales para cada dígito, tamaño pequeño y nunca salen del modal -->
-          <div
-            class="flex justify-center gap-1 sm:gap-2 mb-3 w-full max-w-[260px]">
-            <input type="text" maxlength="1" inputmode="numeric"
-              pattern="[0-9]*"
-              class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
-              id="digit-1" autocomplete="one-time-code" />
-            <input type="text" maxlength="1" inputmode="numeric"
-              pattern="[0-9]*"
-              class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
-              id="digit-2" autocomplete="one-time-code" />
-            <input type="text" maxlength="1" inputmode="numeric"
-              pattern="[0-9]*"
-              class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
-              id="digit-3" autocomplete="one-time-code" />
-            <input type="text" maxlength="1" inputmode="numeric"
-              pattern="[0-9]*"
-              class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
-              id="digit-4" autocomplete="one-time-code" />
-            <input type="text" maxlength="1" inputmode="numeric"
-              pattern="[0-9]*"
-              class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
-              id="digit-5" autocomplete="one-time-code" />
-            <input type="text" maxlength="1" inputmode="numeric"
-              pattern="[0-9]*"
-              class="w-8 h-10 sm:w-10 sm:h-12 text-center text-xl sm:text-2xl border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white font-body"
-              id="digit-6" autocomplete="one-time-code" />
-          </div>
-          <div id="verify-error" class="text-red-500 mb-2 text-sm"></div>
-          <button id="verify-code-btn"
-            class="bg-primary dark:bg-secondary text-white font-semibold px-6 py-2 rounded-lg mb-2 w-full hover:bg-secondary dark:hover:bg-primary transition font-body">
-            Verificar
-          </button>
-          <button id="close-verify-modal-2"
-            class="text-gray-500 dark:text-gray-300 mt-1 underline w-full text-sm hover:text-primary dark:hover:text-secondary transition font-body">
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </main>
-
-    <!-- 📌 Pie de página -->
-    <footer class="bg-white text-center py-4 dark:bg-primary dark:text-white">
-      <!-- Íconos de redes sociales -->
-      <div class="flex justify-center space-x-4 mb-4">
-        <a href="#"
-          class="text-primary dark:text-white hover:text-blue-500 dark:hover:text-blue-500"><i
-            class="fab fa-facebook-f"></i></a>
-        <a href="#"
-          class="text-primary dark:text-white hover:text-blue-400 dark:hover:text-blue-400"><i
-            class="fab fa-twitter"></i></a>
-        <a href="#"
-          class="text-primary dark:text-white hover:text-pink-500 dark:hover:text-pink-500"><i
-            class="fab fa-instagram"></i></a>
-        <a href="#"
-          class="text-primary dark:text-white hover:text-red-600 dark:hover:text-red-600"><i
-            class="fab fa-youtube"></i></a>
-      </div>
-      <p class="text-xs">&copy; 2025. Todos los derechos reservados.</p>
-    </footer>
-
-    <!-- 🚀 Script para menú hamburguesa y cambio de tema -->
-    <script src="../../assets/js/components/menu.js"></script>
-    <script src="../../assets/js/components/theme-toggle.js"></script>
-    <script src="../../assets/js/components/password-visible.js"></script>
-    <script src="../../assets/js/components/phone-input.js"></script>
-    <script src="../../assets/js/components/drop-down.js"></script>
-
-    <script type="module" src="../../assets/js/auth/register.js"></script>
-    <script type="module" src="../../assets/js/components/categoria-rol.js"></script>
-
-    
-
-  </body>
+</body>
 
 </html>
