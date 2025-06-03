@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NKI - Registro</title>
@@ -16,7 +17,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/i18n/datepicker.es.js"></script>
 
   <script src="../../assets/js/jquery/jquery-3.7.1.min.js"></script>
-  
+
 </head>
 
 <body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
@@ -51,10 +52,10 @@
           <i id="dropdown-icon" class="fas fa-chevron-down"></i>
         </button>
         <!-- Menú desplegable -->
-        <div id="dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg rounded">
-          <a href="#acerca-de" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Acerca
-            de</a>
-          <a href="#politicas" class="block px-4 py-2 text-sm text-primary dark:text-secondary">Políticas</a>
+        <div id="dropdown-menu"
+          class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg dark:shadow-white/10 rounded">
+          <a href="#acerca-de" class="block px-4 py-2 text-sm text-primary dark:text-white">Acerca de</a>
+          <a href="#politicas" class="block px-4 py-2 text-sm text-primary dark:text-white">Políticas</a>
           <!-- Botón de cambio de tema -->
           <button id="theme-toggle"
             class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
@@ -66,7 +67,7 @@
   </header>
 
   <!-- Fondo opaco -->
-  <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
+  <div id="overlay" class="fixed inset-0 bg-black opacity-30 hidden z-40"></div>
 
   <!-- Menú lateral -->
   <div id="menu"
@@ -176,9 +177,9 @@
         </label>
         <div class="relative">
           <input type="text" id="birthdate" name="birthdate" placeholder="dd/mm/aaaa" autocomplete="off"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center cursor-pointer" />
+            class="w-full px-4 py-2 border border-gray-400 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-secondary bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-center cursor-pointer transition-colors" />
           <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-            <i class="fas fa-calendar-alt text-gray-400"></i>
+            <i class="fas fa-calendar-alt text-gray-400 dark:text-gray-300"></i>
           </span>
         </div>
       </div>
@@ -202,7 +203,7 @@
           <i class="fas fa-map-marker-alt"></i> Dirección
         </label>
         <!-- Fila 1: Tipo de vía, número, letra, compuesto (número-número) -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full mb-2">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 w-full mb-2">
           <select id="street-type"
             class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
             <option value disabled selected>Tipo de vía</option>
@@ -254,7 +255,7 @@
             class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
         </div>
         <!-- Fila 2: Tipo de conjunto, número/letra, tipo de unidad, número/referencia -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full mb-2">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 w-full mb-2">
           <select id="complex-type"
             class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
             <option value disabled selected>Tipo de conjunto</option>
@@ -285,7 +286,7 @@
           <input type="text" id="city" placeholder="Ciudad" autocomplete="address-level2"
             class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
           <input type="text" id="state" placeholder="Departamento" autocomplete="address-level1"
-            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center">
+            class="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-400 dark:focus:ring-secondary text-center mx-auto md:mx-0">
         </div>
       </div>
 
@@ -367,8 +368,10 @@
 
       <!-- Enlace a Iniciar Sesión -->
       <div class="col-span-1 md:col-span-2 flex justify-center mt-4">
-        <a href="login.html" class="text-primary dark:text-secondary hover:underline hover:text-secondary">
-          ¿Ya tienes una cuenta? Inicia Sesión
+        <span class="text-primary dark:text-white">¿Ya tienes una cuenta?</span>
+        <a href="login.html"
+          class="ml-1 text-secondary dark:text-secondary  hover:underline hover:dark:text-gray-medium">
+          Inicia Sesión
         </a>
       </div>
     </form>
@@ -452,7 +455,7 @@
   <script type="module" src="../../assets/js/auth/register.js"></script>
   <script type="module" src="../../assets/js/components/categoria-rol.js"></script>
 
-  
+
 
 </body>
 
