@@ -33,8 +33,8 @@ class Usuario
     public static function getTipoDocumentoId($tipo)
     {
         if (is_numeric($tipo)) return (int)$tipo;
-        $map = ['cc' => 1, 'ti' => 2, 'ce' => 3, 'passport' => 4];
-        return $map[$tipo] ?? null;
+        $map = ['cc' => 1, 'ti' => 2, 'ce' => 3, 'passport' => 4, 'pas' => 4, 'dni' => 5, 'otro' => 6];
+        return $map[strtolower($tipo)] ?? null;
     }
 
     public static function getRolId($rol)
@@ -46,14 +46,14 @@ class Usuario
 
     /**
      * Busca un usuario por correo o documento.
-     * @param string $user Correo o documento
+     * @param string $valor Correo o documento
      * @return array|null
      */
-    public static function findByEmailOrDocumento($user)
+    public static function findByCorreoOrDocumento($valor)
     {
         $db = Connection::getInstance();
-        $stmt = $db->prepare("SELECT * FROM usuarios WHERE correo = ? OR documento = ?");
-        $stmt->execute([$user, $user]);
+        $stmt = $db->prepare("SELECT * FROM usuarios WHERE correo = ? OR documento = ? LIMIT 1");
+        $stmt->execute([$valor, $valor]);
         $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $usuario ?: null;
     }
@@ -106,6 +106,17 @@ class Usuario
     }
 
     /**
+     * Verifica si un documento ya está registrado.
+     */
+    public static function existeDocumento($documento)
+    {
+        $db = Connection::getInstance();
+        $stmt = $db->prepare("SELECT id FROM usuarios WHERE documento = ? LIMIT 1");
+        $stmt->execute([$documento]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC) ? true : false;
+    }
+
+    /**
      * Genera un código de verificación de 6 dígitos.
      */
     public static function generarCodigoVerificacion()
@@ -123,5 +134,32 @@ class Usuario
         $db = Connection::getInstance();
         $stmt = $db->prepare("UPDATE usuarios SET email_verificado = 1 WHERE id = ?");
         return $stmt->execute([$id]);
+    }
+
+    /**
+     * Crea un usuario a partir de los datos de Google.
+     * @param array $payload
+     * @return array|null
+     */
+    public static function crearDesdeGoogle($payload)
+    {
+        $usuario = new self();
+        $usuario->nombre = $payload['given_name'] ?? '';
+        $usuario->apellido = $payload['family_name'] ?? '';
+        $usuario->tipo_documento_id = 6; // 6 = 'OTRO' en tipos_documento
+        $usuario->documento = isset($payload['sub']) ? 'google_' . $payload['sub'] : 'google_' . uniqid();
+        $usuario->correo = $payload['email'];
+        $usuario->telefono = null;
+        $usuario->fecha_nacimiento = null;
+        $usuario->genero = 'Otro';
+        $usuario->direccion = null;
+        $usuario->rol_id = 2; // O el rol que corresponda para usuarios Google
+        $usuario->contrasena = bin2hex(random_bytes(16)); // Contraseña aleatoria, no se usa
+
+        $id = $usuario->save();
+        if ($id) {
+            return self::findById($id);
+        }
+        return null;
     }
 }

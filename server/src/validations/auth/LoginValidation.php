@@ -11,12 +11,13 @@ class LoginValidation
      */
     public static function validate($data)
     {
-        if (!isset($data['user']) || empty(trim($data['user']))) {
-            return [false, 'user', 'El correo o documento es obligatorio.'];
+        if (!isset($data['user']) || trim($data['user']) === '') {
+            return [false, 'user', 'El correo o número de documento es obligatorio.'];
         }
-        if (!isset($data['password']) || empty(trim($data['password']))) {
+        if (!isset($data['password']) || trim($data['password']) === '') {
             return [false, 'password', 'La contraseña es obligatoria.'];
         }
+        // Puedes agregar validaciones adicionales aquí si lo necesitas
         return [true, '', ''];
     }
 }

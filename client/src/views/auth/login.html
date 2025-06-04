@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/styles.css">
     <script src="../../assets/js/jquery/jquery-3.7.1.min.js"></script>
-    <script src="../../assets/js/components/theme-system.js"></script>
+
 </head>
 
 <body class="bg-white text-primary dark:bg-primary dark:text-white relative flex flex-col min-h-screen font-body">
@@ -132,6 +132,28 @@
                     Sesión</button>
             </div>
 
+            <!-- Botón de Google Login compacto y centrado -->
+            <div class="flex justify-center my-2">
+                <div>
+                    <div id="g_id_onload"
+                        data-client_id="226309003233-6jq415qlb9i6vi062q6b7kp8nf7a50hd.apps.googleusercontent.com"
+                        data-context="signin"
+                        data-ux_mode="popup"
+                        data-callback="onGoogleSignIn">
+                    </div>
+                    <div
+                        class="g_id_signin"
+                        data-type="standard"
+                        data-shape="rectangular"
+                        data-theme="outline"
+                        data-text="sign_in_with"
+                        data-size="large"
+                        data-logo_alignment="left">
+                    </div>
+                </div>
+            </div>
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+
             <!-- Enlace a Registro -->
             <div class="flex justify-center mt-4">
                 <span class="text-primary dark:text-white">¿No tienes una cuenta?</span>
@@ -162,10 +184,14 @@
     <script type="module" src="../../assets/js/auth/login.js"></script>
 
     <!-- Script para menú hamburguesa y cambio de tema -->
+    <script src="../../assets/js/components/theme-system.js"></script>
     <script src="../../assets/js/components/menu.js"></script>
     <script src="../../assets/js/components/theme-toggle.js"></script>
     <script src="../../assets/js/components/password-visible.js"></script>
     <script src="../../assets/js/components/drop-down.js"></script>
+
+    <script type="module" src="../../assets/js/auth/cargar-modales.js"></script>
+
 
 </body>
 

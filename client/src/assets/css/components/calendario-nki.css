@@ -1,0 +1,186 @@
+/* 🎨 Datepicker VanillaJS - Un solo contenedor redondeado, solo colores de tu paleta */
+
+/* ---------- MODO CLARO ---------- */
+
+/* Contenedor principal del calendario */
+.datepicker-dropdown {
+  background: #ffffff;              /* Fondo blanco */
+  color: #090d23;                   /* Texto primario */
+  border: 1px solid #a0aec0;        /* Borde gris medio */
+  box-shadow: 0 4px 24px 0 #a0aec033; /* Sombra suave */
+  border-radius: 1rem;              /* Bordes redondeados */
+  overflow: hidden;
+  padding: 0.5rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Contenido interno del calendario */
+.datepicker-picker {
+  background: transparent;
+  color: inherit;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+  padding: 0;
+}
+
+/* Encabezado (mes/año y flechas) */
+.datepicker-picker .datepicker-header {
+  background: #f7fafc;              /* Fondo gris claro */
+  color: #090d23;                   /* Texto primario */
+  border-bottom: 1px solid #a0aec0; /* Línea inferior */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+/* Botones del encabezado (mes/año y flechas) */
+.datepicker-picker .datepicker-header button {
+  border-radius: 0 !important;      /* Sin bordes redondeados */
+  background: transparent;
+  color: #090d23;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Hover en botones del encabezado */
+.datepicker-picker .datepicker-header button:hover {
+  background: #e50234;              /* Fondo secundario */
+  color: #e50234;
+}
+
+/* Celdas de días */
+.datepicker-picker .datepicker-cell {
+  border-radius: 0.5rem;            /* Bordes redondeados en días */
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Día seleccionado o enfocado */
+.datepicker-picker .datepicker-cell.selected,
+.datepicker-picker .datepicker-cell.focused {
+  background: #e50234;              /* Fondo secundario */
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Día actual */
+.datepicker-picker .datepicker-cell.today {
+  border: 2px solid #e50234;        /* Borde secundario */
+}
+
+/* Hover en días */
+.datepicker-picker .datepicker-cell:not(.selected):not(.disabled):hover {
+  background: #e50234;
+  color: #ffffff;
+}
+
+/* Días deshabilitados, previos o siguientes */
+.datepicker-picker .datepicker-cell.disabled,
+.datepicker-picker .datepicker-cell.prev,
+.datepicker-picker .datepicker-cell.next {
+  color: #a0aec0;                   /* Gris medio */
+  background: transparent;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Pie de calendario */
+.datepicker-picker .datepicker-footer {
+  background: #f7fafc;              /* Fondo gris claro */
+  color: #090d23;
+  border-top: 1px solid #a0aec0;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+/* ---------- MODO OSCURO ---------- */
+
+/* Contenedor principal del calendario en modo oscuro */
+.dark .datepicker-dropdown {
+  background: #090d23 !important;   /* Fondo primario oscuro */
+  color: #ffffff !important;        /* Texto blanco */
+  border: 1px solid #ffffff !important; /* Borde blanco */
+  box-shadow: 0 4px 24px 0 #2d374888 !important; /* Sombra suave */
+  border-radius: 1rem !important;
+  overflow: hidden;
+  padding: 0.5rem 0.5rem 0.25rem 0.5rem;
+}
+
+/* Contenido interno del calendario en modo oscuro */
+.dark .datepicker-picker {
+  background: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+/* Encabezado en modo oscuro */
+.dark .datepicker-picker .datepicker-header {
+  background: #2d3748 !important;   /* Fondo gris oscuro */
+  color: #ffffff !important;
+  border-bottom: 1px solid #ffffff !important;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 1rem !important;
+}
+
+/* Botones del encabezado en modo oscuro */
+.dark .datepicker-picker .datepicker-header button {
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Hover en botones del encabezado en modo oscuro */
+.dark .datepicker-picker .datepicker-header button:hover {
+  color: #e50234 !important;        /* Texto secundario */
+}
+
+/* Celdas de días en modo oscuro */
+.dark .datepicker-picker .datepicker-cell {
+  border-radius: 0.5rem !important;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Día seleccionado o enfocado en modo oscuro */
+.dark .datepicker-picker .datepicker-cell.selected,
+.dark .datepicker-picker .datepicker-cell.focused {
+  background: #e50234 !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+/* Día actual en modo oscuro */
+.dark .datepicker-picker .datepicker-cell.today {
+  border: 2px solid #e50234 !important;
+}
+
+/* Hover en días en modo oscuro */
+.dark .datepicker-picker .datepicker-cell:not(.selected):not(.disabled):hover {
+  background: #e50234 !important;
+  color: #ffffff !important;
+}
+
+/* Días deshabilitados, previos o siguientes en modo oscuro */
+.dark .datepicker-picker .datepicker-cell.disabled,
+.dark .datepicker-picker .datepicker-cell.prev,
+.dark .datepicker-picker .datepicker-cell.next {
+  color: #a0aec0 !important;
+  background: transparent !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+
+/* Pie de calendario en modo oscuro */
+.dark .datepicker-picker .datepicker-footer {
+  background: #2d3748 !important;
+  color: #ffffff !important;
+  border-top: 1px solid #ffffff !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}

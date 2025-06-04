@@ -1,0 +1,16 @@
+<!-- Modal de error en registro -->
+<div id="modal-error-registro"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden">
+  <div class="bg-white dark:bg-primary rounded-xl shadow-lg p-8 max-w-xs w-full text-center relative">
+    <h2 class="text-lg font-bold text-secondary dark:text-secondary mb-2">Error en el registro</h2>
+    <p class="text-gray-700 dark:text-white mb-4 text-sm">
+      Ocurrió un problema al registrar tu cuenta.<br>
+      Por favor, revisa los datos e inténtalo de nuevo.
+    </p>
+    <div id="error-registro-msg" class="text-secondary dark:text-secondary text-sm mb-2"></div>
+    <button id="cerrar-modal-error-registro"
+      class="bg-primary dark:bg-secondary text-white px-4 py-2 rounded hover:bg-secondary dark:hover:bg-primary transition">
+      Cerrar
+    </button>
+  </div>
+</div>

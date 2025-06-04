@@ -18,42 +18,38 @@ $router->post('/api/auth/login', function() {
     LoginController::login();
 });
 
+// Ruta para login con Google
+$router->post('/api/auth/google-login', function() {
+    LoginController::googleLogin();
+});
+
 // Ruta para verificar el código de registro (verificación de email)
 $router->post('/api/auth/verify-register-code', function() {
     $controller = new RegisterController();
     $controller->verificarCodigo();
 });
 
-// Ruta para verificar el código de autenticación (2FA por correo, login)
-$router->post('/api/auth/verify-login-code', function() {
-    LoginController::verifyCode();
-});
-
-// Ruta para obtener tipos de documento
+// Rutas de catálogos y datos
 $router->get('/api/tipos-documento', function() {
     $controller = new TiposDocumentoController();
     $controller->index();
 });
 
-// Ruta para obtener roles
 $router->get('/api/roles', function() {
     $controller = new RolesController();
     $controller->index();
 });
 
-// Ruta para obtener géneros dinámicamente (ENUM)
 $router->get('/api/generos', function() {
     $controller = new GenerosController();
     $controller->index();
 });
 
-// Ruta para obtener usuarios
 $router->get('/api/usuarios', function() {
     $controller = new UsuariosController();
     $controller->index();
 });
 
-// Ruta para obtener categorías
 $router->get('/api/categorias', function() {
     $controller = new CategoriasController();
     $controller->index();

@@ -70,7 +70,6 @@ NKI/
 │   │   │   │   │   ├── reset-password.js
 │   │   │   │   │   ├── verify-code.js
 │   │   │   │   ├── components/
-│   │   │   │   │   ├── categoria-rol.js
 │   │   │   │   │   ├── drop-down.js
 │   │   │   │   │   ├── menu.js
 │   │   │   │   │   ├── password-visible.js
@@ -159,6 +158,15 @@ NKI/
 │   │   │   │   ├── inventario.html
 │   │   │   ├── jugadores/
 │   │   │   │   ├── jugadores.html
+│   │   │   ├── modals/
+│   │   │   │   ├── modal-categoria-no-disponible.html
+│   │   │   │   ├── modal-confirmar-eliminacion.html
+│   │   │   │   ├── modal-error-login.html
+│   │   │   │   ├── modal-error-registro.html
+│   │   │   │   ├── modal-exito-login.html
+│   │   │   │   ├── modal-exito-registro.html
+│   │   │   │   ├── modal-info-bienvenida.html
+│   │   │   │   ├── modal-verificacion-codigo.html
 │   │   │   ├── noticias/
 │   │   │   │   ├── noticias.html
 │   │   │   ├── notificaciones/
