@@ -2,6 +2,7 @@
 namespace Src\Models;
 
 use Src\Config\Connection;
+use PDOException;
 
 class Usuario
 {
@@ -9,25 +10,36 @@ class Usuario
 
     public function save()
     {
-        $db = Connection::getInstance();
-        $stmt = $db->prepare("INSERT INTO usuarios (nombre, apellido, tipo_documento_id, documento, correo, telefono, fecha_nacimiento, genero, direccion, rol_id, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $success = $stmt->execute([
-            $this->nombre,
-            $this->apellido,
-            $this->tipo_documento_id,
-            $this->documento,
-            $this->correo,
-            $this->telefono,
-            $this->fecha_nacimiento,
-            $this->genero,
-            $this->direccion,
-            $this->rol_id,
-            $this->contrasena
-        ]);
-        if ($success) {
-            return $db->lastInsertId();
+        try {
+            $db = Connection::getInstance();
+            if (!$db) {
+                throw new \Exception("No se pudo conectar a la base de datos.");
+            }
+            $stmt = $db->prepare("INSERT INTO usuarios (nombre, apellido, tipo_documento_id, documento, correo, telefono, fecha_nacimiento, genero, direccion, rol_id, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $success = $stmt->execute([
+                $this->nombre,
+                $this->apellido,
+                $this->tipo_documento_id,
+                $this->documento,
+                $this->correo,
+                $this->telefono ?? null,
+                $this->fecha_nacimiento ?? null,
+                $this->genero ?? null,
+                $this->direccion ?? null,
+                $this->rol_id,
+                $this->contrasena
+            ]);
+            if ($success) {
+                return $db->lastInsertId();
+            }
+            return false;
+        } catch (PDOException $e) {
+            error_log("Error al guardar usuario: " . $e->getMessage());
+            return false;
+        } catch (\Exception $e) {
+            error_log("Error general al guardar usuario: " . $e->getMessage());
+            return false;
         }
-        return false;
     }
 
     public static function getTipoDocumentoId($tipo)
@@ -44,103 +56,143 @@ class Usuario
         return $map[$rol] ?? null;
     }
 
-    /**
-     * Busca un usuario por correo o documento.
-     * @param string $valor Correo o documento
-     * @return array|null
-     */
     public static function findByCorreoOrDocumento($valor)
     {
-        $db = Connection::getInstance();
-        $stmt = $db->prepare("SELECT * FROM usuarios WHERE correo = ? OR documento = ? LIMIT 1");
-        $stmt->execute([$valor, $valor]);
-        $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $usuario ?: null;
+        try {
+            $db = Connection::getInstance();
+            if (!$db) {
+                throw new \Exception("No se pudo conectar a la base de datos.");
+            }
+            $stmt = $db->prepare("SELECT * FROM usuarios WHERE correo = ? OR documento = ? LIMIT 1");
+            $stmt->execute([$valor, $valor]);
+            $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $usuario ?: null;
+        } catch (PDOException $e) {
+            error_log("Error al buscar usuario: " . $e->getMessage());
+            return null;
+        } catch (\Exception $e) {
+            error_log("Error general al buscar usuario: " . $e->getMessage());
+            return null;
+        }
     }
 
-    /**
-     * Busca un usuario por ID.
-     * @param int $id
-     * @return array|null
-     */
     public static function findById($id)
     {
-        $db = Connection::getInstance();
-        $stmt = $db->prepare("SELECT * FROM usuarios WHERE id = ?");
-        $stmt->execute([$id]);
-        $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $usuario ?: null;
+        try {
+            $db = Connection::getInstance();
+            if (!$db) {
+                throw new \Exception("No se pudo conectar a la base de datos.");
+            }
+            $stmt = $db->prepare("SELECT * FROM usuarios WHERE id = ?");
+            $stmt->execute([$id]);
+            $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $usuario ?: null;
+        } catch (PDOException $e) {
+            error_log("Error al buscar usuario por ID: " . $e->getMessage());
+            return null;
+        } catch (\Exception $e) {
+            error_log("Error general al buscar usuario por ID: " . $e->getMessage());
+            return null;
+        }
     }
 
-    /**
-     * Guarda el código de verificación y su expiración (10 minutos).
-     */
     public static function saveVerificationCode($correo, $code)
     {
-        $db = Connection::getInstance();
-        $stmt = $db->prepare("UPDATE usuarios SET codigo_verificacion = ?, codigo_expira = DATE_ADD(NOW(), INTERVAL 10 MINUTE) WHERE correo = ?");
-        $stmt->execute([$code, $correo]);
+        try {
+            $db = Connection::getInstance();
+            if (!$db) {
+                throw new \Exception("No se pudo conectar a la base de datos.");
+            }
+            $stmt = $db->prepare("UPDATE usuarios SET codigo_verificacion = ?, codigo_expira = DATE_ADD(NOW(), INTERVAL 10 MINUTE) WHERE correo = ?");
+            $stmt->execute([$code, $correo]);
+        } catch (PDOException $e) {
+            error_log("Error al guardar código de verificación: " . $e->getMessage());
+        } catch (\Exception $e) {
+            error_log("Error general al guardar código de verificación: " . $e->getMessage());
+        }
     }
 
-    /**
-     * Verifica si el código es correcto y no ha expirado.
-     */
     public static function verifyCode($correo, $code)
     {
-        $db = Connection::getInstance();
-        $stmt = $db->prepare("SELECT * FROM usuarios WHERE correo = ? AND codigo_verificacion = ? AND codigo_expira > NOW()");
-        $stmt->execute([$correo, $code]);
-        $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $usuario ?: null;
+        try {
+            $db = Connection::getInstance();
+            if (!$db) {
+                throw new \Exception("No se pudo conectar a la base de datos.");
+            }
+            $stmt = $db->prepare("SELECT * FROM usuarios WHERE correo = ? AND codigo_verificacion = ? AND codigo_expira > NOW()");
+            $stmt->execute([$correo, $code]);
+            $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $usuario ?: null;
+        } catch (PDOException $e) {
+            error_log("Error al verificar código: " . $e->getMessage());
+            return null;
+        } catch (\Exception $e) {
+            error_log("Error general al verificar código: " . $e->getMessage());
+            return null;
+        }
     }
 
-    /**
-     * Verifica si un correo ya está registrado.
-     */
     public static function existeCorreo($correo)
     {
-        $db = Connection::getInstance();
-        $stmt = $db->prepare("SELECT id FROM usuarios WHERE correo = ? LIMIT 1");
-        $stmt->execute([$correo]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC) ? true : false;
+        try {
+            $db = Connection::getInstance();
+            if (!$db) {
+                throw new \Exception("No se pudo conectar a la base de datos.");
+            }
+            $stmt = $db->prepare("SELECT id FROM usuarios WHERE correo = ? LIMIT 1");
+            $stmt->execute([$correo]);
+            return $stmt->fetch(\PDO::FETCH_ASSOC) ? true : false;
+        } catch (PDOException $e) {
+            error_log("Error al verificar existencia de correo: " . $e->getMessage());
+            return false;
+        } catch (\Exception $e) {
+            error_log("Error general al verificar existencia de correo: " . $e->getMessage());
+            return false;
+        }
     }
 
-    /**
-     * Verifica si un documento ya está registrado.
-     */
     public static function existeDocumento($documento)
     {
-        $db = Connection::getInstance();
-        $stmt = $db->prepare("SELECT id FROM usuarios WHERE documento = ? LIMIT 1");
-        $stmt->execute([$documento]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC) ? true : false;
+        try {
+            $db = Connection::getInstance();
+            if (!$db) {
+                throw new \Exception("No se pudo conectar a la base de datos.");
+            }
+            $stmt = $db->prepare("SELECT id FROM usuarios WHERE documento = ? LIMIT 1");
+            $stmt->execute([$documento]);
+            return $stmt->fetch(\PDO::FETCH_ASSOC) ? true : false;
+        } catch (PDOException $e) {
+            error_log("Error al verificar existencia de documento: " . $e->getMessage());
+            return false;
+        } catch (\Exception $e) {
+            error_log("Error general al verificar existencia de documento: " . $e->getMessage());
+            return false;
+        }
     }
 
-    /**
-     * Genera un código de verificación de 6 dígitos.
-     */
     public static function generarCodigoVerificacion()
     {
         return str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
     }
 
-    /**
-     * Marca el correo como verificado para el usuario dado.
-     * @param int $id
-     * @return bool
-     */
     public static function marcarEmailVerificado($id)
     {
-        $db = Connection::getInstance();
-        $stmt = $db->prepare("UPDATE usuarios SET email_verificado = 1 WHERE id = ?");
-        return $stmt->execute([$id]);
+        try {
+            $db = Connection::getInstance();
+            if (!$db) {
+                throw new \Exception("No se pudo conectar a la base de datos.");
+            }
+            $stmt = $db->prepare("UPDATE usuarios SET email_verificado = 1 WHERE id = ?");
+            return $stmt->execute([$id]);
+        } catch (PDOException $e) {
+            error_log("Error al marcar email como verificado: " . $e->getMessage());
+            return false;
+        } catch (\Exception $e) {
+            error_log("Error general al marcar email como verificado: " . $e->getMessage());
+            return false;
+        }
     }
 
-    /**
-     * Crea un usuario a partir de los datos de Google.
-     * @param array $payload
-     * @return array|null
-     */
     public static function crearDesdeGoogle($payload)
     {
         $usuario = new self();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="light">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -27,24 +27,83 @@
             <nav class="hidden md:flex space-x-6 mx-auto">
                 <a href="../../../index.html"
                     class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inicio</a>
-                <a href="../inscripciones/inscriptions.html"
+                <a href="../info/about.html"
+                    class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Nosotros</a>
+                <a href="../inscripciones/inscripciones.html"
                     class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Inscripciones</a>
-                <a href="../contactanos/contact.html"
+                <a href="../info/contact.html"
                     class="text-primary hover:text-accent dark:text-white dark:hover:text-secondary">Contactanos</a>
             </nav>
+
+            <!-- Botón de flecha con tema -->
+            <div class="relative">
+                <button id="dropdown-btn"
+                    class="bg-primary text-white px-2 py-2 rounded dark:bg-secondary text-sm flex items-center space-x-2">
+                    <i id="theme-icon" class="fas fa-moon"></i>
+                    <i id="dropdown-icon" class="fas fa-chevron-down"></i>
+                </button>
+                <!-- Menú desplegable -->
+                <div id="dropdown-menu"
+                    class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-primary shadow-lg dark:shadow-white/10 rounded">
+                    <a href="../dashboard/dashboard.html"
+                        class="block px-4 py-2 text-sm text-primary dark:text-white">Dashboard</a>
+                    <a href="../info/about.html" class="block px-4 py-2 text-sm text-primary dark:text-white">Acerca
+                        de</a>
+                    <a href="../inf/Políticas.html"
+                        class="block px-4 py-2 text-sm text-primary dark:text-white">Políticas</a>
+                    <!-- Botón de cambio de tema -->
+                    <button id="theme-toggle"
+                        class="bg-primary text-white px-4 py-2 rounded dark:bg-secondary w-full text-center text-sm">
+                        <i id="menu-theme-icon" class="fas fa-moon"></i>
+                        Tema Dark
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
+
+    <!-- Fondo opaco -->
+    <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
+
+    <!-- Menú lateral -->
+    <div id="menu"
+        class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform dark:bg-primary dark:text-white z-50">
+        <div class="p-4">
+            <button id="close-menu" class="text-primary dark:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-4 p-4">
+            <a href="../../../index.html"
+                class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+                <i class="fas fa-home mr-4"></i> Inicio
+            </a>
+            <a href="../inscripciones/inscripciones.html"
+                class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+                <i class="fas fa-edit mr-4"></i> Inscripciones
+            </a>
+            <a href="../info/contact.html"
+                class="flex items-center text-primary hover:bg-gray-200 dark:text-white dark:hover:bg-secondary">
+                <i class="fas fa-envelope mr-4"></i> Contactanos
+            </a>
+        </nav>
+    </div>
 
     <!-- 📌 Contenido Principal -->
     <main class="flex flex-col items-center justify-center flex-grow text-center px-6 mt-20">
         <!-- Título -->
         <h1 class="text-4xl text-secondary mt-4 dark:text-white font-heading">Historia del Club</h1>
 
-        <!-- Imagen Representativa -->
-        <section class="mt-10 flex justify-center">
-            <img src="../assets/img/history.jpg" alt="Historia del Club"
-                class="w-40 h-40 md:w-60 md:h-60 rounded-full shadow-lg">
-        </section>
+       <!-- Imagen Representativa con contenedor redondo, perfecta para móvil y web -->
+<section class="mt-10 flex justify-center">
+    <div class="rounded-full overflow-hidden shadow-lg border-4 border-secondary dark:border-white bg-white dark:bg-gray-800 w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 flex items-center justify-center">
+        <img 
+            src="../../assets/img/galeria/history.jpg" 
+            alt="Historia del Club"
+            class="object-cover w-full h-full"
+        >
+    </div>
+</section>
 
         <!-- Sección de Historia -->
         <section class="mt-6 w-full max-w-4xl">
@@ -87,9 +146,11 @@
         <p class="text-xs">&copy; 2025. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Script para menú hamburguesa -->
-    <script src="../assets/js/componets/menu.js" defer></script>
-    <script src="../assets/js/componets/themeToggle.js" defer></script>
+    <script src="../../assets/js/components/theme-system.js"></script>
+    <script src="../../assets/js/components/menu.js"></script>
+    <script src="../../assets/js/components/theme-toggle.js"></script>
+    <script src="../../assets/js/components/password-visible.js"></script>
+    <script src="../../assets/js/components/drop-down.js"></script>
 </body>
 
 </html>

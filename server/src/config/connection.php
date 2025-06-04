@@ -23,11 +23,16 @@ class Connection
     public static function getInstance()
     {
         if (self::$instance === null) {
-            $host = 'localhost';
-            $db = 'nki';
-            $user = 'root';
-            $pass = '';
+            $host = $_ENV['DB_HOST'] ?? null;
+            $db = $_ENV['DB_NAME'] ?? null;
+            $user = $_ENV['DB_USER'] ?? null;
+            $pass = $_ENV['DB_PASS'] ?? null;
             $charset = 'utf8mb4';
+
+            if (!$host || !$db || !$user) {
+                error_log('Faltan variables de entorno para la conexión a la base de datos.');
+                return null;
+            }
 
             $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
             $options = [
@@ -39,7 +44,8 @@ class Connection
             try {
                 self::$instance = new PDO($dsn, $user, $pass, $options);
             } catch (PDOException $e) {
-                die('Error de conexión: ' . $e->getMessage());
+                error_log('Error de conexión: ' . $e->getMessage());
+                return null;
             }
         }
         return self::$instance;

@@ -1,5 +1,4 @@
 <?php
-
 namespace Src\Controllers\Auth;
 
 use Src\Models\Usuario;
@@ -7,6 +6,8 @@ use Src\Models\Jugador;
 use Src\Models\Tutor;
 use Src\Models\Seguidor;
 use Src\Utils\EmailHelper;
+
+header('Content-Type: application/json');
 
 class RegisterController
 {
@@ -99,10 +100,15 @@ class RegisterController
             $codigo = Usuario::generarCodigoVerificacion();
             Usuario::saveVerificationCode($usuario->correo, $codigo);
 
-            // Enviar correo con el código
-            EmailHelper::enviarCodigoVerificacion($usuario->correo, $codigo);
+            // Enviar correo con el código y verificar si fue exitoso
+            $correoEnviado = EmailHelper::enviarCodigoVerificacion($usuario->correo, $codigo);
 
-            echo json_encode(['message' => 'Usuario registrado correctamente. Se envió un código de verificación a tu correo.']);
+            if ($correoEnviado) {
+                echo json_encode(['message' => 'Usuario registrado correctamente. Se envió un código de verificación a tu correo.']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['message' => 'Usuario registrado, pero no se pudo enviar el correo de verificación.']);
+            }
         } else {
             http_response_code(500);
             echo json_encode(['message' => 'Error al registrar usuario']);

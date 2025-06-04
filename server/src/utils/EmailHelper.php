@@ -18,21 +18,22 @@ class EmailHelper
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'clubnkiapp@gmail.com';
-            $mail->Password = 'nwqe znlz qeua wrsi';
+            $mail->Username = $_ENV['MAIL_USER'] ?? 'clubnkiapp@gmail.com';
+            $mail->Password = $_ENV['MAIL_PASS'] ?? '';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            $mail->setFrom('clubnkiapp@gmail.com', 'NKI');
+            $mail->setFrom(
+                $_ENV['MAIL_FROM'] ?? 'clubnkiapp@gmail.com',
+                $_ENV['MAIL_FROM_NAME'] ?? 'NKI'
+            );
             $mail->addAddress($to);
 
             $mail->isHTML(true);
-            $mail->CharSet = 'UTF-8'; // Para soportar acentos y caracteres especiales
+            $mail->CharSet = 'UTF-8';
 
-            // Asunto personalizado
             $mail->Subject = $subject ?? 'Tu código de verificación de NKI';
 
-            // Cuerpo HTML personalizado
             $mail->Body = $body ?? "
                 <div style='font-family: Arial, sans-serif; color: #222;'>
                     <h2 style='color: #0066cc;'>¡Bienvenido a NKI!</h2>
@@ -45,13 +46,15 @@ class EmailHelper
                 </div>
             ";
 
-            // Debug para ver errores en el log
-            $mail->SMTPDebug = 2;
+            // Debug solo en entorno local
+            $mail->SMTPDebug = (($_ENV['APP_ENV'] ?? 'local') === 'local') ? 2 : 0;
             $mail->Debugoutput = function($str, $level) { error_log("SMTP: $str"); };
 
             $mail->send();
+            return true;
         } catch (Exception $e) {
             error_log('Error enviando correo: ' . $mail->ErrorInfo);
+            return false;
         }
     }
 

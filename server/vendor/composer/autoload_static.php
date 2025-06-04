@@ -58,7 +58,7 @@ class ComposerStaticInit34c36c05260b7e8e8b2fbced22e7ef39
         ),
         'Src\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/server/src',
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'PhpOption\\' => 
         array (

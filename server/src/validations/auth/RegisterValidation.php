@@ -8,29 +8,29 @@ class RegisterValidation
     {
         $errors = [];
 
-        if (empty($input['name'])) {
+        if (empty($input['nombre'])) {
             $errors[] = 'El nombre es obligatorio.';
         }
-        if (empty($input['surname'])) {
+        if (empty($input['apellido'])) {
             $errors[] = 'El apellido es obligatorio.';
         }
-        if (empty($input['document'])) {
+        if (empty($input['documento'])) {
             $errors[] = 'El número de documento es obligatorio.';
         }
-        if (empty($input['email'])) {
+        if (empty($input['correo'])) {
             $errors[] = 'El correo electrónico es obligatorio.';
-        } elseif (!filter_var($input['email'], FILTER_VALIDATE_EMAIL)) {
+        } elseif (!filter_var($input['correo'], FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'Correo electrónico inválido.';
         }
-        if (empty($input['password'])) {
+        if (empty($input['contrasena'])) {
             $errors[] = 'La contraseña es obligatoria.';
-        } elseif (strlen($input['password']) < 6) {
+        } elseif (strlen($input['contrasena']) < 6) {
             $errors[] = 'La contraseña debe tener al menos 6 caracteres.';
         }
-        if (!isset($input['confirm_password']) || $input['password'] !== $input['confirm_password']) {
+        if (!isset($input['confirm_contrasena']) || $input['contrasena'] !== $input['confirm_contrasena']) {
             $errors[] = 'Las contraseñas no coinciden.';
         }
-        if (empty($input['role'])) {
+        if (empty($input['rol_id'])) {
             $errors[] = 'El rol es obligatorio.';
         }
 
