@@ -3,12 +3,11 @@ import {
   mostrarModalVerificacion,
   ocultarModalVerificacion,
   activarAutoAvanceInputs,
-  asignarEventosCerrarModal
+  asignarEventosCerrarModalVerificacion
 } from "./modal-verificacion.js";
 import { mostrarModal, ocultarModal, asignarEventosCerrarModales } from "./modals.js";
 
 // ------------------------Carga dinámica de tipos de documento-------------------
-// Llama a la API y llena el select de tipo de documento
 async function cargarTiposDocumento() {
   const res = await fetch(`${API_BASE}/api/tipos-documento`);
   const tipos = await res.json();
@@ -22,7 +21,6 @@ async function cargarTiposDocumento() {
 }
 
 // ------------------------Carga dinámica de roles-------------------
-// Llama a la API y llena el select de roles permitidos
 async function cargarRoles() {
   const res = await fetch(`${API_BASE}/api/roles`);
   const roles = await res.json();
@@ -42,7 +40,6 @@ async function cargarRoles() {
 }
 
 // ------------------------Carga dinámica de géneros-------------------
-// Llama a la API y llena el select de géneros
 async function cargarGeneros() {
   const res = await fetch(`${API_BASE}/api/generos`);
   const generos = await res.json();
@@ -56,12 +53,11 @@ async function cargarGeneros() {
 }
 
 // ------------------------Carga dinámica de categorías-------------------
-// Llama a la API y llena el select de categorías, guardando el array global para validaciones
 let categoriasGlobal = [];
 async function cargarCategorias() {
   const res = await fetch(`${API_BASE}/api/categorias`);
   const categorias = await res.json();
-  categoriasGlobal = categorias; // Guardar para validación posterior
+  categoriasGlobal = categorias;
   const select = document.getElementById("categoria_id");
   if (!select) return;
   select.innerHTML =
@@ -79,7 +75,6 @@ async function cargarCategorias() {
 }
 
 // ------------------------Calcular edad a partir de la fecha de nacimiento-------------------
-// Devuelve la edad en años a partir de una fecha en formato YYYY-MM-DD
 function calcularEdad(fechaNacimiento) {
   const hoy = new Date();
   const nacimiento = new Date(fechaNacimiento);
@@ -92,7 +87,6 @@ function calcularEdad(fechaNacimiento) {
 }
 
 // ------------------------Seleccionar categoría automáticamente según edad-------------------
-// Selecciona la categoría automáticamente según la edad y muestra el modal si no hay categoría
 function seleccionarCategoriaPorEdad() {
   const birthdate = document.getElementById("birthdate")?.value;
   const categoriaSelect = document.getElementById("categoria_id");
@@ -101,18 +95,15 @@ function seleccionarCategoriaPorEdad() {
   const msgId = "msg-no-categoria";
   const modalCategoria = document.getElementById("modal-categoria-no-disponible");
 
-  // Limpiar selección y mensaje siempre
   if (categoriaSelect) categoriaSelect.value = "";
   let msg = document.getElementById(msgId);
   if (msg) msg.remove();
 
   if (!birthdate || !categoriaSelect || !roleSelect) return;
 
-  // Solo validar si el rol es Jugador
   const selectedRoleText = roleSelect.options[roleSelect.selectedIndex]?.text;
   if (selectedRoleText !== "Jugador") return;
 
-  // Formatear fecha a YYYY-MM-DD si viene en dd/mm/yyyy
   let partes = birthdate.split("/");
   let fechaISO = birthdate;
   if (partes.length === 3) {
@@ -138,7 +129,6 @@ function seleccionarCategoriaPorEdad() {
 
   if (!encontrada) {
     categoriaSelect.value = "no-categoria";
-    // Mostrar el modal y limpiar el rol
     if (modalCategoria) {
       mostrarModal("modal-categoria-no-disponible");
       const cerrarBtn = document.getElementById("cerrar-modal-categoria");
@@ -155,7 +145,6 @@ function seleccionarCategoriaPorEdad() {
 }
 
 // ------------------------Formatear fecha a YYYY-MM-DD-------------------
-// Convierte una fecha en formato dd/mm/yyyy a YYYY-MM-DD
 function formatearFechaNacimiento(valor) {
   if (/^\d{4}-\d{2}-\d{2}$/.test(valor)) return valor;
   const partes = valor.split("/");
@@ -166,21 +155,19 @@ function formatearFechaNacimiento(valor) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Inicializa selects y componentes al cargar la página
   cargarTiposDocumento();
   cargarRoles();
   cargarGeneros();
   cargarCategorias().then(() => {
     const birthdateInput = document.getElementById("birthdate");
     if (birthdateInput) {
-      // Limpiar categoría, mensaje y rol al hacer click o cambiar la fecha de nacimiento
       const resetRolCategoria = function () {
         const categoriaSelect = document.getElementById("categoria_id");
         if (categoriaSelect) categoriaSelect.value = "";
         const msg = document.getElementById("msg-no-categoria");
         if (msg) msg.remove();
         const roleSelect = document.getElementById("role");
-        if (roleSelect) roleSelect.selectedIndex = 0; // Deja el select en "Escoge tu rol"
+        if (roleSelect) roleSelect.selectedIndex = 0;
         const categoriaRow = document.getElementById("categoria-row");
         if (categoriaRow) categoriaRow.style.display = "none";
       };
@@ -190,7 +177,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Mostrar/ocultar campo de categoría según el rol seleccionado
   const roleSelect = document.getElementById("role");
   if (roleSelect) {
     roleSelect.addEventListener("change", function () {
@@ -198,10 +184,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (categoriaRow) {
         if (this.options[this.selectedIndex].text === "Jugador") {
           categoriaRow.style.display = "flex";
-          seleccionarCategoriaPorEdad(); // Asignar categoría automáticamente al cambiar a Jugador
+          seleccionarCategoriaPorEdad();
         } else {
           categoriaRow.style.display = "none";
-          // Ocultar mensaje si existe
           const msg = document.getElementById("msg-no-categoria");
           if (msg) msg.remove();
         }
@@ -209,20 +194,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Inicializa eventos de inputs y cierre de modales
-  activarAutoAvanceInputs();
-  asignarEventosCerrarModal();
   asignarEventosCerrarModales();
 
   // ------------------------Formulario de registro-------------------
-  // Maneja el envío del formulario de registro
   const form = document.getElementById("register-form");
   if (!form) return;
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    // Usa intl-tel-input para obtener el número en formato internacional
     const phoneInputField = document.getElementById("phone");
     let phone = phoneInputField ? phoneInputField.value.trim() : "";
     if (window.intlTelInputGlobals && window.intlTelInputGlobals.getInstance && phoneInputField) {
@@ -232,7 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // Construye la dirección a partir de los campos del formulario
     const direccionCampos = [
       { value: document.getElementById("street-type")?.value },
       { value: document.getElementById("street-number")?.value },
@@ -260,7 +239,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let birthdateRaw = document.getElementById("birthdate")?.value || "";
     let birthdate = formatearFechaNacimiento(birthdateRaw);
 
-    // Mapea los nombres JS a los de la base de datos
     const data = {
       nombre: document.getElementById("name")?.value?.trim() || "",
       apellido: document.getElementById("surname")?.value?.trim() || "",
@@ -284,12 +262,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (selectedRoleText === "Jugador") {
       data.categoria_id = document.getElementById("categoria_id")?.value || "";
       if (!data.categoria_id || data.categoria_id === "no-categoria") {
-        // El mensaje ya se muestra debajo del campo, solo bloquea el submit
         return;
       }
     }
 
-    // Validación de campos obligatorios y reglas de negocio
     if (
       !data.nombre ||
       !data.apellido ||
@@ -299,7 +275,6 @@ document.addEventListener("DOMContentLoaded", function () {
       !data.contrasena
     ) {
       mostrarModal("modal-error-registro");
-      // Limpia y muestra mensaje genérico
       const msgDiv = document.getElementById("error-registro-msg");
       if (msgDiv) msgDiv.textContent = "Por favor, completa todos los campos obligatorios.";
       return;
@@ -318,19 +293,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     try {
-      // Envía los datos al backend para crear la cuenta
       await apiPost(`${API_BASE}/api/auth/register`, data);
 
-      // Muestra el modal de verificación de código
       mostrarModalVerificacion();
 
-      // Reemplaza el botón de verificación para evitar múltiples listeners
+      setTimeout(() => {
+        activarAutoAvanceInputs();
+        asignarEventosCerrarModalVerificacion();
+      }, 100);
+
       const oldBtn = document.getElementById("verify-code-btn");
       if (!oldBtn) return;
       const newBtn = oldBtn.cloneNode(true);
       oldBtn.parentNode.replaceChild(newBtn, oldBtn);
 
-      // Lógica para verificar el código de registro
       newBtn.addEventListener("click", async function () {
         const code = Array.from(
           document.querySelectorAll('#verify-modal input[type="text"]')
@@ -350,7 +326,6 @@ document.addEventListener("DOMContentLoaded", function () {
           ocultarModalVerificacion();
           mostrarModal("modal-exito-registro");
 
-          // Asigna el evento al botón "Aceptar" del modal de éxito para redirigir al login
           setTimeout(() => {
             const btnExito = document.getElementById("cerrar-modal-exito-registro");
             if (btnExito) {
@@ -366,7 +341,6 @@ document.addEventListener("DOMContentLoaded", function () {
         newBtn.disabled = false;
       });
     } catch (error) {
-      // Si ocurre un error en el registro, muestra el modal de error y el mensaje específico
       mostrarModal("modal-error-registro");
       const msgDiv = document.getElementById("error-registro-msg");
       if (msgDiv) {
@@ -375,7 +349,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Evento global para cerrar el modal de error y limpiar el mensaje
   document.body.addEventListener("click", function(e) {
     if (e.target && e.target.id === "cerrar-modal-error-registro") {
       ocultarModal("modal-error-registro");

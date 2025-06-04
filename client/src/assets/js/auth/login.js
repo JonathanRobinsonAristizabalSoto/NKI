@@ -4,6 +4,17 @@ import { mostrarModal, ocultarModal } from "./modals.js";
 // Selecciona el formulario de login
 const form = document.getElementById("login-form");
 
+// Función para redirigir al dashboard
+function irADashboard() {
+  window.location.href = "../dashboard/dashboard.html";
+}
+
+// Asigna el evento al botón del modal de éxito (fuera del submit para asegurar que siempre funcione)
+const btnExito = document.getElementById("cerrar-modal-exito-login");
+if (btnExito) {
+  btnExito.onclick = irADashboard;
+}
+
 if (form) {
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -33,15 +44,7 @@ if (form) {
       // Si el login es exitoso, muestra modal y redirige a dashboard
       if (res.message === "Login exitoso" || res.token) {
         mostrarModal("modal-exito-login");
-        setTimeout(() => {
-          window.location.href = "../dashboard/dashboard.html";
-        }, 3000); // 3 segundos
-        const btnExito = document.getElementById("cerrar-modal-exito-login");
-        if (btnExito) {
-          btnExito.onclick = function () {
-            window.location.href = "../dashboard/dashboard.html";
-          };
-        }
+        setTimeout(irADashboard, 3000); // 3 segundos
       } else {
         mostrarModal("modal-error-login");
         const msgDiv = document.getElementById("error-login-msg");
@@ -82,9 +85,12 @@ window.onGoogleSignIn = async function(response) {
     });
     if (res.token) {
       mostrarModal("modal-exito-login");
-      setTimeout(() => {
-        window.location.href = "../dashboard/dashboard.html";
-      }, 3000); // 3 segundos
+      setTimeout(irADashboard, 3000); // 3 segundos
+      // También asigna el evento al botón por si el modal se muestra desde Google
+      const btnExito = document.getElementById("cerrar-modal-exito-login");
+      if (btnExito) {
+        btnExito.onclick = irADashboard;
+      }
     } else {
       mostrarModal("modal-error-login");
       const msgDiv = document.getElementById("error-login-msg");

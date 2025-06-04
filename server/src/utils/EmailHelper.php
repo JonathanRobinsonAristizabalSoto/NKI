@@ -4,7 +4,7 @@ namespace Src\Utils;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 class EmailHelper
 {
@@ -16,16 +16,16 @@ class EmailHelper
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = $_ENV['MAIL_HOST'];
             $mail->SMTPAuth = true;
-            $mail->Username = $_ENV['MAIL_USER'] ?? 'clubnkiapp@gmail.com';
-            $mail->Password = $_ENV['MAIL_PASS'] ?? '';
+            $mail->Username = $_ENV['MAIL_USER'];
+            $mail->Password = $_ENV['MAIL_PASS'];
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
             $mail->setFrom(
-                $_ENV['MAIL_FROM'] ?? 'clubnkiapp@gmail.com',
-                $_ENV['MAIL_FROM_NAME'] ?? 'NKI'
+                $_ENV['MAIL_FROM'],
+                $_ENV['MAIL_FROM_NAME']
             );
             $mail->addAddress($to);
 

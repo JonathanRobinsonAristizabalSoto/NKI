@@ -63,23 +63,25 @@ NKI/
 │   │   │   │   ├── api/                                 # Lógica de conexión a la API
 │   │   │   │   │   ├── api.js                           # Funciones para consumir la API
 │   │   │   │   ├── auth/                                # Scripts de autenticación y recuperación
-│   │   │   │   │   ├── forgot-password.js               # Recuperar contraseña
-│   │   │   │   │   ├── login.js                         # Login de usuario
-│   │   │   │   │   ├── modal-verificacion.js            # Modal de verificación de código
-│   │   │   │   │   ├── register.js                      # Registro de usuario
-│   │   │   │   │   ├── reset-password.js                # Restablecer contraseña
-│   │   │   │   │   ├── verify-code.js                   # Verificar código enviado por email
+│   │   │   │   │   ├── cargar-modales.js                # Carga dinámica de los modales HTML reutilizables
+│   │   │   │   │   ├── forgot-password.js               # Lógica para recuperar contraseña
+│   │   │   │   │   ├── login.js                         # Lógica de login de usuario y modales asociados
+│   │   │   │   │   ├── modal-verificacion.js            # Lógica de inputs y eventos del modal de verificación de código
+│   │   │   │   │   ├── modals.js                        # Funciones genéricas para mostrar, ocultar y cerrar modales
+│   │   │   │   │   ├── register.js                      # Lógica de registro de usuario y validaciones
+│   │   │   │   │   ├── reset-password.js                # Lógica para restablecer contraseña
+│   │   │   │   │   ├── verify-code.js                   # Verificación del código enviado por email (flujo alternativo)
 │   │   │   │   ├── components/                          # Componentes JS reutilizables (UI)
-│   │   │   │   │   ├── drop-down.js                     # Menú desplegable
-│   │   │   │   │   ├── menu.js                          # Menú principal
-│   │   │   │   │   ├── password-visible.js              # Mostrar/ocultar contraseña
-│   │   │   │   │   ├── pay-button.js                    # Botón de pago
-│   │   │   │   │   ├── phone-input.js                   # Input de teléfono
-│   │   │   │   │   ├── submenu.js                       # Submenús
-│   │   │   │   │   ├── theme-toggle.js                  # Cambiar tema claro/oscuro
-│   │   │   │   │   ├── whatsapp-button.js               # Botón de WhatsApp
-│   │   │   │   │   ├── birthdate-datepicker.js          # Selector de fecha de nacimiento
-│   │   │   │   │   ├── theme-system.js                  # Tema según sistema operativo
+│   │   │   │   │   ├── birthdate-datepicker.js          # Selector de fecha de nacimiento con Datepicker y español
+│   │   │   │   │   ├── drop-down.js                     # Lógica para menú desplegable y cierre automático
+│   │   │   │   │   ├── menu.js                          # Menú hamburguesa y overlay en móviles
+│   │   │   │   │   ├── password-visible.js              # Alternar visibilidad de campos de contraseña
+│   │   │   │   │   ├── pay-button.js                    # Botón animado y redirección a pagos
+│   │   │   │   │   ├── phone-input.js                   # Input de teléfono internacional con intlTelInput
+│   │   │   │   │   ├── submenu.js                       # Lógica para mostrar/ocultar submenús
+│   │   │   │   │   ├── theme-system.js                  # Detecta y aplica el tema del sistema operativo
+│   │   │   │   │   ├── theme-toggle.js                  # Alternar manualmente entre tema claro y oscuro
+│   │   │   │   │   ├── whatsapp-button.js               # Botón flotante para abrir WhatsApp con mensaje
 │   │   │   │   ├── jquery/                              # Librería jQuery
 │   │   │   │   │   ├── jquery-3.7.1.min.js              # jQuery minificado
 │   │   │   │   ├── pages/                               # Lógica JS por página/módulo
